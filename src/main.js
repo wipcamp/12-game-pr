@@ -20,7 +20,7 @@ const config = {
         }
     },
     scene: [
-        ComicPage1,MainMenu,GameScene,ComicPage2
+        MainMenu,GameScene,ComicPage2
     ]
 };
 
