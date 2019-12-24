@@ -1,3 +1,5 @@
+import {goToScene} from '../utils/goTo'
+
 let background
 let gameName
 let howToPlay
@@ -30,23 +32,15 @@ class MainMenu extends Phaser.Scene {
 
         storyMode.setInteractive()
         storyMode.on('pointerdown', (pointer) => {
-            //console.log('pointerdown')
-            storyMode.setTint(0x00ff00)
             this.goStoryWave1()
         });
-        storyMode.on('pointerup', (pointer) => {
-            //console.log('pointerup')
-            storyMode.clearTint()
-        });
+    
     }
 
     goStoryWave1() {
-        this.goToScene('GameScene')
+        goToScene.call(this, 'GameScene')
     }
 
-    goToScene(scene){
-        this.scene.start(scene)
-    }
 
     update(delta, time) {
 

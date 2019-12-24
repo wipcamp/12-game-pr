@@ -1,3 +1,7 @@
+import {goToScene} from '../utils/goTo'
+
+let comicPg1
+let nextbtn
 class ComicPage1 extends Phaser.Scene{
 
     constructor(){
@@ -7,11 +11,21 @@ class ComicPage1 extends Phaser.Scene{
     }
 
     preload(){
-
+        this.load.image('comicPg1','src/images/comicP1.png')
+        this.load.image('nextbtn','src/images/nextButton.png')
     }
     
     create(){
+        comicPg1 = this.add.image(0, 0,'comicPg1').setScale(0.7).setOrigin(0,0)
+        nextbtn = this.add.image(550, 750, 'nextbtn').setScale(0.2).setInteractive()
+        
+        nextbtn.on('pointerdown', (pointer) =>{
+            this.goMainMenu()
+        })
+    }
 
+    goMainMenu(){
+        goToScene.call(this, 'MainMenu')
     }
 
     update(delta, time){
