@@ -1,4 +1,4 @@
-class GameScene extends Phaser.Scene{
+class ComicPage1 extends Phaser.Scene{
 
     constructor(){
         super({
