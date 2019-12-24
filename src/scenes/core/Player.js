@@ -1,5 +1,5 @@
 import 'phaser';
-import './PlayerBullet';
+
 
 export default class Player extends PlayerBullet{
     constructor(scene, x, y, key) {
