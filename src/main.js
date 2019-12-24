@@ -15,12 +15,12 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {y:0}
         }
     },
     scene: [
-        ComicPage1,MainMenu,GameScene,ComicPage2
+        GameScene,MainMenu,ComicPage1,ComicPage2
     ]
 };
 
