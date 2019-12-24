@@ -15,7 +15,6 @@ class GameScene extends Phaser.Scene{
     }
     
     create(){
-        player = new Player(this,300,400,playerKey)
         player.areShooting(bulletKey,player)
         // player.stopShooting()
     }
