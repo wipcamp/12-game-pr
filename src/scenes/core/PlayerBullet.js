@@ -20,7 +20,7 @@ export default class PlayerBullet extends Phaser.GameObjects.Sprite {
                   callback: function () {
                               let bullet = this.scene.physics.add.image(player.x,player.y-50,bulletKey)                     
                 
-                               bullet.setVelocityY(800)
+                               bullet.setVelocityY(-800)
                   },
                   loop: true,
                   paused: false,
@@ -33,7 +33,7 @@ export default class PlayerBullet extends Phaser.GameObjects.Sprite {
                 callback: function () {
                             let bullet = this.scene.physics.add.image(player.x,player.y-50,bulletKey)
                             bullets.add(bullet)
-                             bullet.setVelocityY(800)
+                             bullet.setVelocityY(-800)
                 },
                 loop: true,
                 paused: false,
@@ -46,7 +46,7 @@ export default class PlayerBullet extends Phaser.GameObjects.Sprite {
               callback: function () {
                           let bullet = this.scene.physics.add.image(player.x,player.y-50,bulletKey)
                           bullets.add(bullet)
-                           bullet.setVelocityY(800)
+                           bullet.setVelocityY(-800)
               },
               loop: true,
               paused: false,
