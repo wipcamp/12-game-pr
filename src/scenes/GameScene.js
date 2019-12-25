@@ -20,6 +20,8 @@ class GameScene extends Phaser.Scene{
     }
     
     create(){
+      
+
         player = new Player(
             this,
             300, 750,playerKey
@@ -42,24 +44,34 @@ class GameScene extends Phaser.Scene{
         // player.stopShooting()
 
     enemyGroup = this.physics.add.group();
+    
+    
+    
+   
+   
      event = this.time.addEvent({
             delay : 2000,
             callback : function (){
-            // let enemy = new Enemy(this,500,200,enemyKey)
+            //  let enemy = new Enemy(this,500,200,enemyKey)
             enemyGroup = this.physics.add.image(Phaser.Math.Between(0,600),20,enemyKey).setScale(0.1)
-            enemyGroup.setVelocityY(200)
+            enemyGroup.setVelocityY(500)
+            this.physics.moveToObject(enemyGroup,player,300)
             },
             callbackScope :this,
-            loop : false,
+            loop : true,
             pause : false,
             timeScale:1,
-            repeat : 9
+            // repeat : 9
         })
+   
+    
     }
            
 
 
     update(delta, time){
+        // this.physics.moveToObject(enemyGroup,player,300)
+        
         if (this.keyA.isDown) {
             player.moveLeft();
         }
@@ -71,5 +83,7 @@ class GameScene extends Phaser.Scene{
         }
     }
 
+    
+    
 }
 export default GameScene
