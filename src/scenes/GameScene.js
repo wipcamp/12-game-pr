@@ -2,6 +2,7 @@ import Player from './core/Player'
 let player;
 let playerKey = 'player';
 let bulletKey = 'bullet';
+let heart
 let zone;
 
 class GameScene extends Phaser.Scene {
@@ -14,9 +15,14 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
         this.load.spritesheet(bulletKey, 'src/image/character.png')
+        this.load.image('heart', 'src/images/Heart.png')
     }
 
     create() {
+        
+        heart = this.add.image(585, 20,'heart').setScale(0.5)
+        heart = this.add.image(549, 20,'heart').setScale(0.5)
+        heart = this.add.image(513, 20,'heart').setScale(0.5)
         
         player = new Player(
             this,
@@ -30,7 +36,7 @@ class GameScene extends Phaser.Scene {
 
         player.setWorldBound()
 
-        player.setSize(0.1)
+        player.setSize(0.15)
 
         player.setHitBox()
 
