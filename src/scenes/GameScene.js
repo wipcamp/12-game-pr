@@ -6,38 +6,42 @@ let enemyEvent1
 let player;
 let playerKey = 'player';
 let bulletKey = 'bullet';
-class GameScene extends Phaser.Scene{
-    constructor(){
+let heart
+let zone;
+
+class GameScene extends Phaser.Scene {
+    constructor() {
         super({
             key: 'GameScene'
         })
     }
 
-    preload(){
-        this.load.image(playerKey,'src/images/Gokuตัดเองจ้า.png')
-        this.load.spritesheet(bulletKey,'src/image/character.png')
+    preload() {
+        this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
+        this.load.spritesheet(bulletKey, 'src/image/character.png')
+        this.load.image('heart', 'src/images/Heart.png')
         this.load.image(enemyKey,'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
     }
-    
-    create(){
-      
 
+    create() {
+        
+        heart = this.add.image(585, 20,'heart').setScale(0.5)
+        heart = this.add.image(549, 20,'heart').setScale(0.5)
+        heart = this.add.image(513, 20,'heart').setScale(0.5)
+        
         player = new Player(
             this,
-            300, 750,playerKey
+            300, 750, playerKey
         )
         console.log(player);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        
-        player.areShooting(bulletKey,player)
-    // enemy = new Enemy(this, 500, 200,enemyKey);
-    // enemy.setObjectWorldBounds();
-    // enemy.setSize(0.2)
+
+        player.areShooting(bulletKey, player)
 
         player.setWorldBound()
-        
-        player.setSize(0.1)
+
+        player.setSize(0.15)
 
         player.setHitBox()
         player.setoffset()
@@ -69,9 +73,8 @@ class GameScene extends Phaser.Scene{
            
 
 
-    update(delta, time){
-        // this.physics.moveToObject(enemyGroup,player,300)
-        
+
+    update(delta, time) {
         if (this.keyA.isDown) {
             player.moveLeft();
         }
@@ -81,6 +84,8 @@ class GameScene extends Phaser.Scene{
             player.body.velocity.x = 0;
             player.body.velocity.y = 0;
         }
+
+        
     }
 
     
