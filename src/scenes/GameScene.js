@@ -67,7 +67,7 @@ class GameScene extends Phaser.Scene {
         //     }
         // }
         ///////////////////////
-      
+        
 
     enemyGroup = this.physics.add.group();
     
@@ -94,6 +94,16 @@ class GameScene extends Phaser.Scene {
         function touchingEnemy(player, enemyGroup) {
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
+            healthPlayer = healthPlayer -1 ;
+                if(healthPlayer==2){
+                    heart3.destroy();
+                }
+                else if(healthPlayer==1){
+                    heart2.destroy();
+                }
+                else if(healthPlayer==0){
+                    heart1.destroy();
+                }
         }
 
         this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
@@ -102,6 +112,8 @@ class GameScene extends Phaser.Scene {
              console.log("hit")
             
         }, this)
+        
+
     }
 
     update(delta, time) {
