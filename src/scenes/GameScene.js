@@ -10,7 +10,6 @@ let healthPlayer = 3;
 let heart1
 let heart2
 let heart3
-let bullet;
 let zone;
 
 class GameScene extends Phaser.Scene {
@@ -41,7 +40,7 @@ class GameScene extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         
-        let bullet = player.areShooting(bulletKey,player)
+        player.areShooting(bulletKey,player)
 
         // player.areShooting(bulletKey, player)
 
@@ -113,15 +112,14 @@ class GameScene extends Phaser.Scene {
              console.log("hit")
             
         }, this)
-        
 
     }
 
     update(delta, time) {
         /////////////////////// Check Health Leave to MainMenu
-        // if(healthPlayer<=0){
-        //     this.scene.start('MainMenu');
-        // }
+        if(healthPlayer<=0){
+            this.scene.start('MainMenu');
+        }
         ///////////////////////
         if (this.keyA.isDown) {
             player.moveLeft();

@@ -13,24 +13,24 @@ class MainMenu extends Phaser.Scene{
     }
 
     preload(){
-        // this.load.image('bg','../images/BG.jpg')
-        // this.load.image('gameName','../images/GameName.png')
-        // this.load.image('howToPlay','../images/HowToPlay.png')
-        // this.load.image('storyM','../images/StoryMode.png')
-        // this.load.image('arcadeM','../images/ArcadeMode.png')
+        this.load.image('bg','src/images/BG.jpg')
+        this.load.image('gameName','src/images/GameName.png')
+        this.load.image('howToPlay','src/images/HowToPlay.png')
+        this.load.image('storyM','src/images/StoryMode.png')
+        this.load.image('arcadeM','src/images/ArcadeMode.png')
         
     }
     
     create(){
-        // background = this.add.tileSpite(0, 0, 600, 800,'bg')
-        // gameName = this.add.image(0, 0, 'gameName')
-        // howToPlay = this.add.image(0, 0,'howToPlay')
-        // storyMode = this.add.image(0, 0, 'storyM')
-        // arcadeMode = this.add.image(0, 0,'arcadeM')
+        background = this.add.tileSprite(0, 0, 600, 800,'bg')
+        gameName = this.add.image(0, 0, 'gameName')
+        howToPlay = this.add.image(0, 0,'howToPlay')
+        storyMode = this.add.image(0, 0, 'storyM')
+        arcadeMode = this.add.image(0, 0,'arcadeM')
     }
 
     update(delta, time){
-        //  background.tilePositionY-=1
+         background.tilePositionY-=1
     }
 
 }
