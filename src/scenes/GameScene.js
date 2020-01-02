@@ -10,6 +10,7 @@ let healthPlayer = 3;
 let heart1
 let heart2
 let heart3
+let bullet;
 let zone;
 
 class GameScene extends Phaser.Scene {
@@ -40,7 +41,7 @@ class GameScene extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         
-        player.areShooting(bulletKey,player)
+        let bullet = player.areShooting(bulletKey,player)
 
         // player.areShooting(bulletKey, player)
 
