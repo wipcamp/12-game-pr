@@ -1,6 +1,6 @@
 import Enemy from './core/Enemy'
-import Player from './core/Player'
 let enemyKey = 'enemy'
+import Player from './core/Player'
 let enemyGroup
 let enemyEvent1
 let player;
@@ -60,8 +60,8 @@ class GameScene extends Phaser.Scene {
         //         heart3.destroy();
         //     }
         //     else if(healthPlayer==1){
-        //         heart2.destroy();
         //     }
+        //         heart2.destroy();
         //     else if(healthPlayer==0){
         //         heart1.destroy();
         //     }
@@ -94,8 +94,8 @@ class GameScene extends Phaser.Scene {
         function touchingEnemy(player, enemyGroup) {
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
-            healthPlayer = healthPlayer -1 ;
                 if(healthPlayer==2){
+            healthPlayer = healthPlayer -1 ;
                     heart3.destroy();
                 }
                 else if(healthPlayer==1){
@@ -103,8 +103,8 @@ class GameScene extends Phaser.Scene {
                 }
                 else if(healthPlayer==0){
                     heart1.destroy();
-                }
         }
+                }
 
         this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
         this.physics.add.overlap(enemyGroup,player, ()=> { 
