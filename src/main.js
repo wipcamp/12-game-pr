@@ -21,6 +21,7 @@ const config = {
     },
     scene: [
         ComicPage1,MainMenu,GameScene,ComicPage2
+    ]
 };
 
 const game = new Phaser.Game(config);

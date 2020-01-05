@@ -52,21 +52,22 @@ class GameScene extends Phaser.Scene {
         player.setoffset()
         // player.stopShooting()
     
-        /////////////////////// By Leng Overlap & Health 3 live
-        // this.physics.add.overlap(player, monster, hitMonster, null, this);
-        // function hitMonster(player, monster) {
-        //     healthPlayer = healthPlayer -1 ;
-        //     if(healthPlayer==2){
-        //         heart3.destroy();
-        //     }
-        //     else if(healthPlayer==1){
-        //     }
-        //         heart2.destroy();
-        //     else if(healthPlayer==0){
-        //         heart1.destroy();
-        //     }
-        // }
-        ///////////////////////
+        ///////////////////// By Leng Overlap & Health 3 live
+        this.physics.add.overlap(player, monster, hitMonster, null, this);
+        function hitMonster(player, monster) {
+            healthPlayer = healthPlayer -1 ;
+            if(healthPlayer==2){
+                heart3.destroy();
+            }
+            else if(healthPlayer==1){
+                heart2.destroy();
+            }
+                
+            else if(healthPlayer==0){
+                heart1.destroy();
+            }
+        }
+        /////////////////////
         
 
     enemyGroup = this.physics.add.group();
