@@ -1,5 +1,5 @@
-import 'phaser';
-import PlayerBullet from './PlayerBullet'
+import 'Phaser';
+import PlayerBullet from './PlayerBullet';
 let bullets;
 let bulletEvent1;
 let bulletEvent2;
@@ -10,16 +10,17 @@ export default class Player extends PlayerBullet{
       this.scene = scene;
       this.scene.add.existing(this);
       this.scene.physics.world.enableBody(this, 0);
-      
-      this.setData("speed", 200);
 
     }
 
-    moveLeft() {
-        this.body.velocity.x = -this.getData("speed");
+    moveLeft(Value) {
+        this.body.setVelocityX(-Value);
       }
-      moveRight() {
-        this.body.velocity.x = this.getData("speed");
+      moveRight(Value) {
+        this.body.setVelocityX(Value);
+      }
+      notMove(Value){
+        this.body.setVelocityX(Value);
       }
 
     setWorldBound(){

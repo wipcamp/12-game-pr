@@ -30,7 +30,8 @@ class MainMenu extends Phaser.Scene {
         storyMode.setInteractive()
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.goStoryWave1()
+            this.scene.start('GameScene');
+            // this.goStoryWave1()
         });
     }
     goStoryWave1() {
