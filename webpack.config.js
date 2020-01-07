@@ -67,15 +67,5 @@ module.exports = {
             { test: /phaser-split\.js$/, use: ['expose-loader?Phaser'] },
             { test: [/\.vert$/, /\.frag$/], use: 'raw-loader' }
         ]
-    },
-    /* node: {
-         fs: 'empty',
-         net: 'empty',
-         tls: 'empty'
-     },
-     resolve: {
-         alias: {
-             'phaser': phaser,
-         }
-     }*/
+    }
 }
