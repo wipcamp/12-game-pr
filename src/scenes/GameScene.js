@@ -38,6 +38,20 @@ class GameScene extends Phaser.Scene {
         ////////////////////////////////////////////////////////////////////////////////////////// spawn item
         item = new Item(this, 0, -1000, itemKey)
         itemGroup = item.spawnItemWave(itemKey)
+        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
+        function HitItem(bulletGroup,itemGroup,) {
+            itemGroup.disableBody(true, true);
+           itemGroup.destroy();
+            bulletGroup.disableBody(true, true);
+           bulletGroup.destroy();
+            
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
+        function touchingItem(player,itemGroup){
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+        }
+        
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
@@ -72,16 +86,20 @@ class GameScene extends Phaser.Scene {
             }
         }
         this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
+        this.physics.add.overlap(player, itemGroup, touchingItem)
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Bullet
         bulletGroup = player.areShooting(bulletKey, player);
-        function HitEnemy(bulletGroup,enemyGroup) {
+        function HitEnemy(bulletGroup,enemyGroup,) {
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
+            
         }
-        this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy, null, this)
+        this.physics.add.overlap(bulletGroup, enemyGroup,HitEnemy, null, this)
+        this.physics.add.overlap(bulletGroup, itemGroup,HitItem)
     }
+
 
     update(delta, time) {
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
