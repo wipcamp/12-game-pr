@@ -1,6 +1,7 @@
 import PlayerBullet from './core/PlayerBullet'
 import Enemy from './core/Enemy'
 import Player from './core/Player'
+import Item from './core/item';
 
 let enemyKey = 'enemy'
 let enemy;
@@ -13,6 +14,9 @@ var healthPlayer = 3;
 let heart1
 let heart2
 let heart3
+let itemKey = 'items';
+let itemGroup
+let item;
 
 class GameScene extends Phaser.Scene {
     constructor() {
@@ -26,9 +30,14 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet(bulletKey, 'src/image/character.png')
         this.load.image('heart', 'src/images/Heart.png')
         this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        this.load.image(itemKey, 'src/images/Heart.png')
+
     }
 
     create() {
+        ////////////////////////////////////////////////////////////////////////////////////////// spawn item
+        item = new Item(this, 0, -1000, itemKey)
+        itemGroup = item.spawnItemWave(itemKey)
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
