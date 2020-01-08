@@ -40,7 +40,9 @@ class GameScene extends Phaser.Scene {
         player.setHitBox()
         player.setoffset()
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
         enemy = new Enemy(this, 0, -1000, enemyKey)
@@ -79,13 +81,23 @@ class GameScene extends Phaser.Scene {
             this.scene.start('MainMenu');
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
+         
         if (this.keyA.isDown) {
-            player.moveLeft(200);
+            player.moveLeft(250);
         }
         else if (this.keyD.isDown) {
-            player.moveRight(200);
-        } else {
+            player.moveRight(250);
+        }else {
             player.notMove(0);
+        }
+
+        if (this.keyW.isDown){
+            player.moveUp(-250);
+        }
+        else if (this.keyS.isDown){
+            player.moveDown(250);
+        }else {
+            player.notMoveY(0)
         }
     }
 
