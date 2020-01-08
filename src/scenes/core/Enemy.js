@@ -24,7 +24,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite{
         enemyGroup = this.scene.physics.add.group();
 
         event = this.scene.time.addEvent({
-            delay: 2000,
+            delay: 1500,
             callback: function () {
                 let enemy = this.scene.physics.add.image(Phaser.Math.Between(0, 600), 20, enemyKey)
                 enemy.setScale(0.1)
