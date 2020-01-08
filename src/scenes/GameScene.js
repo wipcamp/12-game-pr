@@ -39,19 +39,21 @@ class GameScene extends Phaser.Scene {
         item = new Item(this, 0, -1000, itemKey)
         itemGroup = item.spawnItemWave(itemKey)
         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
-        function HitItem(bulletGroup,itemGroup,) {
-            itemGroup.disableBody(true, true);
-           itemGroup.destroy();
-            bulletGroup.disableBody(true, true);
-           bulletGroup.destroy();
-            
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
-        function touchingItem(player,itemGroup){
+        function HitItem(bulletGroup, itemGroup, ) {
             itemGroup.disableBody(true, true);
             itemGroup.destroy();
+            bulletGroup.disableBody(true, true);
+            bulletGroup.destroy();
+
         }
-        
+        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
+        function touchingItem(player, itemGroup) {
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+            increaseHealth(1);
+            
+        }
+
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
@@ -69,38 +71,57 @@ class GameScene extends Phaser.Scene {
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
         enemy = new Enemy(this, 0, -1000, enemyKey)
-        enemyGroup = enemy.spawnEnemyWave(enemyKey,player);
+        enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Player
         function touchingEnemy(player, enemyGroup) {
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
             healthPlayer = healthPlayer - 1;
             if (healthPlayer == 2) {
-                heart3.destroy();
+                heart3.setVisible(false);
             }
             else if (healthPlayer == 1) {
-                heart2.destroy();
+                heart2.setVisible(false);
             }
             else if (healthPlayer == 0) {
-                heart1.destroy();
+                heart1.setVisible(false);
             }
         }
         this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
         this.physics.add.overlap(player, itemGroup, touchingItem)
-        ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Bullet
-        bulletGroup = player.areShooting(bulletKey, player);
-        function HitEnemy(bulletGroup,enemyGroup,) {
-            enemyGroup.disableBody(true, true);
-            enemyGroup.destroy();
-            bulletGroup.disableBody(true, true);
-            bulletGroup.destroy();
-            
+
+        function increaseHealth(health) {
+            if (healthPlayer < 3 && healthPlayer > 0) {
+                healthPlayer += health;
+                showHealth();
+            }
         }
-        this.physics.add.overlap(bulletGroup, enemyGroup,HitEnemy, null, this)
-        this.physics.add.overlap(bulletGroup, itemGroup,HitItem)
+
+        function showHealth() {
+            if (healthPlayer == 3) {
+                heart3.setVisible(true);
+            }
+            else if (healthPlayer == 2) {
+                heart2.setVisible(true);
+            }
+            else if (healthPlayer == 1) {
+                heart1.setVisible(true);
+            }
+        }
+            ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Bullet
+            bulletGroup = player.areShooting(bulletKey, player);
+            function HitEnemy(bulletGroup, enemyGroup, ) {
+                enemyGroup.disableBody(true, true);
+                enemyGroup.destroy();
+                bulletGroup.disableBody(true, true);
+                bulletGroup.destroy();
+
+            }
+            this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy, null, this)
+            this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
     }
 
-
+    
     update(delta, time) {
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
@@ -108,22 +129,22 @@ class GameScene extends Phaser.Scene {
             this.scene.start('MainMenu');
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
-         
+
         if (this.keyA.isDown) {
             player.moveLeft(250);
         }
         else if (this.keyD.isDown) {
             player.moveRight(250);
-        }else {
+        } else {
             player.notMove(0);
         }
 
-        if (this.keyW.isDown){
+        if (this.keyW.isDown) {
             player.moveUp(-250);
         }
-        else if (this.keyS.isDown){
+        else if (this.keyS.isDown) {
             player.moveDown(250);
-        }else {
+        } else {
             player.notMoveY(0)
         }
     }
