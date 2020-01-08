@@ -31,7 +31,7 @@ class ComicPage1 extends Phaser.Scene{
     }
 
     goMainMenu(){
-        goToScene.call(this, 'MainMenu')
+        goToScene.call(this, 'GameScene')
     }
 
     update(delta, time){
