@@ -61,6 +61,8 @@ export default class PlayerBullet extends Phaser.GameObjects.Sprite {
             callbackScope: this,
             startAt: 700
         })
+        return bullets
+
     }
 
     stopShooting() {

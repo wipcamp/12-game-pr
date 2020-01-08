@@ -20,8 +20,9 @@ const config = {
         }
     },
     scene: [
-        GameScene,MainMenu,ComicPage1,ComicPage2
+        MainMenu,ComicPage1,GameScene,ComicPage2
     ]
 };
 
 const game = new Phaser.Game(config);
+export default game;

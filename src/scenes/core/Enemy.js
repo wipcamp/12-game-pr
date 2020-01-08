@@ -1,6 +1,5 @@
 import 'Phaser';
 let event
-let enemyEvent1
 let enemyGroup
 
 export default class Enemy extends Phaser.GameObjects.Sprite{
@@ -20,6 +19,27 @@ export default class Enemy extends Phaser.GameObjects.Sprite{
      
     setSize(size){
         this.setScale(size)
+    }
+    spawnEnemyWave(enemyKey,player){
+        enemyGroup = this.scene.physics.add.group();
+
+        event = this.scene.time.addEvent({
+            delay: 1500,
+            callback: function () {
+                let enemy = this.scene.physics.add.image(Phaser.Math.Between(0, 600), 20, enemyKey)
+                enemy.setScale(0.1)
+                enemyGroup.add(enemy)
+                enemyGroup.setVelocityY(500)
+                for (let i = 0; i < enemyGroup.getLength(); i++)
+                    this.scene.physics.moveToObject(enemyGroup.getChildren()[i], player, 300, this)
+            },
+            callbackScope: this,
+            loop: false,
+            pause: false,
+            timeScale: 1,
+            repeat : 9
+        })
+        return enemyGroup;
     }
 
 }
