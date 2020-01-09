@@ -1,16 +1,15 @@
 import 'Phaser';
+import ObjectProperties from './ObjectProperties';
 let event
 let enemyGroup
 
-export default class Enemy extends Phaser.GameObjects.Sprite{
+export default class Enemy extends ObjectProperties{
     constructor(scene, x, y, key) {
       super(scene, x, y, key);
       this.key = key;
       this.scene = scene;
       this.scene.add.existing(this);
       this.scene.physics.world.enableBody(this, 0);
-
-      this.setData("speed", 200);
     }
 
     setObjectWorldBounds(){
@@ -24,7 +23,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite{
         enemyGroup = this.scene.physics.add.group();
 
         event = this.scene.time.addEvent({
-            delay: 1500,
+            delay: 2000,
             callback: function () {
                 let enemy = this.scene.physics.add.image(Phaser.Math.Between(0, 600), 20, enemyKey)
                 enemy.setScale(0.1)
