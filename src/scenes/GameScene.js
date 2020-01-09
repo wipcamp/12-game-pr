@@ -93,7 +93,8 @@ class GameScene extends Phaser.Scene {
         enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
         //////////////////////////////////////////////////////////////////////////////////////////
         boss1 = new Boss(this, 300, 500, boss1Key)
-        boss1.moveUp(20);
+        boss1.moveUp(100);
+        boss1.setWorldBound(true)
 
         backgroundBar = this.add.image(240, 25, 'black-bar').setOrigin(0, 0);
         backgroundBar.fixedToCamera = true;
