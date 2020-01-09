@@ -33,10 +33,14 @@ export default class Enemy extends ObjectProperties{
                     this.scene.physics.moveToObject(enemyGroup.getChildren()[i], player, 300, this)
             },
             callbackScope: this,
-            loop: false,
+            loop: true,
             pause: false,
             timeScale: 1,
+<<<<<<< Updated upstream
             repeat : 9
+=======
+            // repeat : 19
+>>>>>>> Stashed changes
         })
         return enemyGroup;
     }

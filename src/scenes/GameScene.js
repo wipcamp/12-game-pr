@@ -188,10 +188,17 @@ class GameScene extends Phaser.Scene {
             player.moveLeft(200);
         }
         else if (this.keyD.isDown) {
+<<<<<<< Updated upstream
             player.moveRight(200);
         } else {
             player.notMoveAtX(0);
         }
+=======
+            player.moveRight(250);
+         } else {
+            player.notMove(0);
+         }
+>>>>>>> Stashed changes
 
         if (this.keyW.isDown) {
             player.moveUp(150);
