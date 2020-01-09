@@ -36,11 +36,7 @@ export default class Enemy extends ObjectProperties{
             loop: true,
             pause: false,
             timeScale: 1,
-<<<<<<< Updated upstream
-            repeat : 9
-=======
-            // repeat : 19
->>>>>>> Stashed changes
+             repeat : 19
         })
         return enemyGroup;
     }
