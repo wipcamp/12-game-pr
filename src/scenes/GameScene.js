@@ -1,6 +1,7 @@
 import PlayerBullet from './core/PlayerBullet'
 import Enemy from './core/Enemy'
 import Player from './core/Player'
+import {preloadScene} from '../utils/preloadScene'
 
 let enemyKey = 'enemy'
 let enemy;
@@ -26,6 +27,12 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet(bulletKey, 'src/image/character.png')
         this.load.image('heart', 'src/images/Heart.png')
         this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        //////////////////////////////////////////////////////////////////////////////////////////
+        preloadScene({
+            scene:this,
+            key: 'default'
+        })
+
     }
 
     create() {

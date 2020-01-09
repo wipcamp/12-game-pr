@@ -1,5 +1,5 @@
 import {goToScene} from '../utils/goTo'
-import game from '../main'
+import {preloadScene} from '../utils/preloadScene'
 
 let comicPg1
 let nextbtn
@@ -16,6 +16,11 @@ class ComicPage1 extends Phaser.Scene{
         this.load.image('comicPg1','src/images/comicP1.png')
         this.load.image('nextbtn','src/images/nextButton.png')
         this.load.audio('comic_song','src/songs/Heartbeats - Broove (LuviKunG Remix).mp3')
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        preloadScene({
+            scene:this,
+            key:'default'
+        })
     }
     
     create(){
