@@ -44,6 +44,7 @@ class GameScene extends Phaser.Scene {
             itemGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
+            increaseHealth(1);
 
         }
         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
