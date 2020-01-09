@@ -15,13 +15,14 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
+            debug: true,
             gravity: {y:0}
         }
     },
     scene: [
-        ComicPage1,MainMenu,GameScene,ComicPage2
+        MainMenu,ComicPage1,GameScene,ComicPage2
     ]
 };
 
 const game = new Phaser.Game(config);
+export default game;
