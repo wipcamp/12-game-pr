@@ -12,15 +12,15 @@ class MainMenu extends Phaser.Scene {
         })
     }
     preload() {
-        this.load.image('bg', 'src/images/BG.jpg')
+        this.load.image('bg','src/images/BG.png')
         this.load.image('gameName', 'src/images/GameName.png')
         this.load.image('howToPlay', 'src/images/HowToPlay.png')
         this.load.image('storyM', 'src/images/StoryMode.png')
         this.load.image('arcadeM', 'src/images/ArcadeMode.png')
-        this.load.audio('MainMenu_song', 'src/songs/Heartbeats - Broove (LuviKunG Remix).mp3')
+        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
     }
     create() {
-        background = this.add.image(0, 0, 'bg').setOrigin(0, 0).setSize(600, 800).setScale(0.6)
+        background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         gameName = this.add.image(250, 150, 'gameName').setScale(0.6)
         howToPlay = this.add.image(350, 450, 'howToPlay').setScale(0.2)
         storyMode = this.add.image(300, 700, 'storyM').setScale(0.5)
@@ -31,12 +31,8 @@ class MainMenu extends Phaser.Scene {
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
             this.scene.start('ComicPage1');
-            // this.goStoryWave1()
         });
     }
-    // goStoryWave1() {
-    //     goToScene.call(this, 'GameScene')
-    // }
     update(delta, time) {
 
     }

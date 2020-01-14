@@ -15,13 +15,23 @@ export default class Item extends Phaser.GameObjects.Sprite{
 
     
 
-    spawnItemWave(){
+    spawnItemWave(itemKey){
         itemGroup = this.scene.physics.add.group();
-
         event = this.scene.time.addEvent({
             delay: 2500,
             callback: function () {
-                let items = this.scene.physics.add.image(Phaser.Math.Between(0, 600), 20, this.key)
+                this.scene.anims.create({
+                    key: 'itemAni',
+                    frames: this.scene.anims.generateFrameNumbers(itemKey, {
+                        start: 0,
+                        end: 5
+        
+                    }),
+                    framerate: 1,
+                    repeat: -1
+                })
+                let items = this.scene.physics.add.sprite(Phaser.Math.Between(0, 600), 20, itemKey)
+                items.anims.play('itemAni', true)
                 items.setScale(1)
                 itemGroup.add(items)
                 itemGroup.setVelocityY(500)

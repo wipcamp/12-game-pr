@@ -27,6 +27,8 @@ let itemKey = 'items';
 let itemGroup
 let item;
 
+let bg;
+
 let health_frame;
 let healthBar;
 let backgroundBar;
@@ -40,11 +42,12 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image(itemKey, 'src/images/Heart.png')
+        this.load.image('bg','src/images/BG.png')
+        this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
         this.load.image(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
         this.load.image('heart', 'src/images/Heart.png')
-        this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 150, frameHeight: 150 })
         this.load.image(boss1Key, 'src/images/Boss1.png', { frameWidth: 150, frameHeight: 173 })
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
@@ -52,25 +55,26 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-         ////////////////////////////////////////////////////////////////////////////////////////// spawn item
-         item = new Item(this, 0, -1000, itemKey)
-         itemGroup = item.spawnItemWave(itemKey)
-         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
-         function HitItem(bulletGroup, itemGroup, ) {
-             itemGroup.disableBody(true, true);
-             itemGroup.destroy();
-             bulletGroup.disableBody(true, true);
-             bulletGroup.destroy();
-             increaseHealth(1);
- 
-         }
-         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
-         function touchingItem(player, itemGroup) {
-             itemGroup.disableBody(true, true);
-             itemGroup.destroy();
-             increaseHealth(1);
-             
-         }
+        bg = this.add.tileSprite(0,0,600,900,'bg').setOrigin(0,0)
+        ////////////////////////////////////////////////////////////////////////////////////////// spawn item
+        item = new Item(this, 0, -1000, itemKey)
+        itemGroup = item.spawnItemWave(itemKey)
+        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
+        function HitItem(bulletGroup, itemGroup, ) {
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+            bulletGroup.disableBody(true, true);
+            bulletGroup.destroy();
+            increaseHealth(1);
+
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
+        function touchingItem(player, itemGroup) {
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+            increaseHealth(1);
+
+        }
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
@@ -91,16 +95,6 @@ class GameScene extends Phaser.Scene {
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
         enemy = new Enemy(this, 0, -1000, enemyKey)
         enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
-        //////////////////////////////////////////////////////////////////////////////////////////
-        boss1 = new Boss(this, 300, 500, boss1Key)
-        boss1.moveUp(20);
-
-        backgroundBar = this.add.image(240, 25, 'black-bar').setOrigin(0, 0);
-        backgroundBar.fixedToCamera = true;
-        healthBar = this.add.image(240, 25, 'red-bar').setOrigin(0, 0);
-        healthBar.fixedToCamera = true;
-        health_frame = this.add.image(171, 20, 'health_frame').setOrigin(0, 0);
-        boss1.health = boss1.health - 10;
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Player
         function touchingEnemy(player, enemyGroup) {
             enemyGroup.disableBody(true, true);
@@ -146,17 +140,43 @@ class GameScene extends Phaser.Scene {
         }
         this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy, null, this)
         this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
-        ////////////////////////////////////////////////////////////////////////////////////////// OverLap Boss1/Bullet
-        function HitBoss1(boss1, bulletGroup) {
-            boss1Health -= 5;
-            bulletGroup.destroy();
-        }
-        this.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this)
+        //////////////////////////////////////////////////////////////////////////////////////////
+        backgroundBar = this.add.image(240, 25, 'black-bar').setOrigin(0, 0);
+        backgroundBar.setVisible(false);
+        backgroundBar.fixedToCamera = true;
+        healthBar = this.add.image(240, 25, 'red-bar').setOrigin(0, 0);
+        healthBar.setVisible(false);
+        healthBar.fixedToCamera = true;
+        health_frame = this.add.image(171, 20, 'health_frame').setOrigin(0,0);
+        health_frame.setVisible(false);
+        ////////////////////////////////////////////////////////////////////////////////////////// Create Event Boss 1
+        let eventBoss1 = this.time.addEvent({
+            delay: 10000,
+            callback: function () {
+                boss1 = new Boss(this, 300, 500, boss1Key)
+                boss1.health = boss1.health - 10;
+                boss1.moveUp(200);
+                boss1.setWorldBound(true);
+                function HitBoss1(boss1, bulletGroup) {
+                    boss1Health -= 3;
+                    bulletGroup.destroy();
+                }
+                this.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this)
+                backgroundBar.setVisible(true);
+                healthBar.setVisible(true);
+                health_frame.setVisible(true);
+            },
+            callbackScope: this,
+            loop: false,
+            pause: false,
+            timeScale: 1,
+            repeat: 0
+        })
     }
 
     clearBoss() {
+        // boss1.BossMoving(true,500,200,-200);
         boss1.destroy();
-        let TF = false;
         let event = this.time.addEvent({
             delay: 2000,
             callback: function () {
@@ -166,14 +186,14 @@ class GameScene extends Phaser.Scene {
             },
             callbackScope: this,
             loop: false,
-            pause: TF,
+            pause: false,
             timeScale: 1,
             repeat: 0
         })
-        TF = false;
     }
 
     update(delta, time) {
+        bg.tilePositionY -= 3
         if (boss1Health <= 0) {
             this.clearBoss();
         }

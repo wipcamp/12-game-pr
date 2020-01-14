@@ -12,7 +12,7 @@ class ComicPage2 extends Phaser.Scene{
     preload(){
         this.load.image('comicPg2','src/images/comicP1.png')
         this.load.image('nextbtn','src/images/nextButton.png')
-        this.load.audio('comic2_song','src/songs/Heartbeats - Broove (LuviKunG Remix).mp3')
+        this.load.audio('comic2_song','src/songs/BG.mp3')
     }
     
     create(){

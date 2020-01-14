@@ -11,4 +11,21 @@ export default class Boss extends ObjectProperties{
       
 
     }
+    BossMoving(value,Time,Pos,Con){
+      let event = this.scene.time.addEvent({
+       delay: Time,
+       callback: function () {
+         this.body.setVelocityX(Phaser.Math.Between(Con, Pos));
+       },
+       callbackScope: this,
+       loop: true,
+       timeScale: 1,
+       pause: value
+      //  repeat: 10
+     })
+     }
+     
+     bossCheckIsDead(value){
+        return value;
+     }
 }
