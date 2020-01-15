@@ -72,10 +72,11 @@ module.exports = {
          fs: 'empty',
          net: 'empty',
          tls: 'empty'
-     },
+     },*/
      resolve: {
          alias: {
              'phaser': phaser,
+             'Phaser': phaser,
          }
-     }*/
+     }
 }
