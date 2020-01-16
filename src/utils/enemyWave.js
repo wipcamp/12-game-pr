@@ -8,23 +8,27 @@ export default class EnemyWave extends EnemyWaveCore {
         const {
             waveName,
             waveNo,
+            waveScene,
             waveSteps,
             waveCompleteOn,
             waveFailOn,
             waveCompleted,
+            // waveCompleteStatus,
             // waveFailed,
             waveDelay,
             nextWave,
-        } = props
+        } = props;
         // this.waveState = waveState;
         this.updateWaveState({
             waveName,
             waveNo,
+            waveScene,
             waveSteps,
             waveCompleteOn,
             waveFailOn,
             waveCompleted,
-            waveDelay,
+            waveCompleteStatus: false,
+            waveDelay: waveDelay ? waveDelay : 500,
             nextWave
         });
         // this.waveName = waveName;
@@ -42,9 +46,10 @@ export default class EnemyWave extends EnemyWaveCore {
     start(){
         //setInterval(this.emit, 500,);
         // setTimeout(await this.waveSteps, this.waveDelay);
-        // setTimeout(this.emit('waveStart', this.waveState), this.waveDelay);
-        this.emit('waveStart', this.waveState);
-        return true;
+        const {waveDelay} = this.waveState;
+        setTimeout(() => this.emit('waveStart', this.waveState), waveDelay);
+        // this.emit('waveStart', this.waveState);
+        // return true;
     }
 
     complete(){
@@ -57,5 +62,5 @@ export default class EnemyWave extends EnemyWaveCore {
         this.waveFailed();
     }
 
-    
 }
+

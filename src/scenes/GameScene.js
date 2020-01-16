@@ -93,32 +93,34 @@ class GameScene extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        ////
-
+        //////////////////////////////////////////////////////////////////////////////////////////
         let waves = [];
         let waveNo = 0;
         const wave0 = new EnemyWave({
             waveName: 'Wave 1: I\'m so hungry!',
             waveNo: ++waveNo,
+            waveScene: this,
             waveCompleteOn: function(){
-                return true;
+                return this.enemyKillCount === 10;
             },
             waveSteps: function(){
                 console.log('wave '+waves[0].waveState.waveNo
-                +waves[0].waveState.waveName+' start')
-                waves[0].emit('waveComplete');
+                +waves[0].waveState.waveName+' start');
+                // let enemyx = new Enemy(waves[0].waveState.waveScene, 0, -1000, enemyKey);
+                // let enemyGroupx = enemyx.spawnEnemyWave(enemyKey, player);
+                // waves[0].emit('waveComplete');
             },
             waveCompleted: function(nextWave){
-                console.log('wave '+waves[0].waveNo+' completed')
-                waves[0].emit('waveEnd');
-                waves[0].emit('nextWave', waves[1]);
+                console.log('wave '+waves[0].waveNo+' completed');
+                // waves[0].emit('waveEnd');
+                // waves[0].emit('nextWave', waves[1]);
                 // nextWave.start();
             },
             nextWave: function(nextWave){
-                console.log('nextWave!');
+                // console.log('nextWave!');
                 nextWave.start();
             }
-        })
+        });
         const wave1 = new EnemyWave({
             waveName: 'Wave 2: I\'m so hungry! V2',
             waveNo: ++waveNo,
@@ -126,23 +128,27 @@ class GameScene extends Phaser.Scene {
                 return true;
             },
             waveSteps: function(){
-                console.log('wave '+waves[1].waveState.waveNo
-                +waves[1].waveState.waveName+' start')
-                waves[1].emit('waveComplete');
+                console.log('wave '+waves[1].waveState.waveNo+waves[1].waveState.waveName+' start');
+                // waves[1].emit('waveComplete');
             },
-            waveCompleted: function(nextWave){
-                console.log('wave '+waves[1].waveNo+' completed')
-                waves[0].emit('waveEnd');
+            waveCompleted: function(){
+                console.log('wave '+waves[1].waveNo+' completed');
+                // waves[0].emit('waveEnd');
             },
-        })
+            nextWave: function(nextWave){
+                console.log('2nextWave!');
+                //nextWave.start();
+            }
+        });
         waves.push(wave0);
         waves.push(wave1);
-        console.dir(waves[0])
+        //console.dir(waves[0]);
+        waves[0].updateWaveState({waveNext: waves[1]});
         waves[0].start();
-        ////
+        //////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
        
-        enemy = new Enemy(this, 0, -1000, enemyKey)
+        enemy = new Enemy(this, 0, -1000, enemyKey);
         enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
 
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Player

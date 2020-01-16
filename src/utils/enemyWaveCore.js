@@ -7,11 +7,20 @@ export default class EnemyWaveCore extends EventEmitter {
         super();
         this.waveHandlers = {
             nextWaveHandler: function(){
-                const {waveCompleted} = this.waveState;
-                if (waveCompleted){
-                    console.log('%cHooray! wave completed! go next wave!', 'color: green');
+                const {waveCompleteStatus} = this.waveState;
+                if (waveCompleteStatus){
+                    // console.log('go next wave!');
                     // this.emit('waveEnd');
                     this.emit('nextWave', this.waveState);
+                }
+            }, waveCompleteHandler: function(){
+                const {waveCompleteStatus} = this.waveState;
+                if (!waveCompleteStatus) {
+                    if (isWaveComplete(this)) {
+                        // console.log('%cHooray! wave completed!', 'color: green');
+                        this.emit('waveComplete');
+                        // this.emit('waveEnd');
+                    }
                 }
             }
         };
@@ -26,13 +35,16 @@ export default class EnemyWaveCore extends EventEmitter {
                 },
                 {
                     eventName: 'waveComplete',
-                    eventCallback: function(args) {
+                    eventCallback: function() {
                         //this.waveComplete(...args);
-                        if (isWaveComplete(this)){
-                            this.updateWaveState({
-                                waveCompleted: true
-                            });
-                        }
+                        // if (isWaveComplete(this)){
+                        //     this.updateWaveState({
+                        //         waveCompleteStatus: true
+                        //     });
+                        // }
+                        this.updateWaveState({
+                            waveCompleteStatus: true
+                        });
                     },
                 },
                 {
@@ -47,7 +59,8 @@ export default class EnemyWaveCore extends EventEmitter {
                 {
                     eventName: 'nextWave',
                     eventCallback: function(props) {
-                        props.nextWave.call(this);
+                        const {waveNext} = props;
+                        props.nextWave.call(this, waveNext);
                     }
                 }
             ]
