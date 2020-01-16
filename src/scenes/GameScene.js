@@ -4,6 +4,7 @@ import Player from './core/Player'
 import Boss from './core/Boss'
 import Item from './core/item';
 import ObjectProperties from './core/ObjectProperties';
+import EnemyWave from '../utils/enemyWave';
 
 let enemyKey = 'enemy'
 let enemy;
@@ -92,9 +93,34 @@ class GameScene extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        ////
+
+        let waves = [];
+        waves.push(new EnemyWave({
+            waveName: 'Wave 1: I\'m so hungry!',
+            waveCompleteOn: function(){
+                console.log("waveCompleteOnTriggered");
+                return 3===3
+            },
+            waveSteps: async function(){
+                console.log('wave '+waves[0].waveNo+' start')
+                waves[0].waveStatus = await waves[0].complete();
+            },
+            waveCompleted: async function(nextWave){
+                waves[0].emit('waveComplete');
+                console.log('wave '+waves[0].waveNo+' completed')
+                waves[0].emit('waveEnd');
+                // nextWave.start();
+            },
+        }))
+        console.dir(waves[0])
+        waves[0].start();
+        ////
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
+       
         enemy = new Enemy(this, 0, -1000, enemyKey)
         enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
+
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Player
         function touchingEnemy(player, enemyGroup) {
             enemyGroup.disableBody(true, true);
