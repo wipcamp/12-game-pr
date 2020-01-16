@@ -6,24 +6,29 @@ export default class EnemyWaveCore extends EventEmitter {
     constructor(props){
         super();
         this.waveHandlers = {
-            nextWaveHandler: function(){
+            waveCompleteHandler: function(){
                 const {waveCompleteStatus} = this.waveState;
-                if (waveCompleteStatus){
+                if (!waveCompleteStatus) {
+                    if (isWaveComplete(this)) {
+                        this.emit('waveComplete');
+                    }
+                }
+            }, waveEndHandler: function(){
+                const {waveCompleteStatus, waveEndStatus} = this.waveState;
+                if (!waveEndStatus) {
+                    if (waveCompleteStatus) {
+                        this.emit('waveEnd');
+                    }
+                }
+            }, nextWaveHandler: function(){
+                const {waveCompleteStatus, waveEnded} = this.waveState;
+                if (waveCompleteStatus && waveEnded){
                     // console.log('go next wave!');
                     // this.emit('waveEnd');
                     this.emit('nextWave', this.waveState);
                     this.removeAllListeners();
                 }
-            }, waveCompleteHandler: function(){
-                const {waveCompleteStatus} = this.waveState;
-                if (!waveCompleteStatus) {
-                    if (isWaveComplete(this)) {
-                        // console.log('%cHooray! wave completed!', 'color: green');
-                        this.emit('waveComplete');
-                        // this.emit('waveEnd');
-                    }
-                }
-            }
+            },
         };
         this.waveState = {};
         this.waveEvents = {
@@ -37,24 +42,19 @@ export default class EnemyWaveCore extends EventEmitter {
                 {
                     eventName: 'waveComplete',
                     eventCallback: function() {
-                        //this.waveComplete(...args);
-                        // if (isWaveComplete(this)){
-                        //     this.updateWaveState({
-                        //         waveCompleteStatus: true
-                        //     });
-                        // }
                         this.updateWaveState({
                             waveCompleteStatus: true
                         });
+                        this.waveState.waveCompleted();
                     },
                 },
                 {
                     eventName: 'waveEnd',
-                    eventCallback: function(args=[]) {
-                        // this.waveEnd(...args);
+                    eventCallback: function() {
                         this.updateWaveState({
-                            waveEnded: true
-                        })
+                            waveEndStatus: true
+                        });
+                        this.waveState.waveEnded();
                     }
                 },
                 {

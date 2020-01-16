@@ -13,8 +13,10 @@ export default class EnemyWave extends EnemyWaveCore {
             waveCompleteOn,
             waveFailOn,
             waveCompleted,
-            // waveCompleteStatus,
-            // waveFailed,
+            waveCompleteStatus,
+            waveFailed,
+            waveEnded,
+            waveEndStatus,
             waveDelay,
             nextWave,
         } = props;
@@ -23,13 +25,15 @@ export default class EnemyWave extends EnemyWaveCore {
             waveName,
             waveNo,
             waveScene,
-            waveSteps,
-            waveCompleteOn,
-            waveFailOn,
-            waveCompleted,
-            waveCompleteStatus: false,
+            waveSteps: waveSteps ? waveSteps : function(){this.forceUpdateWaveState()},
+            waveCompleteOn: waveCompleteOn ? waveCompleteOn : function(){return true},
+            waveFailOn: waveFailOn ? waveFailOn : function(){return false},
+            waveCompleted: waveCompleted ? waveCompleted : function(){},
+            waveCompleteStatus: waveCompleteStatus ? waveCompleteStatus : false,
+            waveEnded: waveEnded ? waveEnded : function(){},
+            waveEndStatus: waveEndStatus ? waveEndStatus : false,
             waveDelay: waveDelay ? waveDelay : 500,
-            nextWave
+            nextWave: nextWave ? nextWave : function(){}
         });
         // this.waveName = waveName;
         // this.waveNo = ++EnemyWave.waveCount;
@@ -44,22 +48,16 @@ export default class EnemyWave extends EnemyWaveCore {
     }
     
     start(){
-        //setInterval(this.emit, 500,);
-        // setTimeout(await this.waveSteps, this.waveDelay);
         const {waveDelay} = this.waveState;
         setTimeout(() => this.emit('waveStart', this.waveState), waveDelay);
-        // this.emit('waveStart', this.waveState);
-        // return true;
     }
 
     complete(){
-        //await this.waveComplete();
-        this.emit('waveComplete');
-        return true;
+        // Implements force complete here.
     }
 
     fail(){
-        this.waveFailed();
+        // Implements force fail here.
     }
 
 }
