@@ -96,23 +96,47 @@ class GameScene extends Phaser.Scene {
         ////
 
         let waves = [];
-        waves.push(new EnemyWave({
+        let waveNo = 0;
+        const wave0 = new EnemyWave({
             waveName: 'Wave 1: I\'m so hungry!',
+            waveNo: ++waveNo,
             waveCompleteOn: function(){
-                console.log("waveCompleteOnTriggered");
-                return 3===3
+                return true;
             },
-            waveSteps: async function(){
-                console.log('wave '+waves[0].waveNo+' start')
-                waves[0].waveStatus = await waves[0].complete();
-            },
-            waveCompleted: async function(nextWave){
+            waveSteps: function(){
+                console.log('wave '+waves[0].waveState.waveNo
+                +waves[0].waveState.waveName+' start')
                 waves[0].emit('waveComplete');
+            },
+            waveCompleted: function(nextWave){
                 console.log('wave '+waves[0].waveNo+' completed')
                 waves[0].emit('waveEnd');
+                waves[0].emit('nextWave', waves[1]);
                 // nextWave.start();
             },
-        }))
+            nextWave: function(nextWave){
+                console.log('nextWave!');
+                nextWave.start();
+            }
+        })
+        const wave1 = new EnemyWave({
+            waveName: 'Wave 2: I\'m so hungry! V2',
+            waveNo: ++waveNo,
+            waveCompleteOn: function(){
+                return true;
+            },
+            waveSteps: function(){
+                console.log('wave '+waves[1].waveState.waveNo
+                +waves[1].waveState.waveName+' start')
+                waves[1].emit('waveComplete');
+            },
+            waveCompleted: function(nextWave){
+                console.log('wave '+waves[1].waveNo+' completed')
+                waves[0].emit('waveEnd');
+            },
+        })
+        waves.push(wave0);
+        waves.push(wave1);
         console.dir(waves[0])
         waves[0].start();
         ////
