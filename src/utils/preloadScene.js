@@ -11,13 +11,13 @@ const defaultPreload = (scene) => {
     let progressBox = scene.add.graphics();
     let progressBar = scene.add.graphics();
     progressBox.fillStyle(0xffffff,1);
-    progressBox.fillRect(240, 270, 320, 50);
+    progressBox.fillRect(140, 370, 320, 50);
 
     let width = scene.cameras.main.width;
     let height = scene.cameras.main.height;
     let loadingText = scene.make.text({
-        x: 295,
-        y: 250,
+        x: 195,
+        y: 340,
         text: 'Loading...',
         style: {
             font: '20px monospace',
@@ -27,8 +27,8 @@ const defaultPreload = (scene) => {
     loadingText.setOrigin(0.5, 0.5);
 
     let percentText = scene.make.text({
-        x: 550,
-        y: 250,
+        x: 445,
+        y: 340,
         text: '0%',
         style: {
             font: '18px monospace',
@@ -52,7 +52,7 @@ const defaultPreload = (scene) => {
         percentText.setText(parseInt(value * 100) + '%');
         progressBar.clear();
         progressBar.fillStyle(0x000000, 1);
-        progressBar.fillRect(250, 280, 300 * value, 30);
+        progressBar.fillRect(150, 380, 300 * value, 30);
     });
 
     // scene.load.on('fileprogress', function (file) {
