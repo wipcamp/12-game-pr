@@ -1,7 +1,5 @@
 import EnemyWaveCore from './enemyWaveCore';
 
-// const isWaveComplete = wave => wave.waveCompleteOn();
-
 export default class EnemyWave extends EnemyWaveCore {
     constructor(props){
         super(props);
@@ -20,7 +18,6 @@ export default class EnemyWave extends EnemyWaveCore {
             waveDelay,
             nextWave,
         } = props;
-        // this.waveState = waveState;
         this.updateWaveState({
             waveName,
             waveNo,
@@ -35,14 +32,6 @@ export default class EnemyWave extends EnemyWaveCore {
             waveDelay: waveDelay ? waveDelay : 500,
             nextWave: nextWave ? nextWave : function(){}
         });
-        // this.waveName = waveName;
-        // this.waveNo = ++EnemyWave.waveCount;
-        // this.waveSteps = waveSteps;
-        // this.waveCompleteOn = waveCompleteOn;
-        // this.waveCompleted = waveCompleted;
-        // this.waveFailed = waveFailed;
-        // this.waveStatus = false;
-        // this.waveDelay = waveDelay ? null : 100;
 
         this.registerDefaultWaveEvents();
     }

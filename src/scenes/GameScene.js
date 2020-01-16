@@ -139,7 +139,6 @@ class GameScene extends Phaser.Scene {
                     bulletGroup.destroy();
                 }
                 waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this)
-                // waves[0].emit('waveComplete');
             },
             waveCompleted: function(){
                 console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' completed!');
