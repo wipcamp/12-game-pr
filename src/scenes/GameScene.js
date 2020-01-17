@@ -55,7 +55,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
-        this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        // this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,
