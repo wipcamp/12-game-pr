@@ -61,3 +61,7 @@ typings/
 .next
 
 dev/
+
+.idea/
+
+12-game-pr.iml
