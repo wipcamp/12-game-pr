@@ -1,10 +1,11 @@
-import { goToScene } from '../utils/goTo'
+import { preloadScene } from '../utils/preloadScene'
 let background
 let gameName
 let howToPlay
 let storyMode
 let arcadeMode
 let MainMenu_song
+
 class MainMenu extends Phaser.Scene {
     constructor() {
         super({
@@ -17,7 +18,13 @@ class MainMenu extends Phaser.Scene {
         this.load.image('howToPlay', 'src/images/HowToPlay.png')
         this.load.image('storyM', 'src/images/StoryMode.png')
         this.load.image('arcadeM', 'src/images/ArcadeMode.png')
-        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
+        this.load.audio('MainMenu_song', 'src/songs/Heartbeats - Broove (LuviKunG Remix).mp3')
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        preloadScene({
+            scene: this,
+            key: 'default'
+        })
     }
     create() {
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
@@ -32,8 +39,11 @@ class MainMenu extends Phaser.Scene {
             MainMenu_song.stop()
             this.scene.start('ComicPage1');
         });
+
+
     }
     update(delta, time) {
 
     }
+
 } export default MainMenu

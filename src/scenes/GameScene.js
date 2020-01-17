@@ -6,6 +6,7 @@ import Item from './core/item';
 import ObjectProperties from './core/ObjectProperties';
 import EnemyWave from '../utils/enemyWave';
 import EnemyWaveContainer from '../utils/enemyWaveContainer';
+import {preloadScene} from '../utils/preloadScene'
 
 let enemyKey = 'enemy'
 let enemy;
@@ -54,6 +55,13 @@ class GameScene extends Phaser.Scene {
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
+        this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        //////////////////////////////////////////////////////////////////////////////////////////
+        preloadScene({
+            scene:this,
+            key: 'default'
+        })
+
     }
 
     create() {
