@@ -23,8 +23,6 @@ export default class EnemyWaveCore extends EventEmitter {
             }, nextWaveHandler: function(){
                 const {waveCompleteStatus, waveEnded} = this.waveState;
                 if (waveCompleteStatus && waveEnded){
-                    // console.log('go next wave!');
-                    // this.emit('waveEnd');
                     this.emit('nextWave', this.waveState);
                     this.removeAllListeners();
                 }

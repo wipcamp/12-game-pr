@@ -5,6 +5,7 @@ import Boss from './core/Boss'
 import Item from './core/item';
 import ObjectProperties from './core/ObjectProperties';
 import EnemyWave from '../utils/enemyWave';
+import EnemyWaveContainer from '../utils/enemyWaveContainer';
 
 let enemyKey = 'enemy'
 let enemy;
@@ -94,7 +95,7 @@ class GameScene extends Phaser.Scene {
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         ////////////////////////////////////////////////////////////////////////////////////////// Simple enemy wave.
-        let waves = [];
+        const waves = [];
         let waveNo = 0;
         const wave0 = new EnemyWave({
             waveName: 'The giant cockroach.',
@@ -196,9 +197,16 @@ class GameScene extends Phaser.Scene {
         });
         waves.push(wave0);
         waves.push(wave1);
-        //console.dir(waves[0]);
-        waves[0].updateWaveState({waveNext: waves[1]});
-        waves[0].start();
+        const enw = new EnemyWaveContainer({containerType: 'array'});
+        enw.addEnemyWaves(waves);
+        enw.makeSequential();
+        enw.run();
+        //Possible methods.
+        /*enw.addEnemyWave(wave) //Add the eneyWave to the EnemyWaveContainer.,
+        //enw.addEnemyWaves(waves) //Add the array of enemyWave to the EnemyWaveContainer.;
+        //enw.makeSequential() //Wave will hop to next wave at next index if it is not the last wave.
+        //enw.run() //Wave will start at the first index of EnemyWaveContainer.
+        //enw.runAt() //Wave will start at the specify index of EnemyWaveContainer*/
         //////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////// Enemy Create
        
