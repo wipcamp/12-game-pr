@@ -47,7 +47,7 @@ export default class Enemy extends ObjectProperties{
             loop: false,
             pause: false,
             timeScale: 1,
-            repeat : 9
+            repeat : 19
         })
         return enemyGroup;
     }

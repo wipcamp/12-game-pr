@@ -97,104 +97,107 @@ class GameScene extends Phaser.Scene {
         ////////////////////////////////////////////////////////////////////////////////////////// Simple enemy wave.
         const waves = [];
         let waveNo = 0;
-        const wave0 = new EnemyWave({
-            waveName: 'The giant cockroach.',
-            waveNo: ++waveNo,
-            waveScene: this,
-            waveCompleteOn: function(){
-                return this.enemyKillCount === 10;
-            },
-            waveSteps: function(){
-                console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' start!');
-                let waveEnemy = new Enemy(waves[0].waveState.waveScene, 0, -1000, enemyKey);
-                let waveEnemyGroup = waveEnemy.spawnEnemyWave(enemyKey, player);
-                const {waveScene} = this.waveState;
-                this.updateWaveState({
-                    enemyKillCount: 0
-                });
-                function touchingWaveEnemy(player, waveEnemyGroup) {
+        const waveConfig = {
+            wave0: {
+                waveName: 'The giant cockroach.',
+                waveNo: ++waveNo,
+                waveScene: this,
+                waveCompleteOn: function(){
+                    return this.enemyKillCount === 20;
+                },
+                waveSteps: function(){
+                    console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' start!');
+                    let waveEnemy = new Enemy(waves[0].waveState.waveScene, 0, -1000, enemyKey);
+                    let waveEnemyGroup = waveEnemy.spawnEnemyWave(enemyKey, player);
+                    const {waveScene} = this.waveState;
                     this.updateWaveState({
-                        enemyKillCount: this.waveState.enemyKillCount+1
+                        enemyKillCount: 0
                     });
-                    waveEnemyGroup.disableBody(true, true);
-                    waveEnemyGroup.destroy();
-                    healthPlayer = healthPlayer - 1;
-                    if (healthPlayer === 2) {
-                        heart3.setVisible(false);
-                    }
-                    else if (healthPlayer === 1) {
-                        heart2.setVisible(false);
-                    }
-                    else if (healthPlayer === 0) {
-                        heart1.setVisible(false);
-                    }
-                }
-                waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[0]), null, this);
-                function HitWaveEnemy(bulletGroup, waveEnemyGroup) {
-                    this.updateWaveState({
-                        enemyKillCount: this.waveState.enemyKillCount+1
-                    });
-                    waveEnemyGroup.disableBody(true, true);
-                    waveEnemyGroup.destroy();
-                    bulletGroup.disableBody(true, true);
-                    bulletGroup.destroy();
-                }
-                waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this)
-            },
-            waveCompleted: function(){
-                console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' completed!');
-            },
-            waveEnded: function(){
-                console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' ended!');
-            },
-            nextWave: function(nextWave){
-                nextWave.start();
-            }
-        });
-        const wave1 = new EnemyWave({
-            waveName: 'The Majin Buu.',
-            waveNo: ++waveNo,
-            waveScene: this,
-            waveDelay: 3000,
-            waveCompleteOn: function(){
-                return this.majinBuuKilled;
-            },
-            waveSteps: function(){
-                console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' start!');
-                boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
-                boss1.health = boss1.health - 10;
-                boss1.moveUp(200);
-                boss1.setWorldBound(true);
-                function HitBoss1(boss1, bulletGroup) {
-                    boss1Health -= 3;
-                    bulletGroup.destroy();
-                    if(boss1Health <= 0){
+                    function touchingWaveEnemy(player, waveEnemyGroup) {
                         this.updateWaveState({
-                            majinBuuKilled: true,
+                            enemyKillCount: this.waveState.enemyKillCount+1
                         });
-                        boss1.destroy();
+                        waveEnemyGroup.disableBody(true, true);
+                        waveEnemyGroup.destroy();
+                        healthPlayer = healthPlayer - 1;
+                        if (healthPlayer === 2) {
+                            heart3.setVisible(false);
+                        }
+                        else if (healthPlayer === 1) {
+                            heart2.setVisible(false);
+                        }
+                        else if (healthPlayer === 0) {
+                            heart1.setVisible(false);
+                        }
                     }
+                    waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[0]), null, this);
+                    function HitWaveEnemy(bulletGroup, waveEnemyGroup) {
+                        this.updateWaveState({
+                            enemyKillCount: this.waveState.enemyKillCount+1
+                        });
+                        waveEnemyGroup.disableBody(true, true);
+                        waveEnemyGroup.destroy();
+                        bulletGroup.disableBody(true, true);
+                        bulletGroup.destroy();
+                    }
+                    waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this)
+                },
+                waveCompleted: function(){
+                    console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' completed!');
+                },
+                waveEnded: function(){
+                    console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' ended!');
+                },
+                nextWave: function(nextWave){
+                    nextWave.start();
                 }
-                const {waveScene} = this.waveState;
-                waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
-                backgroundBar.setVisible(true);
-                healthBar.setVisible(true);
-                health_frame.setVisible(true);
+            }, wave1: {
+                waveName: 'The Majin Buu.',
+                waveNo: ++waveNo,
+                waveScene: this,
+                waveDelay: 3000,
+                waveCompleteOn: function(){
+                    return this.majinBuuKilled;
+                },
+                waveSteps: function(){
+                    console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' start!');
+                    boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
+                    boss1.health = boss1.health - 10;
+                    boss1.moveUp(200);
+                    boss1.setWorldBound(true);
+                    function HitBoss1(boss1, bulletGroup) {
+                        boss1Health -= 3;
+                        bulletGroup.destroy();
+                        if(boss1Health <= 0){
+                            this.updateWaveState({
+                                majinBuuKilled: true,
+                            });
+                            boss1.destroy();
+                        }
+                    }
+                    const {waveScene} = this.waveState;
+                    waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
+                    backgroundBar.setVisible(true);
+                    healthBar.setVisible(true);
+                    health_frame.setVisible(true);
+                },
+                waveCompleted: function(){
+                    console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' completed!');
+                },
+                waveEnded: function(){
+                    console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' ended!');
+                    backgroundBar.destroy();
+                    healthBar.destroy();
+                    health_frame.destroy();
+                },
+                nextWave: function(nextWave){
+                    console.log('Here come the next wave!');
+                    //nextWave.start();
+                }
             },
-            waveCompleted: function(){
-                console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' completed!');
-            },
-            waveEnded: function(){
-                console.log('Wave '+waves[1].waveState.waveNo+' '+waves[1].waveState.waveName+' ended!');
-                backgroundBar.destroy();
-                healthBar.destroy();
-                health_frame.destroy();
-            },
-            nextWave: function(nextWave){
-                console.log('Here come the next wave!');
-                //nextWave.start();
-            }
-        });
+        }
+        const wave0 = new EnemyWave(waveConfig.wave0);
+        const wave1 = new EnemyWave(waveConfig.wave1);
         waves.push(wave0);
         waves.push(wave1);
         const enw = new EnemyWaveContainer({containerType: 'array'});
