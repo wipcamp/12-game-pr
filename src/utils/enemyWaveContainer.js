@@ -13,14 +13,6 @@ export default class EnemyWaveContainer {
         this.container = createContainer(containerType);
     }  
 
-    get containerType(){
-        return this.containerType;
-    }
-
-    set containerType(containerType){
-        this.containerType = containerType;
-    }
-
     addEnemyWave(wave){
         const containerType = {
             object: wave => this.container[wave.waveState.waveNo-1],

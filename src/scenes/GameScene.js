@@ -250,13 +250,13 @@ class GameScene extends Phaser.Scene {
             }
         }
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Bullet
-        function HitEnemy(bulletGroup, enemyGroup) {
-            enemyGroup.disableBody(true, true);
-            enemyGroup.destroy();
-            bulletGroup.disableBody(true, true);
-            bulletGroup.destroy();
-        }
-        this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy, null, this)
+        // function HitEnemy(bulletGroup, enemyGroup) {
+        //     enemyGroup.disableBody(true, true);
+        //     enemyGroup.destroy();
+        //     bulletGroup.disableBody(true, true);
+        //     bulletGroup.destroy();
+        // }
+        // this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy, null, this)
         this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
         //////////////////////////////////////////////////////////////////////////////////////////
         backgroundBar = this.add.image(240, 25, 'black-bar').setOrigin(0, 0);
