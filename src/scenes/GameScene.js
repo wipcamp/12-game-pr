@@ -106,7 +106,7 @@ class GameScene extends Phaser.Scene {
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveCompleteOn: function(){
-                    return this.enemyKillCount === 5;
+                    return this.enemyKillCount === 20;
                 },
                 waveSteps: function(){
                     console.log('Wave '+waves[0].waveState.waveNo+' '+waves[0].waveState.waveName+' start!');
