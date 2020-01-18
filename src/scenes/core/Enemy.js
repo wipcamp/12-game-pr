@@ -47,7 +47,7 @@ export default class Enemy extends ObjectProperties{
             loop: false,
             pause: false,
             timeScale: 1,
-            repeat : 19
+            repeat : 4
         })
         return enemyGroup;
     }
@@ -86,5 +86,13 @@ export default class Enemy extends ObjectProperties{
 
     removeSpawnEnemyWave(){
         event.remove();
+    }
+
+    pauseSpawnEnemyWave(){
+        event.paused = true;
+    }
+
+    continueSpawnEnemyWave(){
+        event.paused = false;
     }
 }

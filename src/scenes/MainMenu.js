@@ -18,7 +18,7 @@ class MainMenu extends Phaser.Scene {
         this.load.image('howToPlay', 'src/images/HowToPlay.png')
         this.load.image('storyM', 'src/images/StoryMode.png')
         this.load.image('arcadeM', 'src/images/ArcadeMode.png')
-        this.load.audio('MainMenu_song', 'src/songs/Heartbeats - Broove (LuviKunG Remix).mp3')
+        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         preloadScene({

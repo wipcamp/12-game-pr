@@ -12,13 +12,10 @@ export default class Item extends Phaser.GameObjects.Sprite{
 
       this.setData("speed", 200);
     }
-
-    
-
     spawnItemWave(itemKey){
         itemGroup = this.scene.physics.add.group();
         event = this.scene.time.addEvent({
-            delay: 2500,
+            delay: 15000,
             callback: function () {
                 this.scene.anims.create({
                     key: 'itemAni',
@@ -40,7 +37,7 @@ export default class Item extends Phaser.GameObjects.Sprite{
             loop: false,
             pause: false,
             timeScale: 1,
-            repeat : 9
+            repeat : 2
         })
         return itemGroup;
     }
@@ -48,7 +45,7 @@ export default class Item extends Phaser.GameObjects.Sprite{
     spawnItemWaveInf(itemKey){
         itemGroup = this.scene.physics.add.group();
         event = this.scene.time.addEvent({
-            delay: 2500,
+            delay: 15000,
             callback: function () {
                 this.scene.anims.create({
                     key: 'itemAni',
@@ -72,5 +69,17 @@ export default class Item extends Phaser.GameObjects.Sprite{
             timeScale: 1
         })
         return itemGroup;
+    }
+
+    removeSpawnItemWave(){
+        event.remove();
+    }
+
+    pauseSpawnItemWave(){
+        event.paused = true;
+    }
+
+    continueSpawnItemWave(){
+        event.paused = false;
     }
 }
