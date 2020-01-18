@@ -28,7 +28,8 @@ export default class bossBullet extends ObjectProperties {
             loop: true,
             paused: false,
             callbackScope: this,
-            startAt: 500
+            startAt: 500,
+            
         })
 
         b_bulletEvent2 = this.scene.time.addEvent({
@@ -45,10 +46,11 @@ export default class bossBullet extends ObjectProperties {
             loop: true,
             paused: false,
             callbackScope: this,
-            startAt: 500
+            startAt: 500,
+            
         })
 
-        b_bulletEvent2 = this.scene.time.addEvent({
+        b_bulletEvent3 = this.scene.time.addEvent({
             delay: 1000,
             callback: function() {
                 let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
@@ -62,16 +64,20 @@ export default class bossBullet extends ObjectProperties {
             loop: true,
             paused: false,
             callbackScope: this,
-            startAt: 500
+            startAt: 500,
+            
         })
         return b_bullets
 
    }
 
    bossStopShooting() {
-       this.b_bulletEvent1.paused = true;
-       this.b_bulletEvent2.paused = true;
-       this.b_bulletEvent3.paused = true;
+    b_bulletEvent1.destroy()
+    b_bulletEvent2.destroy()
+    b_bulletEvent3.destroy()
+    //    this.b_bulletEvent1.paused = true;
+    //    this.b_bulletEvent2.paused = true;
+    //    this.b_bulletEvent3.paused = true;
    }
 
 

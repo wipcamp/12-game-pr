@@ -28,6 +28,7 @@ let heart3
 let boss1;
 let boss1Key = 'boss1';
 let bulletBossKey = 'bossBullet';
+let b_bullets;
 let bulletBossGroup;
 
 let itemKey = 'items';
@@ -220,7 +221,7 @@ class GameScene extends Phaser.Scene {
                     boss1.maxHealth = 100;
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
-                    // bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
+                    bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
                     function HitBoss1(boss1, bulletGroup) {
                         boss1.health -= 3;
                         healthBar.setScale(boss1.health / boss1.maxHealth, 1);
@@ -229,7 +230,7 @@ class GameScene extends Phaser.Scene {
                             this.updateWaveState({
                                 majinBuuKilled: true,
                             });
-                            // boss1.bossStopShooting();
+                             boss1.bossStopShooting();
                             boss1.destroy();
                         }
                     }
@@ -294,6 +295,7 @@ class GameScene extends Phaser.Scene {
                     healthBar.setScale(boss1.health / boss1.maxHealth, 1);
                     boss1.moveUp(250);
                     boss1.setWorldBound(true);
+                    bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
                     function HitBoss1(boss1, bulletGroup) {
                         boss1.health -= 3;
                         healthBar.setScale(boss1.health / boss1.maxHealth, 1);
@@ -302,6 +304,7 @@ class GameScene extends Phaser.Scene {
                             this.updateWaveState({
                                 majinBuuKilled: true,
                             });
+                            boss1.bossStopShooting();
                             boss1.destroy();
                         }
                     }
