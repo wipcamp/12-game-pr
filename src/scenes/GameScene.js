@@ -3,6 +3,7 @@ import Enemy from './core/Enemy'
 import Player from './core/Player'
 import Boss from './core/Boss'
 import Item from './core/item';
+import bossBullet from './core/bossBullet';
 import ObjectProperties from './core/ObjectProperties';
 import EnemyWave from '../utils/enemyWave';
 import EnemyWaveContainer from '../utils/enemyWaveContainer';
@@ -26,6 +27,8 @@ let heart3
 
 let boss1;
 let boss1Key = 'boss1';
+let bulletBossKey = 'bossBullet';
+let bulletBossGroup;
 
 let itemKey = 'items';
 let itemGroup
@@ -54,6 +57,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('heart', 'src/images/Heart.png')
         this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 150, frameHeight: 150 })
         this.load.image(boss1Key, 'src/images/Boss1.png', { frameWidth: 150, frameHeight: 173 })
+        this.load.image(bulletBossKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
@@ -216,6 +220,7 @@ class GameScene extends Phaser.Scene {
                     boss1.maxHealth = 100;
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
+                    // bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
                     function HitBoss1(boss1, bulletGroup) {
                         boss1.health -= 3;
                         healthBar.setScale(boss1.health / boss1.maxHealth, 1);
@@ -224,6 +229,7 @@ class GameScene extends Phaser.Scene {
                             this.updateWaveState({
                                 majinBuuKilled: true,
                             });
+                            // boss1.bossStopShooting();
                             boss1.destroy();
                         }
                     }

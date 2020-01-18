@@ -1,6 +1,6 @@
 import 'Phaser';
-import ObjectProperties from './ObjectProperties';
-export default class Boss extends ObjectProperties{
+import bossBullet from './bossBullet';
+export default class Boss extends bossBullet{
     constructor(scene, x, y, key) {
       super(scene, x, y, key);
     this.key = key;
