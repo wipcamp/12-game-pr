@@ -2,6 +2,7 @@ import 'phaser';
 import GameScene from './scenes/GameScene';
 import ComicPage1 from './scenes/ComicPage1';
 import ComicPage2 from './scenes/ComicPage2';
+import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
 
 const config = {
@@ -20,7 +21,7 @@ const config = {
         }
     },
     scene: [
-        MainMenu,ComicPage1,GameScene,ComicPage2
+        MainMenu,ComicPage1,ComicPage2,GameScene,ComicPageEnd
     ]
 };
 
