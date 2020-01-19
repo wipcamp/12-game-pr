@@ -128,7 +128,7 @@ class GameScene extends Phaser.Scene {
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveCompleteOn: function () {
-                    return this.enemyKillCount === 10;
+                    return this.enemyKillCount === 1;
                 },
                 waveSteps: function () {
                     console.log('(¯▽¯；) Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' start!');
@@ -242,6 +242,7 @@ class GameScene extends Phaser.Scene {
                         }
                     }
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
+                    waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
                     healthBar.setVisible(true);
                     health_frame.setVisible(true);
@@ -316,6 +317,7 @@ class GameScene extends Phaser.Scene {
                         }
                     }
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
+                    waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
                     healthBar.setVisible(true);
                     health_frame.setVisible(true);
@@ -468,6 +470,7 @@ class GameScene extends Phaser.Scene {
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
             healthPlayer = 0;
+            game_song.stop();
             this.scene.start('MainMenu');
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
