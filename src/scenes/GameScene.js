@@ -43,6 +43,9 @@ let healthBar;
 let backgroundBar;
 let boss1Health = 100;
 let boss1MaxHealth = 100;
+
+let game_song
+
 class GameScene extends Phaser.Scene {
     constructor() {
         super({
@@ -62,6 +65,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
+        this.load.audio('game_song','src/songs/08. Operation.mp3');
         // this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
@@ -77,6 +81,9 @@ class GameScene extends Phaser.Scene {
         item = new Item(this, 0, -1000, itemKey)
         //itemGroup = item.spawnItemWave(itemKey)
         itemGroup = item.spawnItemWaveInf(itemKey)
+        //////////////////////////////////////////////////////////////////////////////////////////  
+        game_song = this.sound.add('game_song',{volume: 0.15});
+        game_song.play();
         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
         function HitItem(bulletGroup, itemGroup, ) {
             itemGroup.disableBody(true, true);
@@ -121,7 +128,7 @@ class GameScene extends Phaser.Scene {
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveCompleteOn: function () {
-                    return this.enemyKillCount === 5;
+                    return this.enemyKillCount === 10;
                 },
                 waveSteps: function () {
                     console.log('(¯▽¯；) Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' start!');
@@ -327,7 +334,8 @@ class GameScene extends Phaser.Scene {
 
                 },
                 nextWave: function (nextWave) {
-                    goToScene.call(this.waveState.waveScene, 'ComicPage2');
+                    game_song.stop();
+                    goToScene.call(this.waveState.waveScene, 'ComicPageEnd');
                 }
 
             }

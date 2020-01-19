@@ -13,9 +13,9 @@ class ComicPage1 extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('comicPg1','src/images/comicP1.jpg')
-        this.load.image('nextbtn','src/images/nextButton.png')
-        this.load.audio('comic_song','src/songs/BG.mp3')
+        this.load.image('comicPg1','src/images/Comic-Intro.jpg');
+        this.load.image('nextbtn','src/images/nextButton.png');
+        this.load.audio('comic_song','src/songs/09. Reversal.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,
@@ -24,17 +24,19 @@ class ComicPage1 extends Phaser.Scene{
     }
     
     create(){
-        comicPg1 = this.add.image(0, 0,'comicPg1').setOrigin(0,0)
-        nextbtn = this.add.image(500, 760, 'nextbtn').setInteractive()
-        comic_song = this.sound.add('comic_song')
-        comic_song.play()
+        comicPg1 = this.add.image(0, 0,'comicPg1').setOrigin(0,0);
+        nextbtn = this.add.image(500, 760, 'nextbtn').setInteractive();
+        comic_song = this.sound.add('comic_song',{volume: 0.15});
+        comic_song.play();
  
         nextbtn.on('pointerdown', (pointer) =>{
-            comic_song.stop()
-            this.scene.start('GameScene');
+            comic_song.stop();
+            this.goComicPage2();
         })
     }
-
+    goComicPage2(){
+        goToScene.call(this, 'ComicPage2');
+    }
     update(delta, time){
          
     }

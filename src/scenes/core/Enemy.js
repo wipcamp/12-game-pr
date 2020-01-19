@@ -25,16 +25,18 @@ export default class Enemy extends ObjectProperties{
         event = this.scene.time.addEvent({
             delay: 2000,
             callback: function () {
-                this.scene.anims.create({
-                    key: 'enemyAni',
-                    frames: this.scene.anims.generateFrameNumbers(enemyKey, {
-                        start: 0,
-                        end: 5
-        
-                    }),
-                    framerate: 1,
-                    repeat: -1
-                })
+                if (!this.scene.anims.get('enemyAni')){
+                    this.scene.anims.create({
+                        key: 'enemyAni',
+                        frames: this.scene.anims.generateFrameNumbers(enemyKey, {
+                            start: 0,
+                            end: 5
+            
+                        }),
+                        framerate: 1,
+                        repeat: -1
+                    })
+                }
                 let enemy = this.scene.physics.add.sprite(Phaser.Math.Between(0, 600), 20, enemyKey)
                 enemy.anims.play('enemyAni', true)
                 // enemy.setScale(0.1)
@@ -47,7 +49,7 @@ export default class Enemy extends ObjectProperties{
             loop: false,
             pause: false,
             timeScale: 1,
-            repeat : 4
+            repeat : 9
         })
         return enemyGroup;
     }
@@ -58,16 +60,18 @@ export default class Enemy extends ObjectProperties{
         event = this.scene.time.addEvent({
             delay: 2000,
             callback: function () {
-                this.scene.anims.create({
-                    key: 'enemyAni',
-                    frames: this.scene.anims.generateFrameNumbers(enemyKey, {
-                        start: 0,
-                        end: 5
-        
-                    }),
-                    framerate: 1,
-                    repeat: -1
-                })
+                if (!this.scene.anims.get('enemyAni')){
+                    this.scene.anims.create({
+                        key: 'enemyAni',
+                        frames: this.scene.anims.generateFrameNumbers(enemyKey, {
+                            start: 0,
+                            end: 5
+            
+                        }),
+                        framerate: 1,
+                        repeat: -1
+                    })
+                }
                 let enemy = this.scene.physics.add.sprite(Phaser.Math.Between(0, 600), 20, enemyKey)
                 enemy.anims.play('enemyAni', true)
                 // enemy.setScale(0.1)
