@@ -2,6 +2,7 @@ import 'phaser';
 import GameScene from './scenes/GameScene';
 import ComicPage1 from './scenes/ComicPage1';
 import ComicPage2 from './scenes/ComicPage2';
+import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
 
 const config = {
@@ -20,8 +21,9 @@ const config = {
         }
     },
     scene: [
-        GameScene,MainMenu,ComicPage1,ComicPage2
+        MainMenu,ComicPage1,ComicPage2,GameScene,ComicPageEnd
     ]
 };
 
 const game = new Phaser.Game(config);
+export default game;

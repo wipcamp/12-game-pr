@@ -68,7 +68,16 @@ module.exports = {
             { test: [/\.vert$/, /\.frag$/], use: 'raw-loader' }
         ]
     },
+<<<<<<< HEAD
     resolve: {
+=======
+    /* node: {
+         fs: 'empty',
+         net: 'empty',
+         tls: 'empty'
+     },*/
+     resolve: {
+>>>>>>> develop
          alias: {
              'phaser': phaser,
              'Phaser': phaser,

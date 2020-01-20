@@ -60,6 +60,7 @@ typings/
 # next.js build output
 .next
 
+<<<<<<< HEAD
 node_modules/
 dist/
 build/
@@ -79,3 +80,10 @@ dump/
 *.bak*
 *.old*
 higherVolume/
+=======
+dev/
+
+.idea/
+
+12-game-pr.iml
+>>>>>>> develop
