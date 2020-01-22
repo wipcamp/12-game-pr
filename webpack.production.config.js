@@ -62,7 +62,9 @@ module.exports = {
             hash: true
         }),
         new CopyWebpackPlugin([
-            { from: 'images', to: 'images' }
+            { from: 'src/images', to: 'images' },
+            { from: 'src/songs/', to: 'songs' },
+            { from: 'src/utils/', to: 'utils' }
         ])
     
     ],
@@ -74,15 +76,4 @@ module.exports = {
         ]
     },
     optimization: {minimize: true}
-
-    /* node: {
-    fs: 'empty',
-    net: 'empty',
-    tls: 'empty'
-  },
-  resolve: {
-    alias: {
-      'phaser': phaser,
-    }
-  } */
 };
