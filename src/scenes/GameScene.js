@@ -365,9 +365,27 @@ class GameScene extends Phaser.Scene {
         // enemyGroup = enemy.spawnEnemyWave(enemyKey, player);
 
         ////////////////////////////////////////////////////////////////////////////////////////// OverLap Enemy/Player
-        function touchingEnemy(player, enemyGroup) {
+        // function touchingbulletboss(player, bulletBossGroup){
+        //     bulletBossGroup.disableBody(true, true);
+        //     bulletBossGroup.destroy();
+        //     healthPlayer = healthPlayer - 1;
+        //     if (healthPlayer === 2) {
+        //         heart3.setVisible(false);
+        //     }
+        //     else if (healthPlayer === 1) {
+        //         heart2.setVisible(false);
+        //     }
+        //     else if (healthPlayer === 0) {
+        //         heart1.setVisible(false);
+        //     }
+        // }
+        // this.physics.add.overlap(player,touchingbulletboss,bulletBossGroup,null,this)
+
+        function touchingEnemy(player, enemyGroup,) {
             enemyGroup.disableBody(true, true);
+            // bulletBossKey.disableBody(true,true);
             enemyGroup.destroy();
+            // bulletBossKey.destroy();
             healthPlayer = healthPlayer - 1;
             if (healthPlayer === 2) {
                 heart3.setVisible(false);
@@ -379,7 +397,8 @@ class GameScene extends Phaser.Scene {
                 heart1.setVisible(false);
             }
         }
-        this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
+        
+        this.physics.add.overlap(player, enemyGroup, touchingEnemy,null, this)
         this.physics.add.overlap(player, itemGroup, touchingItem)
 
         function increaseHealth(health) {
