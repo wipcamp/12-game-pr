@@ -54,19 +54,19 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', 'src/images/BG.png')
-        this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
-        this.load.image(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
-        this.load.image('heart', 'src/images/Heart.png')
-        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 150, frameHeight: 150 })
-        this.load.image(boss1Key, 'src/images/Boss1.png', { frameWidth: 150, frameHeight: 173 })
-        this.load.image(bulletBossKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
-        this.load.image('health_frame', 'src/images/Health-Frame.png');
-        this.load.image('black-bar', 'src/images/health-black.png');
-        this.load.image('red-bar', 'src/images/health-red.png');
-        this.load.audio('game_song','src/songs/08. Operation.mp3');
-        // this.load.image(enemyKey, 'src/images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
+        this.load.image('bg', '../images/BG.png')
+        this.load.spritesheet(itemKey, '../images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
+        this.load.image(playerKey, '../images/Gokuตัดเองจ้า.png')
+        this.load.image(bulletKey, '../images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
+        this.load.image('heart', '../images/Heart.png')
+        this.load.spritesheet(enemyKey, '../images/enemy.png', { frameWidth: 150, frameHeight: 150 })
+        this.load.image(boss1Key, '../images/Boss1.png', { frameWidth: 150, frameHeight: 173 })
+        this.load.image(bulletBossKey, '../images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
+        this.load.image('health_frame', '../images/Health-Frame.png');
+        this.load.image('black-bar', '../images/health-black.png');
+        this.load.image('red-bar', '../images/health-red.png');
+        this.load.audio('game_song','../songs/08. Operation.mp3');
+        // this.load.image(enemyKey, '../images/flyMan_stand.png', { frameWidth: 122, frameHeight: 139 })
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene: this,

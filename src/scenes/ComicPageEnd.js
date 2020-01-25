@@ -14,9 +14,9 @@ class ComicPageEnd extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('comicPgEnd','src/images/Comic-Ending.jpg');
-        this.load.image('nextbtn','src/images/Button_B2Menu.png');
-        this.load.audio('comic_song','src/songs/BG.mp3');
+        this.load.image('comicPgEnd','../images/Comic-Ending.jpg');
+        this.load.image('nextbtn','../images/Button_B2Menu.png');
+        this.load.audio('comic_song','../songs/BG.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,

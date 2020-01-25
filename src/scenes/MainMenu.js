@@ -13,12 +13,12 @@ class MainMenu extends Phaser.Scene {
         })
     }
     preload() {
-        this.load.image('bg','src/images/BG.png')
-        this.load.image('gameName', 'src/images/GameName.png')
-        this.load.image('howToPlay', 'src/images/Box_H2P.png')
-        this.load.image('storyM', 'src/images/Button_Story.png')
-        this.load.image('arcadeM', 'src/images/Button_Arcade.png')
-        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
+        this.load.image('bg','../images/BG.png')
+        this.load.image('gameName', '../images/GameName.png')
+        this.load.image('howToPlay', '../images/Box_H2P.png')
+        this.load.image('storyM', '../images/Button_Story.png')
+        this.load.image('arcadeM', '../images/Button_Arcade.png')
+        this.load.audio('MainMenu_song', '../songs/BG.mp3')
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         preloadScene({
