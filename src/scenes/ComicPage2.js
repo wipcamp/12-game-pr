@@ -1,9 +1,10 @@
-import {goToScene} from '../utils/goTo'
-import {preloadScene} from '../utils/preloadScene'
+import { startScene } from '../utils/goTo'
+import { preloadScene } from '../utils/preloadScene'
 
 let comicPg2
 let nextbtn
 let comic_song
+
 class ComicPage2 extends Phaser.Scene{
 
     constructor(){
@@ -35,11 +36,13 @@ class ComicPage2 extends Phaser.Scene{
         })
     }
     goGameScene(){
-        goToScene.call(this, 'GameScene');
+        startScene.call(this, 'GameScene');
     }
+
     update(delta, time){
          
     }
 
 }
+
 export default ComicPage2

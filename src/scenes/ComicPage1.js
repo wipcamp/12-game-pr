@@ -1,4 +1,4 @@
-import {goToScene} from '../utils/goTo'
+import {startScene} from '../utils/goTo'
 import {preloadScene} from '../utils/preloadScene'
 
 let comicPg1
@@ -35,7 +35,7 @@ class ComicPage1 extends Phaser.Scene{
         })
     }
     goComicPage2(){
-        goToScene.call(this, 'ComicPage2');
+        startScene.call(this, 'ComicPage2');
     }
     update(delta, time){
          

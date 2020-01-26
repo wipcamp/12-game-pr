@@ -4,16 +4,14 @@ import Player from './core/Player'
 import Boss from './core/Boss'
 import Item from './core/item';
 import bossBullet from './core/bossBullet';
-import ObjectProperties from './core/ObjectProperties';
 import EnemyWave from '../utils/enemyWave';
 import EnemyWaveContainer from '../utils/enemyWaveContainer';
 import { preloadScene } from '../utils/preloadScene'
-import { goToScene } from '../utils/goTo'
+import { startScene } from '../utils/goTo'
 
 let enemyKey = 'enemy'
 let enemy;
 let enemyGroup
-
 let playerKey = 'player';
 let player;
 
@@ -151,7 +149,6 @@ class GameScene extends Phaser.Scene {
         player.setSize(0.15)
         player.setHitBox(384, 216)
         player.setoffset(300, 200)
-
         bulletGroup = player.playerAreShooting(bulletKey, player);
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -299,7 +296,7 @@ class GameScene extends Phaser.Scene {
                 nextWave: function (nextWave) {
                     console.clear();
                     game_song.stop();
-                    goToScene.call(this.waveState.waveScene, 'ComicPageEnd');
+                    startScene.call(this.waveState.waveScene, 'ComicPageEnd');
                 }
 
             }
@@ -372,9 +369,10 @@ class GameScene extends Phaser.Scene {
         bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
-            healthPlayer = 0;
             game_song.stop();
-            this.scene.start('MainMenu');
+            console.clear();
+            startScene.call(this, 'MainMenu');
+            healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
