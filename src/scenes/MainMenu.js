@@ -35,13 +35,14 @@ class MainMenu extends Phaser.Scene {
         MainMenu_song = this.sound.add('MainMenu_song',{volume: 0.15})
         MainMenu_song.play()
         storyMode.setInteractive()
+        arcadeMode.setInteractive()
         //////////////////////////////////////////////////////////////////////////////////////////
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
             this.scene.start('ComicPage1');
         });
         //////////////////////////////////////////////////////////////////////////////////////////
-        arcadeMode.on('pointerdown', (pointer) =>{
+        arcadeMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
             this.scene.start('ArcadeMode');
         })

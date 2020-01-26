@@ -4,6 +4,7 @@ import ComicPage1 from './scenes/ComicPage1';
 import ComicPage2 from './scenes/ComicPage2';
 import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
+import ArcadeMode from './scenes/ArcadeMode';
 
 const config = {
     
@@ -21,7 +22,7 @@ const config = {
         }
     },
     scene: [
-        MainMenu,ComicPage1,ComicPage2,GameScene,ComicPageEnd
+        MainMenu,ArcadeMode,ComicPage1,ComicPage2,GameScene,ComicPageEnd
     ]
 };
 
