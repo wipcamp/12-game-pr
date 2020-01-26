@@ -45,6 +45,12 @@ class ArcadeMode extends Phaser.Scene {
     }
     preload(){
 
+        
+        //////////////////////////////////////////////////////////////////////////////////////////
+        preloadScene({
+            scene: this,
+            key: 'default'
+        })
     }
     create(){
 
@@ -52,4 +58,4 @@ class ArcadeMode extends Phaser.Scene {
     update(){
 
     }
-}
+}export default ArcadeMode

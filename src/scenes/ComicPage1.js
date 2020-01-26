@@ -28,7 +28,7 @@ class ComicPage1 extends Phaser.Scene{
         nextbtn = this.add.image(500, 760, 'nextbtn').setInteractive();
         comic_song = this.sound.add('comic_song',{volume: 0.15});
         comic_song.play();
- 
+        //////////////////////////////////////////////////////////////////////////////////////////
         nextbtn.on('pointerdown', (pointer) =>{
             comic_song.stop();
             this.goComicPage2();
