@@ -1,3 +1,5 @@
+import 'Phaser';
+
 import Bullet from './core/Bullet'
 import Enemy from './core/Enemy'
 import Player from './core/Player'
@@ -75,6 +77,25 @@ class ArcadeMode extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        //////////////////////////////////////////////////////////////////
+        // enemyGroup = this.physics.add.group();
+        // this.physics.add.overlap(player,enemyGroup,function(){console.log('test')})
+        // event = this.time.addEvent({
+        //     delay : 2000,
+        //     callback : function(){
+        //     enemy = this.physics.add.sprite(Phaser.Math.Between(0,900),20,enemyKey).setScale(0.1)
+        //     enemyGroup.add(enemy)
+        //     enemyGroup.setVelocity(200) 
+        //     },
+        //     callbackScope : this,
+        //     loop : true,
+        //     pause :true,
+        //     repeat : 0,
+        // })
+        
+        
+        
+        
 
 
     }
