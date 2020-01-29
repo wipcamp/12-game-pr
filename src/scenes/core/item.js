@@ -47,7 +47,7 @@ export default class Item extends Phaser.GameObjects.Sprite{
     spawnItemWaveInf(itemKey){
         itemGroup = this.scene.physics.add.group();
         event = this.scene.time.addEvent({
-            delay: 15000,
+            delay: 1000,
             callback: function () {
                 if(!this.scene.anims.get('itemAni')){
                     this.scene.anims.create({

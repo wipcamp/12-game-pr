@@ -28,7 +28,7 @@ let heart3
 let itemKey = 'items';
 let itemGroup
 let item;
-
+let HitItem
 
 let bg;
 
@@ -90,8 +90,31 @@ class ArcadeMode extends Phaser.Scene {
         //     callbackScope : this,
         //     loop : true,
         //     pause :true,
-        //     repeat : 0,
+        //      repeat : 0,
         // })
+        ////////////////////////////////////////////////////////////////////
+        item = new Item(this, 0, -1000, itemKey)
+        itemGroup = item.spawnItemWaveInf(itemKey)
+        ////////////////////////////////////////////////////////////////////
+        function HitItem(bulletGroup, itemGroup, ) {
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+            bulletGroup.disableBody(true, true);
+            bulletGroup.destroy();
+            // increaseHealth(1);
+            console.log("Ya")
+
+        }
+        /////////////////////////////////////////////////////////////////////
+        function touchingItem(player, itemGroup) {
+            itemGroup.disableBody(true, true);
+            itemGroup.destroy();
+            // increaseHealth(1);
+
+        }
+        /////////////////////////////////////////////////////////////////////
+        this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
+        this.physics.add.overlap(player, itemGroup,touchingItem)
         
         
         
