@@ -122,7 +122,7 @@ class ArcadeMode extends Phaser.Scene {
 
 
         item = new Item(this, 0, -1000, itemKey)
-        itemGroup = item.spawnItemWaveInf(itemKey)
+        itemGroup = item.spawnItemArcade(itemKey)
         ////////////////////////////////////////////////////////////////////
         function HitItem(bulletGroup, itemGroup, ) {
             itemGroup.disableBody(true, true);
