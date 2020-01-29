@@ -77,22 +77,49 @@ class ArcadeMode extends Phaser.Scene {
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
+         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
+         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
+         heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
         //////////////////////////////////////////////////////////////////
-        // enemyGroup = this.physics.add.group();
-        // this.physics.add.overlap(player,enemyGroup,function(){console.log('test')})
-        // event = this.time.addEvent({
-        //     delay : 2000,
-        //     callback : function(){
-        //     enemy = this.physics.add.sprite(Phaser.Math.Between(0,900),20,enemyKey).setScale(0.1)
-        //     enemyGroup.add(enemy)
-        //     enemyGroup.setVelocity(200) 
-        //     },
-        //     callbackScope : this,
-        //     loop : true,
-        //     pause :true,
-        //      repeat : 0,
-        // })
+        
+       
+            enemy = new Enemy( this,0, -1000, enemyKey);
+            enemyGroup = enemy.spawnEnemyArcede(enemyKey, player);
         ////////////////////////////////////////////////////////////////////
+        function touchingEnemy(player, enemyGroup,) {
+            enemyGroup.disableBody(true, true);
+            // bulletBossKey.disableBody(true,true);
+            enemyGroup.destroy();
+            // bulletBossKey.destroy();
+            healthPlayer = healthPlayer - 1;
+            if (healthPlayer === 2) {
+                heart3.setVisible(false);
+            }
+            else if (healthPlayer === 1) {
+                heart2.setVisible(false);
+            }
+            else if (healthPlayer === 0) {
+                heart1.setVisible(false);
+            }
+        }
+
+        function HitEnemy(bulletGroup, enemyGroup, ) {
+            enemyGroup.disableBody(true, true);
+            enemyGroup.destroy();
+            bulletGroup.disableBody(true, true);
+            bulletGroup.destroy();
+            
+            console.log("Hit")
+
+        }
+
+        this.physics.add.overlap(player, enemyGroup, touchingEnemy,null, this)
+        this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy)
+
+        ////////////////////////////////////////////////////////////////////
+
+
         item = new Item(this, 0, -1000, itemKey)
         itemGroup = item.spawnItemWaveInf(itemKey)
         ////////////////////////////////////////////////////////////////////
