@@ -114,6 +114,7 @@ class ArcadeMode extends Phaser.Scene {
 
         }
 
+        
         this.physics.add.overlap(player, enemyGroup, touchingEnemy,null, this)
         this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy)
 
@@ -128,7 +129,7 @@ class ArcadeMode extends Phaser.Scene {
             itemGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
-            // increaseHealth(1);
+             increaseHealth(1);
             console.log("Ya")
 
         }
@@ -136,12 +137,31 @@ class ArcadeMode extends Phaser.Scene {
         function touchingItem(player, itemGroup) {
             itemGroup.disableBody(true, true);
             itemGroup.destroy();
-            // increaseHealth(1);
+             increaseHealth(1);
 
         }
-        /////////////////////////////////////////////////////////////////////
+        
         this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
         this.physics.add.overlap(player, itemGroup,touchingItem)
+        ///////////////////////////////////////////////////////////////////////
+        function increaseHealth(health) {
+            if (healthPlayer < 3 && healthPlayer > 0) {
+                healthPlayer += health;
+                showHealth();
+            }
+        }
+
+        function showHealth() {
+            if (healthPlayer == 3) {
+                heart3.setVisible(true);
+            }
+            else if (healthPlayer == 2) {
+                heart2.setVisible(true);
+            }
+            else if (healthPlayer == 1) {
+                heart1.setVisible(true);
+            }
+        }
         
         
         
