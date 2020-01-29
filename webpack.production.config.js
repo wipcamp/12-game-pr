@@ -75,5 +75,11 @@ module.exports = {
             { test: [ /\.vert$/, /\.frag$/ ], use: 'raw-loader' }
         ]
     },
-    optimization: {minimize: true}
+    optimization: {minimize: true},
+    resolve: {
+         alias: {
+             'phaser': phaser,
+             'Phaser': phaser,
+         }
+     }
 };
