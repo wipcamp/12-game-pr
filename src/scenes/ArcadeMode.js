@@ -9,6 +9,7 @@ import EnemyWave from '../utils/enemyWave';
 import EnemyWaveContainer from '../utils/enemyWaveContainer';
 import { preloadScene } from '../utils/preloadScene';
 import { goToScene } from '../utils/goTo'
+import {startScene} from '../utils/goTo'
 
 let enemyKey = 'enemy'
 let enemy;
@@ -96,8 +97,6 @@ class ArcadeMode extends Phaser.Scene {
          heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
          heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
         //////////////////////////////////////////////////////////////////
-        
-       
             enemy = new Enemy( this,0, -1000, enemyKey);
             enemyGroup = enemy.spawnEnemyArcede(enemyKey, player);
         ////////////////////////////////////////////////////////////////////
@@ -182,6 +181,12 @@ class ArcadeMode extends Phaser.Scene {
 
     }
     update(){
+        if (healthPlayer < 1) {
+            game_song.stop();
+            console.clear();
+            startScene.call(this, 'GameOver');
+            healthPlayer = 3;
+        }
         scoreText.setText('Score: ' + score);
         bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
