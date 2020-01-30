@@ -183,7 +183,6 @@ class ArcadeMode extends Phaser.Scene {
     update(){
         if (healthPlayer < 1) {
             game_song.stop();
-            console.clear();
             startScene.call(this, 'GameOver');
             healthPlayer = 3;
         }

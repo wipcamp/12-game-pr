@@ -34,7 +34,7 @@ class scoreBoard extends Phaser.Scene{
     }
 
     goToMainMenu(){
-        startScene.cell(this,'MainMenu');
+        startScene.call(this,'MainMenu');
     
     }
 
