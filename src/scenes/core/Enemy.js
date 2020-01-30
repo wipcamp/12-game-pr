@@ -30,7 +30,7 @@ export default class Enemy extends ObjectProperties{
                         key: 'enemyAni',
                         frames: this.scene.anims.generateFrameNumbers(enemyKey, {
                             start: 0,
-                            end: 5
+                            end: 6
             
                         }),
                         framerate: 1,
@@ -48,7 +48,7 @@ export default class Enemy extends ObjectProperties{
             callbackScope: this,
             loop: false,
             pause: false,
-            timeScale: 1,
+            // timeScale: 1,
             repeat : 9
         })
         return enemyGroup;
@@ -65,7 +65,7 @@ export default class Enemy extends ObjectProperties{
                         key: 'enemyAni',
                         frames: this.scene.anims.generateFrameNumbers(enemyKey, {
                             start: 0,
-                            end: 5
+                            end: 6
             
                         }),
                         framerate: 1,
@@ -92,14 +92,14 @@ export default class Enemy extends ObjectProperties{
         enemyGroup = this.scene.physics.add.group();
 
         event = this.scene.time.addEvent({
-            delay: 2000,
+            delay: 400,
             callback: function () {
                 if (!this.scene.anims.get('enemyAni')){
                     this.scene.anims.create({
                         key: 'enemyAni',
                         frames: this.scene.anims.generateFrameNumbers(enemyKey, {
                             start: 0,
-                            end: 5
+                            end: 6
             
                         }),
                         framerate: 1,

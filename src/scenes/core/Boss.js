@@ -25,6 +25,19 @@ export default class Boss extends bossBullet{
      })
      }
      
+   playAnimateB(boss,bossKey){
+    this.scene.anims.create({
+      key: 'bossAni',
+      frames: this.scene.anims.generateFrameNumbers(bossKey, {
+          start: 0,
+          end: 12
+      }),
+      framerate: 1,
+      repeat: -1
+  })
+  boss.anims.play('bossAni', true);
+  }
+     
      bossCheckIsDead(value){
         return value;
      }

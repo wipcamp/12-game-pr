@@ -31,11 +31,11 @@ class ComicPage1 extends Phaser.Scene{
         //////////////////////////////////////////////////////////////////////////////////////////
         nextbtn.on('pointerdown', (pointer) =>{
             comic_song.stop();
-            this.goComicPage2();
+            this.goGameScene();
         })
     }
-    goComicPage2(){
-        startScene.call(this, 'ComicPage2');
+    goGameScene(){
+        startScene.call(this, 'GameScene');
     }
     update(delta, time){
          

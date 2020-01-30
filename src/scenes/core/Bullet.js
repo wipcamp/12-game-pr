@@ -11,6 +11,7 @@ export default class Bullet extends ObjectProperties {
         this.scene = scene;
         this.scene.add.existing(this);
         this.scene.physics.world.enableBody(this, 0);
+        
     }
 
     playerAreShooting(bulletKey, player) {
@@ -20,7 +21,7 @@ export default class Bullet extends ObjectProperties {
             callback: function () {
                 let bullet = this.scene.physics.add.image(player.x, player.y - 50, bulletKey)
                 bullets.add(bullet)
-                bullet.setVelocityY(-800)
+                bullet.setVelocityY(-800).setScale(0.5);
                 setTimeout(() => {
                     bullet.destroy()
                 }, (player.y / bullet.body.speed) * 1000)
@@ -36,7 +37,7 @@ export default class Bullet extends ObjectProperties {
             callback: function () {
                 let bullet = this.scene.physics.add.image(player.x, player.y - 50, bulletKey)
                 bullets.add(bullet)
-                bullet.setVelocityY(-800)
+                bullet.setVelocityY(-800).setScale(0.5);
                 setTimeout(() => {
                     bullet.destroy()
                 }, (player.y / bullet.body.speed) * 1000)
@@ -44,7 +45,7 @@ export default class Bullet extends ObjectProperties {
             loop: true,
             paused: false,
             callbackScope: this,
-            startAt: 600
+            startAt: 750
         })
                    
         bulletEvent3 = this.scene.time.addEvent({
@@ -52,7 +53,7 @@ export default class Bullet extends ObjectProperties {
             callback: function () {
                 let bullet = this.scene.physics.add.image(player.x, player.y - 50, bulletKey)
                 bullets.add(bullet)
-                bullet.setVelocityY(-800)
+                bullet.setVelocityY(-800).setScale(0.5);
                 setTimeout(() => {
                     bullet.destroy()
                 }, (player.y / bullet.body.speed) * 1000)
@@ -60,7 +61,7 @@ export default class Bullet extends ObjectProperties {
             loop: true,
             paused: false,
             callbackScope: this,
-            startAt: 700
+            startAt: 1000
         })
         return bullets
 

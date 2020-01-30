@@ -1,8 +1,9 @@
 import 'Phaser';
+import ObjectProperties from './ObjectProperties';
 let event;
 let itemGroup;
 
-export default class Item extends Phaser.GameObjects.Sprite {
+export default class Item extends ObjectProperties {
     constructor(scene, x, y, key) {
         super(scene, x, y, key);
         this.key = key;
@@ -78,7 +79,7 @@ export default class Item extends Phaser.GameObjects.Sprite {
     spawnItemArcade(itemKey) {
         itemGroup = this.scene.physics.add.group();
         event = this.scene.time.addEvent({
-            delay: 1000,
+            delay: 15000,
             callback: function () {
                 if (!this.scene.anims.get('itemAni')) {
                     this.scene.anims.create({

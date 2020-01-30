@@ -96,12 +96,12 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.image('bg', 'src/images/BG.png')
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
-        this.load.image(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
+        this.load.spritesheet(playerKey, 'src/images/player.png', { frameWidth: 100, frameHeight: 100 })
+        this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
         this.load.image('heart', 'src/images/Heart.png')
-        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 150, frameHeight: 150 })
-        this.load.image(boss1Key, 'src/images/Boss1.png', { frameWidth: 150, frameHeight: 173 })
-        this.load.image(bulletBossKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
+        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 70, frameHeight: 121 })
+        this.load.spritesheet(boss1Key, 'src/images/Boss.png', { frameWidth: 323, frameHeight: 279 })
+        this.load.spritesheet(bulletBossKey, 'src/images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
@@ -145,10 +145,7 @@ class GameScene extends Phaser.Scene {
         heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
         ////////////////////////////////////////////////////////////////////////////////////////// Player Create
         player = new Player(this, 300, 750, playerKey)
-        player.setWorldBound(true)
-        player.setSize(0.15)
-        player.setHitBox(384, 216)
-        player.setoffset(300, 200)
+        player.setWorldBound(true);
         bulletGroup = player.playerAreShooting(bulletKey, player);
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -166,7 +163,7 @@ class GameScene extends Phaser.Scene {
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveCompleteOn: function () {
-                    return this.enemyKillCount === 1;
+                    return this.enemyKillCount === 10;
                 },
                 waveSteps: function () {
                     console.clear();
@@ -221,7 +218,9 @@ class GameScene extends Phaser.Scene {
                     boss1.maxHealth = 100;
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
+                    // boss1.setoffset()
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
+                    boss1.playAnimateB(boss1,boss1Key);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
@@ -271,10 +270,12 @@ class GameScene extends Phaser.Scene {
                     boss1.moveUp(250);
                     boss1.setWorldBound(true);
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
+                    boss1.playAnimateB(boss1,boss1Key);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
+                    health_frame.setDepth(1);
                     healthBar.setVisible(true);
                     health_frame.setVisible(true);
                 },
@@ -361,6 +362,17 @@ class GameScene extends Phaser.Scene {
         healthBar.fixedToCamera = true;
         health_frame = this.add.image(171, 20, 'health_frame').setOrigin(0, 0);
         health_frame.setVisible(false);
+
+        let playerAni = this.time.addEvent({
+            delay: 1000,
+            callback: function () {
+                player.playAnimate(player,playerKey);
+            },
+            loop: true,
+            paused: false,
+            callbackScope: this,
+            startAt: 0
+        })
         
     }
    

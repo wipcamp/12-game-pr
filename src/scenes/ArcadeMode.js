@@ -34,6 +34,8 @@ let bg;
 
 let game_song
 
+let scoreText;
+var score=0;
 
 class ArcadeMode extends Phaser.Scene {
     constructor() {
@@ -45,10 +47,10 @@ class ArcadeMode extends Phaser.Scene {
 
         this.load.image('bg', 'src/images/BG.png')  
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.image(playerKey, 'src/images/Gokuตัดเองจ้า.png')
-        this.load.image(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 25, frameHeight: 72 })
+        this.load.spritesheet(playerKey, 'src/images/player.png', { frameWidth: 100, frameHeight: 100 })
+        this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
         this.load.image('heart', 'src/images/Heart.png')
-        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 150, frameHeight: 150 })
+        this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 70, frameHeight: 121 })
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
@@ -66,11 +68,23 @@ class ArcadeMode extends Phaser.Scene {
         game_song.play();
         ////////////////////////////////////////////////////////////////////
         player = new Player(this, 300, 750, playerKey)
-        player.setWorldBound(true)
-        player.setSize(0.15)
-        player.setHitBox(384, 216)
-        player.setoffset(300, 200)
-
+        // player.setWorldBound(true)
+        // player.setSize(0.15)
+        // player.setHitBox(384, 216)
+        // player.setoffset(300, 200)
+        let playerAni = this.time.addEvent({
+            delay: 1000,
+            callback: function () {
+                player.playAnimate(player,playerKey);
+            },
+            loop: true,
+            paused: false,
+            callbackScope: this,
+            startAt: 0
+        })
+        //////////////////////////////////////////////////////////////////
+        scoreText = this.add.text(20, 20, 'score: 0', { fontSize: '20px', fill: '#ffffff' });
+        //////////////////////////////////////////////////////////////////
         bulletGroup = player.playerAreShooting(bulletKey, player);
         //////////////////////////////////////////////////////////////////
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -105,11 +119,11 @@ class ArcadeMode extends Phaser.Scene {
         }
 
         function HitEnemy(bulletGroup, enemyGroup, ) {
+            score = score + 10;
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
-            
             console.log("Hit")
 
         }
@@ -119,8 +133,6 @@ class ArcadeMode extends Phaser.Scene {
         this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy)
 
         ////////////////////////////////////////////////////////////////////
-
-
         item = new Item(this, 0, -1000, itemKey)
         itemGroup = item.spawnItemArcade(itemKey)
         ////////////////////////////////////////////////////////////////////
@@ -170,6 +182,7 @@ class ArcadeMode extends Phaser.Scene {
 
     }
     update(){
+        scoreText.setText('Score: ' + score);
         bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
