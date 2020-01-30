@@ -5,6 +5,9 @@ let gameOver
 let overScore
 let button_back
 
+let score = sessionStorage.getItem("score")
+let scoreText
+
 class GameOver extends Phaser.Scene{
 
     constructor(){
@@ -28,6 +31,8 @@ class GameOver extends Phaser.Scene{
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         button_back = this.add.image(300, 750, 'goMainMenu').setInteractive();
         overScore = this.add.image(300, 360, 'score')
+
+        scoreText = this.add.text(280, 150, score, { fontSize: '30px', fill: '#000000' });
         
         button_back.on('pointerdown', (pointer) =>{
             this.goToMainMenu();

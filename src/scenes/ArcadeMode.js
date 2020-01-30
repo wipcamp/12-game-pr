@@ -4,11 +4,7 @@ import Bullet from './core/Bullet'
 import Enemy from './core/Enemy'
 import Player from './core/Player'
 import Item from './core/item';
-import ObjectProperties from './core/ObjectProperties';
-import EnemyWave from '../utils/enemyWave';
-import EnemyWaveContainer from '../utils/enemyWaveContainer';
 import { preloadScene } from '../utils/preloadScene';
-import { goToScene } from '../utils/goTo'
 import {startScene} from '../utils/goTo'
 
 let enemyKey = 'enemy'
@@ -32,11 +28,12 @@ let item;
 let HitItem
 
 let bg;
+let scoreBG
 
 let game_song
 
-let scoreText;
-var score=0;
+let scoreText
+var score = 0
 
 class ArcadeMode extends Phaser.Scene {
     constructor() {
@@ -56,6 +53,7 @@ class ArcadeMode extends Phaser.Scene {
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
         this.load.audio('game_song','src/songs/08. Operation.mp3');
+        this.load.image('scoreBG','src/images/Box_Score.png');
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene: this,
@@ -64,6 +62,7 @@ class ArcadeMode extends Phaser.Scene {
     }
     create(){
         bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
+        scoreBG = this.add.image(60,40,'scoreBG')
         /////////////////////////////////////////////////////////////////////
         game_song = this.sound.add('game_song',{volume: 0.15});
         game_song.play();
@@ -84,7 +83,7 @@ class ArcadeMode extends Phaser.Scene {
             startAt: 0
         })
         //////////////////////////////////////////////////////////////////
-        scoreText = this.add.text(20, 20, 'score: 0', { fontSize: '20px', fill: '#ffffff' });
+        scoreText = this.add.text(23, 40,  score, { fontSize: '20px', fill: '#ffffff' });
         //////////////////////////////////////////////////////////////////
         bulletGroup = player.playerAreShooting(bulletKey, player);
         //////////////////////////////////////////////////////////////////
@@ -174,10 +173,7 @@ class ArcadeMode extends Phaser.Scene {
             }
         }
         
-        
-        
-        
-
+    
 
     }
     update(){
@@ -185,9 +181,11 @@ class ArcadeMode extends Phaser.Scene {
             game_song.stop();
             startScene.call(this, 'GameOver');
             healthPlayer = 3;
+            //////////////////////////////////////////////
+            sessionStorage.setItem("score",score)
             score = 0;
         }
-        scoreText.setText('Score: ' + score);
+        scoreText.setText(" " + score);
         bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {

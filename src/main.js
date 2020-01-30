@@ -25,6 +25,7 @@ const config = {
     },
     scene: [
         MainMenu,ArcadeMode,ComicPage1,GameScene,ComicPageEnd,GameOver,scoreBoard
+        
     ]
 };
 
