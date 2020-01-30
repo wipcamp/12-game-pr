@@ -69,7 +69,7 @@ class ArcadeMode extends Phaser.Scene {
         game_song.play();
         ////////////////////////////////////////////////////////////////////
         player = new Player(this, 300, 750, playerKey)
-        // player.setWorldBound(true)
+        player.setWorldBound(true)
         // player.setSize(0.15)
         // player.setHitBox(384, 216)
         // player.setoffset(300, 200)
@@ -123,7 +123,7 @@ class ArcadeMode extends Phaser.Scene {
             enemyGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
-            console.log("Hit")
+            // console.log("Hit")
 
         }
 
@@ -141,7 +141,7 @@ class ArcadeMode extends Phaser.Scene {
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
              increaseHealth(1);
-            console.log("Ya")
+            // console.log("Ya")
 
         }
         /////////////////////////////////////////////////////////////////////
@@ -185,6 +185,7 @@ class ArcadeMode extends Phaser.Scene {
             game_song.stop();
             startScene.call(this, 'GameOver');
             healthPlayer = 3;
+            score = 0;
         }
         scoreText.setText('Score: ' + score);
         bg.tilePositionY -= 3
