@@ -130,14 +130,12 @@ class GameScene extends Phaser.Scene {
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
             increaseHealth(1);
-
         }
         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Player
         function touchingItem(player, itemGroup) {
             itemGroup.disableBody(true, true);
             itemGroup.destroy();
             increaseHealth(1);
-
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)

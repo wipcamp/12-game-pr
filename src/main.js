@@ -5,6 +5,8 @@ import ComicPage2 from './scenes/ComicPage2';
 import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
 import ArcadeMode from './scenes/ArcadeMode';
+import GameOver from './scenes/GameOver';
+import scoreBoard from './scenes/scoreBoard';
 
 const config = {
     
