@@ -36,7 +36,8 @@ class GameOver extends Phaser.Scene{
         
         button_back.on('pointerdown', (pointer) =>{
             this.goToMainMenu();
-        })
+        });
+
     }
 
     goToMainMenu(){
@@ -44,7 +45,7 @@ class GameOver extends Phaser.Scene{
     }
 
     update(delta,time){
-
+        
     }
 }
 

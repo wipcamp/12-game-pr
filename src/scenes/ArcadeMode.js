@@ -179,7 +179,8 @@ class ArcadeMode extends Phaser.Scene {
     update(){
         if (healthPlayer < 1) {
             game_song.stop();
-            startScene.call(this, 'GameOver');
+            this.scene.start('GameOver', {score: this.score});
+            // startScene.call(this, 'GameOver');
             healthPlayer = 3;
             //////////////////////////////////////////////
             sessionStorage.setItem("score",score)
