@@ -1,5 +1,5 @@
-import {goToScene} from '../utils/goTo'
-import {preloadScene} from '../utils/preloadScene'
+import { startScene } from '../utils/goTo'
+import { preloadScene } from '../utils/preloadScene'
 
 let comic_song
 let comicPgEnd
@@ -35,7 +35,7 @@ class ComicPageEnd extends Phaser.Scene{
         })
     }
     goMainMenu(){
-        goToScene.call(this, 'MainMenu')
+        startScene.call(this, 'MainMenu')
     }
     update(delta, time){
          

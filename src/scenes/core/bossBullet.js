@@ -14,13 +14,23 @@ export default class bossBullet extends ObjectProperties {
     }
 
    bossIsShooting(b_bulletKey, boss) {
+    // this.scene.anims.create({
+    //     key: 'bossAni',
+    //     frames: this.scene.anims.generateFrameNumbers(b_bulletKey, {
+    //         start: 0,
+    //         end: 5
+    //     }),
+    //     framerate: 1,
+    //     repeat: 5
+    // })
         b_bullets = this.scene.physics.add.group();
         b_bulletEvent1 = this.scene.time.addEvent({
-            delay: 1000,
+            delay: 5000,
             callback: function() {
                 let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
                 b_bullets.add(b_bullet)
-                b_bullet.setVelocityY(600)
+                b_bullet.setVelocityY(600).setScale(0.5);
+                
                 setTimeout(() => {
                     b_bullet.destroy()
                 }, 4000)
@@ -33,11 +43,11 @@ export default class bossBullet extends ObjectProperties {
         })
 
         b_bulletEvent2 = this.scene.time.addEvent({
-            delay: 1000,
+            delay: 5000,
             callback: function() {
                 let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
                 b_bullets.add(b_bullet)
-                b_bullet.setVelocityY(600)
+                b_bullet.setVelocityY(600).setScale(0.5);
                 b_bullet.setVelocityX(300)
                 setTimeout(() => {
                     b_bullet.destroy()
@@ -51,11 +61,11 @@ export default class bossBullet extends ObjectProperties {
         })
 
         b_bulletEvent3 = this.scene.time.addEvent({
-            delay: 1000,
+            delay: 5000,
             callback: function() {
                 let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
                 b_bullets.add(b_bullet)
-                b_bullet.setVelocityY(600)
+                b_bullet.setVelocityY(600).setScale(0.5);
                 b_bullet.setVelocityX(-300)
                 setTimeout(() => {
                     b_bullet.destroy()

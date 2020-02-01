@@ -30,7 +30,7 @@ export default class Enemy extends ObjectProperties{
                         key: 'enemyAni',
                         frames: this.scene.anims.generateFrameNumbers(enemyKey, {
                             start: 0,
-                            end: 5
+                            end: 6
             
                         }),
                         framerate: 1,
@@ -48,7 +48,7 @@ export default class Enemy extends ObjectProperties{
             callbackScope: this,
             loop: false,
             pause: false,
-            timeScale: 1,
+            // timeScale: 1,
             repeat : 9
         })
         return enemyGroup;
@@ -65,7 +65,7 @@ export default class Enemy extends ObjectProperties{
                         key: 'enemyAni',
                         frames: this.scene.anims.generateFrameNumbers(enemyKey, {
                             start: 0,
-                            end: 5
+                            end: 6
             
                         }),
                         framerate: 1,
@@ -87,7 +87,42 @@ export default class Enemy extends ObjectProperties{
         })
         return enemyGroup;
     }
+    ////////////////////////////////////////////////Enemy Arcade/////////////////////////////////////////////////////////////////////////
+    spawnEnemyArcede(enemyKey,player){
+        enemyGroup = this.scene.physics.add.group();
 
+        event = this.scene.time.addEvent({
+            delay: 400,
+            callback: function () {
+                if (!this.scene.anims.get('enemyAni')){
+                    this.scene.anims.create({
+                        key: 'enemyAni',
+                        frames: this.scene.anims.generateFrameNumbers(enemyKey, {
+                            start: 0,
+                            end: 6
+            
+                        }),
+                        framerate: 1,
+                        repeat: -1
+                    })
+                }
+                let enemy = this.scene.physics.add.sprite(Phaser.Math.Between(0, 600), 20, enemyKey)
+                enemy.anims.play('enemyAni', true)
+                // enemy.setScale(0.1)
+                enemyGroup.add(enemy)
+                enemyGroup.setVelocityY(500)
+                for (let i = 0; i < enemyGroup.getLength(); i++)
+                    this.scene.physics.moveToObject(enemyGroup.getChildren()[i], player, 300, this)
+            },
+            callbackScope: this,
+            loop: true,
+            pause: false,
+            timeScale: 1,
+            
+        })
+        return enemyGroup;
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
     removeSpawnEnemyWave(){
         event.remove();
     }
