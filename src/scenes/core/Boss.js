@@ -11,18 +11,21 @@ export default class Boss extends bossBullet{
       
 
     }
-    BossMoving(value,Time,Pos,Con){
+    BossMoving(value,valueloop,Time,Pos,Con){
       let event = this.scene.time.addEvent({
        delay: Time,
+       pause: value,
+       loop: valueloop,
        callback: function () {
+         if(value == false){
          this.body.setVelocityX(Phaser.Math.Between(Con, Pos));
+         }
        },
        callbackScope: this,
-       loop: true,
        timeScale: 1,
-       pause: value
       //  repeat: 10
      })
+     return value;
      }
      
    playAnimateB(boss,bossKey){

@@ -29,6 +29,12 @@ let bulletBossKey = 'bossBullet';
 let b_bullets;
 let bulletBossGroup;
 
+let boss2;
+let boss2Key = 'boss2';
+let bulletBoss2Key = 'bossBullet2';
+let b_bullets2;
+let bulletBoss2Group;
+
 let itemKey = 'items';
 let itemGroup
 let item;
@@ -45,7 +51,7 @@ let boss1MaxHealth = 100;
 let game_song
 
 
-function touchingWaveEnemy (player, waveEnemyGroup) {
+function touchingWaveEnemy(player, waveEnemyGroup) {
     this.updateWaveState({
         enemyKillCount: this.waveState.enemyKillCount + 1
     });
@@ -81,7 +87,7 @@ function HitBoss1(boss1, bulletGroup) {
         this.updateWaveState({
             majinBuuKilled: true,
         });
-         boss1.bossStopShooting();
+        boss1.bossStopShooting();
         boss1.destroy();
     }
 }
@@ -94,6 +100,8 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
+        this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
+        this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
         this.load.image('bg', 'src/images/BG.png')
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/player.png', { frameWidth: 100, frameHeight: 100 })
@@ -105,7 +113,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
         this.load.image('red-bar', 'src/images/health-red.png');
-        this.load.audio('game_song','src/songs/08. Operation.mp3');
+        this.load.audio('game_song', 'src/songs/08. Operation.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene: this,
@@ -121,7 +129,7 @@ class GameScene extends Phaser.Scene {
         //itemGroup = item.spawnItemWave(itemKey)
         itemGroup = item.spawnItemWaveInf(itemKey)
         //////////////////////////////////////////////////////////////////////////////////////////  song theme
-        game_song = this.sound.add('game_song',{volume: 0.15});
+        game_song = this.sound.add('game_song', { volume: 0.15 });
         game_song.play();
         //////////////////////////////////////////////////////////////////////////////////////////  OverLap Item/Bullet
         function HitItem(bulletGroup, itemGroup, ) {
@@ -138,6 +146,9 @@ class GameScene extends Phaser.Scene {
             increaseHealth(1);
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
+        let boss1;
+
+
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
         heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
@@ -174,7 +185,7 @@ class GameScene extends Phaser.Scene {
                         enemyKillCount: 0
                     });
                     //////////////////////////////////////////////////////////////////////////////////////////
-                    waveScene.physics.add.overlap(player, waveEnemyGroup,touchingWaveEnemy.bind(waves[0]), null, this);
+                    waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[0]), null, this);
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this);
                 },
                 waveCompleted: function () {
@@ -211,22 +222,29 @@ class GameScene extends Phaser.Scene {
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[1]), null, this);
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[1]), null, this);
-                    let boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
-                    boss1.health = 100;
-                    boss1.maxHealth = 100;
+                    boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
+                    boss1.health = 100; 
+                    boss1.maxHealth = 100;   
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
+                    boss1.BossMoving(false,true, 1000, 200, -200);
                     // boss1.setoffset()
+                    /**************************************************************** */
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
-                    boss1.playAnimateB(boss1,boss1Key);
+                    /*************************************************************** */
+                    boss1.playAnimateB(boss1, boss1Key);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
+                    health_frame.setDepth(1);
+                    backgroundBar.setDepth(1);
+                    healthBar.setDepth(1);
                     healthBar.setVisible(true);
                     health_frame.setVisible(true);
                 },
                 waveCompleted: function () {
+                    boss1.BossMoving(true,false, 1000, 200, -200);
                     console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' completed!');
                     item.pauseSpawnItemWave();
@@ -236,6 +254,7 @@ class GameScene extends Phaser.Scene {
                     health_frame.setVisible(false);
                 },
                 waveEnded: function () {
+                    boss1.BossMoving(true,false, 1000, 200, -200);
                     console.clear();
                     console.log('Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' ended!');
                 },
@@ -261,19 +280,21 @@ class GameScene extends Phaser.Scene {
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[2]), null, this);
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[2]), null, this);
-                    let boss1 = new Boss(waves[2].waveState.waveScene, 300, 500, boss1Key);
-                    boss1.health = 300;
-                    boss1.maxHealth = 300;
-                    healthBar.setScale(boss1.health / boss1.maxHealth, 1);
-                    boss1.moveUp(250);
-                    boss1.setWorldBound(true);
-                    bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
-                    boss1.playAnimateB(boss1,boss1Key);
+                    let boss2 = new Boss(waves[2].waveState.waveScene, 300, 500, boss2Key);
+                    boss2.health = 300;
+                    boss2.maxHealth = 300;
+                    healthBar.setScale(boss2.health / boss2.maxHealth, 1);
+                    boss2.moveUp(250);
+                    boss2.setWorldBound(true);
+                    bulletBoss2Group = boss2.bossIsShooting(bulletBossKey, boss2);
+                    // boss1.playAnimateB(boss1,boss1Key);
                     //////////////////////////////////////////////////////////////////////////////////////////
-                    waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
-                    waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
+                    waveScene.physics.add.overlap(boss2, bulletGroup, HitBoss1, null, this);
+                    waveScene.physics.add.overlap(player, bulletBoss2Group, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
                     health_frame.setDepth(1);
+                    backgroundBar.setDepth(1);
+                    healthBar.setDepth(1);
                     healthBar.setVisible(true);
                     health_frame.setVisible(true);
                 },
@@ -310,8 +331,8 @@ class GameScene extends Phaser.Scene {
         enw.addEnemyWaves(waves);
         enw.makeSequential();
         enw.run();
-        
-        function touchingEnemy(player, enemyGroup,) {
+
+        function touchingEnemy(player, enemyGroup, ) {
             enemyGroup.disableBody(true, true);
             // bulletBossKey.disableBody(true,true);
             enemyGroup.destroy();
@@ -327,8 +348,8 @@ class GameScene extends Phaser.Scene {
                 heart1.setVisible(false);
             }
         }
-        
-        this.physics.add.overlap(player, enemyGroup, touchingEnemy,null, this)
+
+        this.physics.add.overlap(player, enemyGroup, touchingEnemy, null, this)
         this.physics.add.overlap(player, itemGroup, touchingItem)
 
         function increaseHealth(health) {
@@ -364,16 +385,16 @@ class GameScene extends Phaser.Scene {
         let playerAni = this.time.addEvent({
             delay: 1000,
             callback: function () {
-                player.playAnimate(player,playerKey);
+                player.playAnimate(player, playerKey);
             },
             loop: true,
             paused: false,
             callbackScope: this,
             startAt: 0
         })
-        
+
     }
-   
+
 
     update(delta, time) {
         bg.tilePositionY -= 3
