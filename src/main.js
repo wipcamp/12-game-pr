@@ -5,6 +5,8 @@ import ComicPage2 from './scenes/ComicPage2';
 import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
 import ArcadeMode from './scenes/ArcadeMode';
+import GameOver from './scenes/GameOver';
+import scoreBoard from './scenes/scoreBoard';
 
 const config = {
     
@@ -17,12 +19,13 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true,
+            debug: false,
             gravity: {y:0}
         }
     },
     scene: [
-        MainMenu,ArcadeMode,ComicPage1,ComicPage2,GameScene,ComicPageEnd
+        MainMenu,ArcadeMode,ComicPage1,GameScene,ComicPageEnd,GameOver,scoreBoard
+        
     ]
 };
 

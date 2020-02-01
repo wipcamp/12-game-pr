@@ -45,4 +45,7 @@ export default class ObjectProperties extends Phaser.GameObjects.Sprite {
     setdepth(value){
         this.setDepth(value);
     }
+    setCenter(){
+        this.setOrigin(0,0);
+    }
 }

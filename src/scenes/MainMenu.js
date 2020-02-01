@@ -1,4 +1,5 @@
 import { preloadScene } from '../utils/preloadScene'
+import { startScene } from '../utils/goTo'
 let background
 let gameName
 let howToPlay
@@ -44,9 +45,13 @@ class MainMenu extends Phaser.Scene {
         //////////////////////////////////////////////////////////////////////////////////////////
         arcadeMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.scene.start('ArcadeMode');
+            this.goToArcadeMode()
         })
 
+    }
+
+    goToArcadeMode(){
+        startScene.call(this,'ArcadeMode')
     }
     
     update(delta, time) {
