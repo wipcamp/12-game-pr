@@ -10,15 +10,17 @@ export default class Player extends Bullet {
 
   }
   playAnimate(player, playerKey) {
-    this.scene.anims.create({
-      key: 'playerAni',
-      frames: this.scene.anims.generateFrameNumbers(playerKey, {
-        start: 0,
-        end: 3
-      }),
-      framerate: 1,
-      repeat: 0
-    })
+     if (!this.scene.anims.get('playerAni')){
+      this.scene.anims.create({
+        key: 'playerAni',
+        frames: this.scene.anims.generateFrameNumbers(playerKey, {
+          start: 0,
+          end: 3
+        }),
+        framerate: 1,
+        repeat: 0
+      })
+     }
     player.anims.play('playerAni', true);
   }
 }

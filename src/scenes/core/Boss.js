@@ -13,38 +13,46 @@ export default class Boss extends bossBullet {
 
 
   }
-  BossMoving(value, valueloop, Time, Pos, Con) {
+  BossMoving(Time, Pos, Con) {
     event = this.scene.time.addEvent({
       delay: Time,
-      pause: value,
-      loop: valueloop,
+      pause: false,
+      loop: true,
       callback: function () {
-        if (value == false) {
           this.body.setVelocityX(Phaser.Math.Between(Con, Pos));
-        }
       },
       callbackScope: this,
-      timeScale: 1,
-      //  repeat: 10
+      timeScale: 1
     })
-    //return value;
   }
 
   removeBossMoving() {
     event.remove(false);
   }
 
-  playAnimateB(boss, bossKey) {
+  playAnimateB(boss, bossKey,fame) {
     this.scene.anims.create({
       key: 'bossAni',
       frames: this.scene.anims.generateFrameNumbers(bossKey, {
         start: 0,
-        end: 12
+        end: fame
       }),
       framerate: 1,
       repeat: -1
     })
     boss.anims.play('bossAni', true);
+  }
+  playAnimateB2(boss2, boss2Key,fame) {
+    this.scene.anims.create({
+      key: 'boss2Ani',
+      frames: this.scene.anims.generateFrameNumbers(boss2Key, {
+        start: 0,
+        end: fame
+      }),
+      framerate: 1,
+      repeat: -1
+    })
+    boss2.anims.play('boss2Ani', true);
   }
 
   bossCheckIsDead(value) {

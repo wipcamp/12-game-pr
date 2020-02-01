@@ -81,6 +81,29 @@ export default class bossBullet extends ObjectProperties {
 
    }
 
+   bossIsShooting2(b_bulletKey, boss) {
+        b_bullets = this.scene.physics.add.group();
+        b_bulletEvent1 = this.scene.time.addEvent({
+            delay: 2000,
+            callback: function() {
+                let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
+                b_bullets.add(b_bullet)
+                b_bullet.setVelocityY(600).setScale(0.5);
+                
+                setTimeout(() => {
+                    b_bullet.destroy()
+                }, 4000)
+            },
+            loop: true,
+            paused: false,
+            callbackScope: this,
+            startAt: 500,
+            
+        })
+        return b_bullets
+
+   }
+
    bossStopShooting() {
     b_bulletEvent1.destroy()
     b_bulletEvent2.destroy()
