@@ -86,9 +86,16 @@ function HitBoss1(boss1, bulletGroup) {
     if (boss1.health <= 0) {
         this.updateWaveState({
             majinBuuKilled: true,
+        });        
+        // boss1.BossMoving(true,false, 1000, 200, -200);
+        const stopBossMovement = new Promise(resolve => {
+            resolve(boss1.removeBossMoving());
         });
-        boss1.bossStopShooting();
-        boss1.destroy();
+        stopBossMovement.then(() => {
+            boss1.bossStopShooting();
+            boss1.destroy();
+        });
+
     }
 }
 
@@ -244,7 +251,7 @@ class GameScene extends Phaser.Scene {
                     health_frame.setVisible(true);
                 },
                 waveCompleted: function () {
-                    boss1.BossMoving(true,false, 1000, 200, -200);
+                    // boss1.BossMoving(true,false, 1000, 200, -200);
                     console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' completed!');
                     item.pauseSpawnItemWave();
@@ -254,7 +261,7 @@ class GameScene extends Phaser.Scene {
                     health_frame.setVisible(false);
                 },
                 waveEnded: function () {
-                    boss1.BossMoving(true,false, 1000, 200, -200);
+                    //boss1.BossMoving(true,false, 1000, 200, -200);
                     console.clear();
                     console.log('Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' ended!');
                 },
