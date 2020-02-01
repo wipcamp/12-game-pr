@@ -23,13 +23,11 @@ let heart1
 let heart2
 let heart3
 
-let boss1;
 let boss1Key = 'boss1';
 let bulletBossKey = 'bossBullet';
 let b_bullets;
 let bulletBossGroup;
 
-let boss2;
 let boss2Key = 'boss2';
 let bulletBoss2Key = 'bossBullet2';
 let b_bullets2;
@@ -87,7 +85,6 @@ function HitBoss1(boss1, bulletGroup) {
         this.updateWaveState({
             majinBuuKilled: true,
         });        
-        // boss1.BossMoving(true,false, 1000, 200, -200);
         const stopBossMovement = new Promise(resolve => {
             resolve(boss1.removeBossMoving());
         });
@@ -234,12 +231,12 @@ class GameScene extends Phaser.Scene {
                     boss1.maxHealth = 100;   
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
-                    boss1.BossMoving(false,true, 1000, 200, -200);
+                    boss1.BossMoving(1000, 200, -200);
                     // boss1.setoffset()
                     /**************************************************************** */
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
                     /*************************************************************** */
-                    boss1.playAnimateB(boss1, boss1Key);
+                    boss1.playAnimateB(boss1, boss1Key,12);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
@@ -280,23 +277,25 @@ class GameScene extends Phaser.Scene {
                 waveSteps: function () {
                     console.clear();
                     console.log('Σ(⊙▽⊙") Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' start!');
-                    waveEnemy = new Enemy(waves[2].waveState.waveScene, 0, -1000, enemyKey);
-                    waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
+                    // waveEnemy = new Enemy(waves[2].waveState.waveScene, 0, -1000, enemyKey);
+                    // waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
                     item.continueSpawnItemWave();
                     const { waveScene } = this.waveState;
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[2]), null, this);
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[2]), null, this);
-                    let boss2 = new Boss(waves[2].waveState.waveScene, 300, 500, boss2Key);
-                    boss2.health = 300;
-                    boss2.maxHealth = 300;
-                    healthBar.setScale(boss2.health / boss2.maxHealth, 1);
-                    boss2.moveUp(250);
-                    boss2.setWorldBound(true);
-                    bulletBoss2Group = boss2.bossIsShooting(bulletBossKey, boss2);
-                    // boss1.playAnimateB(boss1,boss1Key);
+                    let boss1 = new Boss(waves[2].waveState.waveScene, 300, 500, boss2Key);
+                    boss1.health = 200;
+                    boss1.maxHealth = 200;
+                    healthBar.setScale(boss1.health / boss1.maxHealth, 1);
+                    boss1.moveUp(250);
+                    boss1.setWorldBound(true);
+                    boss1.setSize(0.5);
+                    bulletBoss2Group = boss1.bossIsShooting2(bulletBoss2Key, boss1);
+                    boss1.playAnimateB2(boss1,boss2Key,11);
+                    boss1.BossMoving(500, 400, -400);
                     //////////////////////////////////////////////////////////////////////////////////////////
-                    waveScene.physics.add.overlap(boss2, bulletGroup, HitBoss1, null, this);
+                    waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBoss2Group, touchingWaveEnemy, null, this);
                     backgroundBar.setVisible(true);
                     health_frame.setDepth(1);
