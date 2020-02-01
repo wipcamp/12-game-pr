@@ -61,6 +61,7 @@ class ArcadeMode extends Phaser.Scene {
         })
     }
     create(){
+        sessionStorage.clear()
         bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
         scoreBG = this.add.image(60,40,'scoreBG')
         /////////////////////////////////////////////////////////////////////
@@ -179,11 +180,11 @@ class ArcadeMode extends Phaser.Scene {
     update(){
         if (healthPlayer < 1) {
             game_song.stop();
-            this.scene.start('GameOver', {score: this.score});
+            
+            this.scene.start('GameOver', {score: score});
             // startScene.call(this, 'GameOver');
             healthPlayer = 3;
             //////////////////////////////////////////////
-            sessionStorage.setItem("score",score)
             score = 0;
         }
         scoreText.setText(" " + score);
