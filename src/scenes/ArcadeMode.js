@@ -199,7 +199,7 @@ class ArcadeMode extends Phaser.Scene {
             score = 0;
         }
         scoreText.setText(" " + score);
-        bg.tilePositionY -= 3
+        bg.tilePositionY -= 1
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
             player.moveLeft(200);
