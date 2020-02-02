@@ -403,7 +403,7 @@ class GameScene extends Phaser.Scene {
 
 
     update(delta, time) {
-        bg.tilePositionY -= 3
+        bg.tilePositionY -= 1
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
             game_song.stop();
