@@ -9,7 +9,7 @@ import GameOver from './scenes/GameOver';
 import scoreBoard from './scenes/scoreBoard';
 
 const config = {
-    
+
     type: Phaser.WEBGL,
     pixelArt: true,
     roundPixels: true,
@@ -20,12 +20,12 @@ const config = {
         default: 'arcade',
         arcade: {
             debug: false,
-            gravity: {y:0}
+            gravity: { y: 0 }
         }
     },
     scene: [
-        MainMenu,ArcadeMode,ComicPage1,GameScene,ComicPageEnd,GameOver,scoreBoard
-        
+        MainMenu, ArcadeMode, ComicPage1, GameScene, ComicPageEnd, GameOver, scoreBoard
+
     ]
 };
 
