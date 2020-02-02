@@ -1,7 +1,7 @@
 import { preloadScene } from '../utils/preloadScene'
 import { startScene } from '../utils/goTo'
 import Cookies from 'js-cookie';
-import LineService from "../services/LineService";
+import lineService from "../services/LineService";
 import gamePrService from "../services/GamePrService";
 import axios from 'axios'
 let background
@@ -38,8 +38,8 @@ class MainMenu extends Phaser.Scene {
             }
         } else {
             if (!data.token) {
-                const stateGenerate = await axios.get(`https://12-lineservice.freezer.wip.camp/getGenerateCode`)
-                const nonceGenerate = await axios.get(`https://12-lineservice.freezer.wip.camp/getGenerateCode`)
+                const stateGenerate = await lineService.getGenerateCode()
+                const nonceGenerate = await lineService.getGenerateCode()
                 Cookies.set('state', stateGenerate.data)
                 Cookies.set('nonce', nonceGenerate.data)
                 let stateInCookies = Cookies.get('state')

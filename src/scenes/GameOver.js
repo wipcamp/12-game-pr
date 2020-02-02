@@ -25,8 +25,8 @@ class GameOver extends Phaser.Scene{
         } else {
             token = data.tokenMain
             score = data.newScore;
-            await axios.get(`https://12-gameservice.freezer.wip.camp/gamePrGameOver?id=${token.userId}&score=${score}`)
-            topPlayer = await axios.get(`https://12-gameservice.freezer.wip.camp/scoreBoard`)
+            await gamePrService.arcadeGameOver(token.userId,score)
+            topPlayer = await gamePrService.getScoreBoard()
         }
     }
 
