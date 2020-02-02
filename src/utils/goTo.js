@@ -1,5 +1,5 @@
-export const startScene = function(scene){
-    this.scene.start(scene)
+export const startScene = function(scene,data){
+    this.scene.start(scene,data)
 };
 
 export const restartScene = function(scene){
