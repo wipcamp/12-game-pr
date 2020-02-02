@@ -4,12 +4,21 @@ import {preloadScene} from '../utils/preloadScene'
 let comicPg1
 let nextbtn
 let comic_song
+const token = {}
 class ComicPage1 extends Phaser.Scene{
 
     constructor(){
         super({
             key: 'ComicPage1'
         })
+    }
+
+    init(data){
+        if(!data){
+            window.location.href=`https://12-gamepr.freezer.wip.camp`
+        }else{
+            token = data.token
+        }
     }
 
     preload(){
@@ -35,7 +44,7 @@ class ComicPage1 extends Phaser.Scene{
         })
     }
     goGameScene(){
-        startScene.call(this, 'GameScene');
+        startScene.call(this, 'GameScene',token);
     }
     update(delta, time){
          

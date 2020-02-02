@@ -4,13 +4,21 @@ import { preloadScene } from '../utils/preloadScene'
 let comic_song
 let comicPgEnd
 let nextbtn
-
+const token = {}
 class ComicPageEnd extends Phaser.Scene{
 
     constructor(){
         super({
             key: 'ComicPageEnd'
         })
+    }
+
+    init(data){
+        if (!data) {
+            window.location.href = `https://12-gamepr.freezer.wip.camp`
+        } else {
+            token = data.token
+        }
     }
 
     preload(){
@@ -35,7 +43,7 @@ class ComicPageEnd extends Phaser.Scene{
         })
     }
     goMainMenu(){
-        startScene.call(this, 'MainMenu')
+        startScene.call(this, 'MainMenu',token)
     }
     update(delta, time){
          
