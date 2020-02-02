@@ -4,7 +4,7 @@ import { preloadScene } from '../utils/preloadScene'
 let comic_song
 let comicPgEnd
 let nextbtn
-const token = {}
+
 class ComicPageEnd extends Phaser.Scene{
 
     constructor(){
@@ -13,18 +13,10 @@ class ComicPageEnd extends Phaser.Scene{
         })
     }
 
-    init(data){
-        if (!data) {
-            window.location.href = `https://12-gamepr.freezer.wip.camp`
-        } else {
-            token = data.token
-        }
-    }
-
     preload(){
-        this.load.image('comicPgEnd','../images/Comic-Ending.jpg');
-        this.load.image('nextbtn','../images/Button_B2Menu.png');
-        this.load.audio('comic_song','../songs/BG.mp3');
+        this.load.image('comicPgEnd','src/images/Comic-Ending.jpg');
+        this.load.image('nextbtn','src/images/Button_B2Menu.png');
+        this.load.audio('comic_song','src/songs/BG.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,
@@ -43,7 +35,7 @@ class ComicPageEnd extends Phaser.Scene{
         })
     }
     goMainMenu(){
-        startScene.call(this, 'MainMenu',token)
+        startScene.call(this, 'MainMenu')
     }
     update(delta, time){
          

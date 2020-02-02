@@ -48,9 +48,6 @@ let boss1MaxHealth = 100;
 
 let game_song
 
-const token = {}
-
-
 
 function touchingWaveEnemy(player, waveEnemyGroup) {
     this.updateWaveState({
@@ -87,7 +84,7 @@ function HitBoss1(boss1, bulletGroup) {
     if (boss1.health <= 0) {
         this.updateWaveState({
             majinBuuKilled: true,
-        });
+        });        
         const stopBossMovement = new Promise(resolve => {
             resolve(boss1.removeBossMoving());
         });
@@ -104,14 +101,6 @@ class GameScene extends Phaser.Scene {
         super({
             key: 'GameScene'
         })
-    }
-
-    init(data){
-        if (!data) {
-            window.location.href = `https://12-gamepr.freezer.wip.camp`
-        } else {
-            token = data.token
-        }
     }
 
     preload() {
@@ -238,8 +227,8 @@ class GameScene extends Phaser.Scene {
                     waveScene.physics.add.overlap(player, waveEnemyGroup, touchingWaveEnemy.bind(waves[1]), null, this);
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[1]), null, this);
                     boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
-                    boss1.health = 100;
-                    boss1.maxHealth = 100;
+                    boss1.health = 100; 
+                    boss1.maxHealth = 100;   
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
                     boss1.BossMoving(1000, 200, -200);
@@ -247,7 +236,7 @@ class GameScene extends Phaser.Scene {
                     /**************************************************************** */
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);
                     /*************************************************************** */
-                    boss1.playAnimateB(boss1, boss1Key, 12);
+                    boss1.playAnimateB(boss1, boss1Key,12);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
                     waveScene.physics.add.overlap(player, bulletBossGroup, touchingWaveEnemy, null, this);
@@ -303,7 +292,7 @@ class GameScene extends Phaser.Scene {
                     boss1.setWorldBound(true);
                     boss1.setSize(0.5);
                     bulletBoss2Group = boss1.bossIsShooting2(bulletBoss2Key, boss1);
-                    boss1.playAnimateB2(boss1, boss2Key, 11);
+                    boss1.playAnimateB2(boss1,boss2Key,11);
                     boss1.BossMoving(500, 400, -400);
                     //////////////////////////////////////////////////////////////////////////////////////////
                     waveScene.physics.add.overlap(boss1, bulletGroup, HitBoss1, null, this);
@@ -333,7 +322,7 @@ class GameScene extends Phaser.Scene {
                 nextWave: function (nextWave) {
                     console.clear();
                     game_song.stop();
-                    startScene.call(this.waveState.waveScene, 'ComicPageEnd',token);
+                    startScene.call(this.waveState.waveScene, 'ComicPageEnd');
                 }
 
             }
@@ -414,7 +403,7 @@ class GameScene extends Phaser.Scene {
 
 
     update(delta, time) {
-        bg.tilePositionY -= 1
+        bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
             game_song.stop();

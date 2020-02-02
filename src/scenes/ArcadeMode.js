@@ -35,23 +35,12 @@ let game_song
 let scoreText
 var score = 0
 
-const token = {}
-
 class ArcadeMode extends Phaser.Scene {
     constructor() {
         super({
             key: 'ArcadeMode'
         })
     }
-
-    init(data){
-        if (!data) {
-            window.location.href = `https://12-gamepr.freezer.wip.camp`
-        } else {
-            token = data.token
-        }
-    }
-
     preload(){
 
         this.load.image('bg', 'src/images/BG.png')  
@@ -192,14 +181,14 @@ class ArcadeMode extends Phaser.Scene {
         if (healthPlayer < 1) {
             game_song.stop();
             
-            this.scene.start('GameOver',{tokenMain: token, newScore:score});
+            this.scene.start('GameOver', {score: score});
             // startScene.call(this, 'GameOver');
             healthPlayer = 3;
             //////////////////////////////////////////////
             score = 0;
         }
         scoreText.setText(" " + score);
-        bg.tilePositionY -= 1
+        bg.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
             player.moveLeft(200);
