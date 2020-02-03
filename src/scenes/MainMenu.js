@@ -10,7 +10,7 @@ let howToPlay
 let storyMode
 let arcadeMode
 let MainMenu_song
-const clientId = '1653724802'
+const clientId = '1653703435'
 const callbackGamePrUrl = 'https://12-gamepr.freezer.wip.camp'
 let token = {}
 class MainMenu extends Phaser.Scene {
