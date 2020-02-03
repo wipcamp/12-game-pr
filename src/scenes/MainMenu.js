@@ -96,6 +96,7 @@ class MainMenu extends Phaser.Scene {
 
     async getTokenFromLineApi(code, nonce) {
         console.log('get token')
+        console.log('nonce'+nonce)
         const objectResponse = await lineService.lineLogin(code, nonce)
         if (objectResponse == null) {
             console.log('check nonce failed')
