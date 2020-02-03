@@ -96,7 +96,7 @@ class MainMenu extends Phaser.Scene {
 
     async getTokenFromLineApi(code, nonce) {
         console.log('get token')
-        const objectResponse = await LineService.lineLogin(code, nonce)
+        const objectResponse = await lineService.lineLogin(code, nonce)
         if (objectResponse == null) {
             console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
