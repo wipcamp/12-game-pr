@@ -95,8 +95,10 @@ class MainMenu extends Phaser.Scene {
     }
 
     async getTokenFromLineApi(code, nonce) {
+        console.log('get token')
         const objectResponse = await LineService.lineLogin(code, nonce)
         if (objectResponse == null) {
+            console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
         }
         const userObject = await gamePrService.getProfile(objectResponse.data.userId,objectResponse.data.name)
@@ -111,6 +113,7 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
+        console.log(token)
     }
 
 } export default MainMenu
