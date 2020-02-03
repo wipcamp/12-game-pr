@@ -47,27 +47,27 @@ class GameOver extends Phaser.Scene{
         overScore = this.add.image(300, 360, 'score')
         scoreText = this.add.text(280, 150, this.score, { fontSize: '30px', fill: '#000000' });
 
-        this.add.text(150, 200, topPlayer[0].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 300, topPlayer[1].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 350, topPlayer[2].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 250, topPlayer[3].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 400, topPlayer[4].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 450, topPlayer[5].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 500, topPlayer[6].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 550, topPlayer[7].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 600, topPlayer[8].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(150, 650, topPlayer[9].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 250, topPlayer[0].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 290, topPlayer[1].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 330, topPlayer[2].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 370, topPlayer[3].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 410, topPlayer[4].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 450, topPlayer[5].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 490, topPlayer[6].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 530, topPlayer[7].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 570, topPlayer[8].name, { fontSize: '30px', fill: '#000000' });
+        this.add.text(110, 610, topPlayer[9].name, { fontSize: '30px', fill: '#000000' });
 
-        this.add.text(450, 200, topPlayer[0].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 300, topPlayer[1].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 350, topPlayer[2].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 250, topPlayer[3].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 400, topPlayer[4].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 450, topPlayer[5].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 500, topPlayer[6].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 550, topPlayer[7].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 600, topPlayer[8].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(450, 650, topPlayer[9].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 250, topPlayer[0].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 290, topPlayer[1].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 330, topPlayer[2].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 370, topPlayer[3].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 410, topPlayer[4].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 450, topPlayer[5].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 490, topPlayer[6].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 530, topPlayer[7].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 570, topPlayer[8].highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(380, 610, topPlayer[9].highScore, { fontSize: '30px', fill: '#000000' });
         
 
         button_back.on('pointerdown', (pointer) =>{
