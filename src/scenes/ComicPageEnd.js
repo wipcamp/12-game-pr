@@ -14,10 +14,10 @@ class ComicPageEnd extends Phaser.Scene{
     }
 
     init(data){
-        if (!data.token) {
+        if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
-            token = data.token
+            token = data
         }
     }
 

@@ -2,8 +2,8 @@ import axios from 'axios'
 // import Cookies from './CookieService'
 
 const lineService = {
-    lineLogin : async (code,nonce) => {
-        let res = await axios.get(`https://12-lineservice.freezer.wip.camp/auth?code=${code}&nonce=${nonce}`)
+    lineLogin : async (code,nonce,url) => {
+        let res = await axios.get(`https://12-lineservice.freezer.wip.camp/auth?code=${code}&nonce=${nonce}&url=${url}`)
         return res;
     },
     getGenerateCode : async()=>{

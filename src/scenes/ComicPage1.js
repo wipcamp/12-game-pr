@@ -14,12 +14,12 @@ class ComicPage1 extends Phaser.Scene{
     }
 
     init(data){
-        console.log(data.token)
-        // if(data.token){
-        //     window.location.href=`https://12-gamepr.freezer.wip.camp`
-        // }else{
-        //     token = data.token
-        // }
+        console.log(data)
+        if(data){
+            window.location.href=`https://12-gamepr.freezer.wip.camp`
+        }else{
+            token = data
+        }
     }
 
     preload(){
