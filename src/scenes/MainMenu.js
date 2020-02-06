@@ -37,7 +37,7 @@ class MainMenu extends Phaser.Scene {
                 console.log('state in cookies not equal with substring url param')
                 Cookies.remove('state');
                 Cookies.remove('nonce');
-                if (!data) {
+                if (!data.userId) {
                     console.log('!data if')
                     window.location.href = callbackGamePrUrl
                 }else{
