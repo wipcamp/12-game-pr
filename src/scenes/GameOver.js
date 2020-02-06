@@ -11,6 +11,7 @@ let score
 let scoreText
 let token = {}
 const topPlayer = []
+let waitScoreBoardData = false
 class GameOver extends Phaser.Scene{
 
     constructor(){
@@ -27,7 +28,8 @@ class GameOver extends Phaser.Scene{
             score = data.newScore;
             await gamePrService.arcadeGameOver(token.userId,score)
             topPlayer = await gamePrService.getScoreBoard()
-            console.log(topPlayer)
+            waitScoreBoardData = true
+            console.log('top player'+topPlayer)
         }
     }
 
@@ -48,6 +50,16 @@ class GameOver extends Phaser.Scene{
         overScore = this.add.image(300, 360, 'score')
         scoreText = this.add.text(280, 150, this.score, { fontSize: '30px', fill: '#000000' });
 
+        
+        
+
+        button_back.on('pointerdown', (pointer) =>{
+            this.scene.start('MainMenu',token);
+        });
+
+    }
+
+    createScoreBoardData(){
         this.add.text(110, 250, topPlayer[0].name, { fontSize: '30px', fill: '#000000' });
         this.add.text(110, 290, topPlayer[1].name, { fontSize: '30px', fill: '#000000' });
         this.add.text(110, 330, topPlayer[2].name, { fontSize: '30px', fill: '#000000' });
@@ -69,12 +81,6 @@ class GameOver extends Phaser.Scene{
         this.add.text(380, 530, topPlayer[7].highScore, { fontSize: '30px', fill: '#000000' });
         this.add.text(380, 570, topPlayer[8].highScore, { fontSize: '30px', fill: '#000000' });
         this.add.text(380, 610, topPlayer[9].highScore, { fontSize: '30px', fill: '#000000' });
-        
-
-        button_back.on('pointerdown', (pointer) =>{
-            this.scene.start('MainMenu',token);
-        });
-
     }
 
     goToMainMenu(){
@@ -82,7 +88,9 @@ class GameOver extends Phaser.Scene{
     }
 
     update(delta,time){
-        
+        if(waitScoreBoardData){
+            this.createScoreBoardData().bind(this)
+        }
     }
 }
 
