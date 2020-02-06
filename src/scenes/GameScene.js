@@ -419,7 +419,7 @@ class GameScene extends Phaser.Scene {
         if (healthPlayer < 1) {
             game_song.stop();
             console.clear();
-            startScene.call(this, 'MainMenu');
+            startScene.call(this, 'MainMenu',token);
             healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
