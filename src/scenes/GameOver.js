@@ -12,6 +12,8 @@ let scoreText
 let token = {}
 let topPlayer = []
 let waitScoreBoardData = false
+const namePosition = [{x:110,y:250},{x:110,y:290},{x:110,y:330},{x:110,y:370},{x:110,y:410},{x:110,y:450},{x:110,y:490},{x:110,y:530},{x:110,y:570},{x:110,y:610}]
+const scorePosition = [{x:380,y:250},{x:380,y:290},{x:380,y:330},{x:380,y:370},{x:380,y:410},{x:380,y:450},{x:380,y:490},{x:380,y:530},{x:380,y:570},{x:380,y:610}]
 class GameOver extends Phaser.Scene{
 
     constructor(){
@@ -27,7 +29,8 @@ class GameOver extends Phaser.Scene{
             token = data.tokenMain
             score = data.newScore;
             await gamePrService.arcadeGameOver(token.userId,score)
-            topPlayer = await gamePrService.getScoreBoard()
+            res = await gamePrService.getScoreBoard()
+            topPlayer = res.data
             waitScoreBoardData = true
             console.log('top player'+topPlayer)
         }
@@ -48,7 +51,7 @@ class GameOver extends Phaser.Scene{
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         button_back = this.add.image(300, 750, 'goMainMenu').setInteractive();
         overScore = this.add.image(300, 360, 'score')
-        scoreText = this.add.text(280, 150, this.score, { fontSize: '30px', fill: '#000000' });
+        scoreText = this.add.text(280, 150, score, { fontSize: '30px', fill: '#000000' });
 
         
         
@@ -60,27 +63,10 @@ class GameOver extends Phaser.Scene{
     }
 
     createScoreBoardData(){
-        this.add.text(110, 250, topPlayer[0].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 290, topPlayer[1].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 330, topPlayer[2].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 370, topPlayer[3].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 410, topPlayer[4].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 450, topPlayer[5].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 490, topPlayer[6].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 530, topPlayer[7].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 570, topPlayer[8].name, { fontSize: '30px', fill: '#000000' });
-        this.add.text(110, 610, topPlayer[9].name, { fontSize: '30px', fill: '#000000' });
-
-        this.add.text(380, 250, topPlayer[0].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 290, topPlayer[1].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 330, topPlayer[2].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 370, topPlayer[3].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 410, topPlayer[4].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 450, topPlayer[5].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 490, topPlayer[6].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 530, topPlayer[7].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 570, topPlayer[8].highScore, { fontSize: '30px', fill: '#000000' });
-        this.add.text(380, 610, topPlayer[9].highScore, { fontSize: '30px', fill: '#000000' });
+        topPlayer.forEach((index)=>{
+            this.add.text(namePosition[index].x, namePosition[index].y, topPlayer[index].name, { fontSize: '30px', fill: '#000000' });
+            this.add.text(scorePosition[index].x, scorePosition[index].y, topPlayer[index].highScore, { fontSize: '30px', fill: '#000000' });
+        })
     }
 
     goToMainMenu(){
