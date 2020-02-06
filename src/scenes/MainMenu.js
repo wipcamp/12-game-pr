@@ -38,9 +38,12 @@ class MainMenu extends Phaser.Scene {
                 Cookies.remove('state');
                 Cookies.remove('nonce');
                 if (!data) {
+                    console.log('!data if')
                     window.location.href = callbackGamePrUrl
                 }else{
+                    console.log('else')
                     token = data
+                    console.log('test token'+token)
                 }
                 // console.log('check state fail')
             }
