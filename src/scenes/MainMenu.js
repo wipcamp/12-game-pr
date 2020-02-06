@@ -96,7 +96,8 @@ class MainMenu extends Phaser.Scene {
         //////////////////////////////////////////////////////////////////////////////////////////
         arcadeMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.goToArcadeMode().bind(this)
+            // this.goToArcadeMode()
+            this.scene.start('ArcadeMode', token)
         })
 
     }
