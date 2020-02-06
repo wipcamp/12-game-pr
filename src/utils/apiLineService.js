@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-// const  apiUrl   = window["runConfig"].lineApi;
+const  apiUrl   = window["runConfig"].lineApi;
 const createInstance = (headers) => {
   return axios.create({
-    baseURL: `12-lineservice.freezer.wip.camp`
+    baseURL: apiUrl
     // headers: {
     //   'Authorization': `Bearer ${CookiesService.gettokenJWTCookie()}`,
     //   'Content-Type': 'application/json'

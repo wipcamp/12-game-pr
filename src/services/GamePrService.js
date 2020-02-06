@@ -4,15 +4,15 @@ import Axios from 'axios';
 
 const profileService = {
     getProfile : async (lineId,name) => {
-        let res = await Axios.post(`https://12-gameservice.freezer.wip.camp/profileGamePr?id=${lineId}&name=${name}`)
+        let res = await api.post(`/profileGamePr?id=${lineId}&name=${name}`)
         return res;
     },
     arcadeGameOver : async (lineId,score) => {
-        let res = await Axios.put(`https://12-gameservice.freezer.wip.camp/gamePrGameOver?id=${lineId}&score=${score}`)
+        let res = await api.put(`/gamePrGameOver?id=${lineId}&score=${score}`)
         return res;
     },
     getScoreBoard : async () => {
-        let res = await Axios.get(`https://12-gameservice.freezer.wip.camp/scoreBoard`)
+        let res = await api.get(`/scoreBoard`)
         return res;
     }
 
