@@ -21,20 +21,23 @@ class MainMenu extends Phaser.Scene {
     }
 
 
-    async init(data) {      
+    async init(data) {
         const search = window.location.search.substring(1)
         if (search) {
-            const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
-            const stateInCookie = Cookies.get('state')
-            if (stateInCookie === resFromLineApi.state) {
-                this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-            } else {
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-                window.location.href = callbackGamePrUrl
-                console.log('check state fail')
+            const checkLogin = Cookies.get('user')
+            if (!checkLogin) {
+                const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+                const stateInCookie = Cookies.get('state')
+                if (stateInCookie === resFromLineApi.state) {
+                    this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
+                    Cookies.remove('state');
+                    Cookies.remove('nonce');
+                } else {
+                    Cookies.remove('state');
+                    Cookies.remove('nonce');
+                    window.location.href = callbackGamePrUrl
+                    console.log('check state fail')
+                }
             }
         } else {
             if (!data.token) {
@@ -76,7 +79,7 @@ class MainMenu extends Phaser.Scene {
         //////////////////////////////////////////////////////////////////////////////////////////
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.scene.start('ComicPage1',token);
+            this.scene.start('ComicPage1', token);
         });
         //////////////////////////////////////////////////////////////////////////////////////////
         arcadeMode.on('pointerdown', (pointer) => {
@@ -87,7 +90,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     goToArcadeMode() {
-        startScene.call(this, 'ArcadeMode',token)
+        startScene.call(this, 'ArcadeMode', token)
     }
 
     update(delta, time) {
@@ -96,13 +99,13 @@ class MainMenu extends Phaser.Scene {
 
     async getTokenFromLineApi(code, nonce) {
         console.log('get token')
-        console.log('nonce'+nonce)
-        const objectResponse = await lineService.lineLogin(code, nonce,callbackGamePrUrl)
+        console.log('nonce' + nonce)
+        const objectResponse = await lineService.lineLogin(code, nonce, callbackGamePrUrl)
         if (objectResponse == null) {
             console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
         }
-        const userObject = await gamePrService.getProfile(objectResponse.data.userId,objectResponse.data.name)
+        const userObject = await gamePrService.getProfile(objectResponse.data.userId, objectResponse.data.name)
         const tokenObject = {
             scope: objectResponse.data.scope,
             access_token: objectResponse.data.access_token,
@@ -114,6 +117,7 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
+        Cookies.set('user', 'loggedIn')
         console.log(token)
     }
 
