@@ -63,11 +63,9 @@ class GameOver extends Phaser.Scene{
     }
 
     createScoreBoardData(){
-        let index = 0
-        topPlayer.forEach(()=>{
-            this.add.text(namePosition[index].x, namePosition[index].y, topPlayer[index].name, { fontSize: '30px', fill: '#000000' });
-            this.add.text(scorePosition[index].x, scorePosition[index].y, topPlayer[index].highScore, { fontSize: '30px', fill: '#000000' });
-            index++
+        topPlayer.forEach((element,index)=>{
+            this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
+            this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000' });
         })
     }
 
@@ -77,7 +75,7 @@ class GameOver extends Phaser.Scene{
 
     update(delta,time){
         if(waitScoreBoardData){
-            this.createScoreBoardData().bind(this)
+            this.createScoreBoardData()
         }
     }
 }
