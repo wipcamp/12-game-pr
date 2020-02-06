@@ -22,10 +22,12 @@ class MainMenu extends Phaser.Scene {
 
 
     async init(data) {
+        console.log(token)
         const search = window.location.search.substring(1)
         if (search) {
             const checkLogin = Cookies.get('user')
             if (!checkLogin) {
+                console.log(token)
                 const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
                 const stateInCookie = Cookies.get('state')
                 if (stateInCookie === resFromLineApi.state) {
