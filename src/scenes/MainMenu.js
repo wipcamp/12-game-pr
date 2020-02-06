@@ -24,16 +24,17 @@ class MainMenu extends Phaser.Scene {
     async init(data) {
         console.log(token)
         const search = window.location.search.substring(1)
-        const checkLogin = Cookies.get('user')
         if (search) {
             console.log(token)
             const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
             const stateInCookie = Cookies.get('state')
             if (stateInCookie === resFromLineApi.state) {
+                console.log('getTokenMethod')
                 this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
                 Cookies.remove('state');
                 Cookies.remove('nonce');
             } else {
+                console.log('state in cookies not equal with substring url param')
                 Cookies.remove('state');
                 Cookies.remove('nonce');
                 if (!data) {
