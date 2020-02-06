@@ -87,7 +87,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     goToArcadeMode() {
-        startScene.call(this, 'ArcadeMode'.token)
+        startScene.call(this, 'ArcadeMode',token)
     }
 
     update(delta, time) {
