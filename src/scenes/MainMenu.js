@@ -21,7 +21,7 @@ class MainMenu extends Phaser.Scene {
     }
 
 
-    async init(data) {
+    async init(data) {      
         const search = window.location.search.substring(1)
         if (search) {
             const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })

@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-const  apiUrl   = window["runConfig"].lineApi;
+// const  { lineApi }   = window["runConfig"]
 const createInstance = (headers) => {
   return axios.create({
-    baseURL: apiUrl
+    baseURL: `https://master.line.service.wip.camp`
     // headers: {
     //   'Authorization': `Bearer ${CookiesService.gettokenJWTCookie()}`,
     //   'Content-Type': 'application/json'
