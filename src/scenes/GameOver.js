@@ -10,7 +10,7 @@ let button_back
 let score
 let scoreText
 let token = {}
-const topPlayer = []
+let topPlayer = []
 let waitScoreBoardData = false
 class GameOver extends Phaser.Scene{
 
