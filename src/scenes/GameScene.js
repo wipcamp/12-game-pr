@@ -191,7 +191,7 @@ class GameScene extends Phaser.Scene {
                     return this.enemyKillCount === 10;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(¯▽¯；) Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' start!');
                     waveEnemy = new Enemy(waves[0].waveState.waveScene, 0, -1000, enemyKey);
                     waveEnemyGroup = waveEnemy.spawnEnemyWave(enemyKey, player);
@@ -205,16 +205,16 @@ class GameScene extends Phaser.Scene {
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this);
                 },
                 waveCompleted: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' completed!');
                 },
                 waveEnded: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' ended!');
                     waveEnemy.removeSpawnEnemyWave();
                 },
                 nextWave: function (nextWave) {
-                    console.clear();
+                    // console.clear();
                     nextWave.start();
                 }
             }, wave1: {
@@ -226,7 +226,7 @@ class GameScene extends Phaser.Scene {
                     return this.majinBuuKilled;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Σ( ° △ °|||) Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' start!');
                     waveEnemy = new Enemy(waves[1].waveState.waveScene, 0, -1000, enemyKey);
                     waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
@@ -261,7 +261,7 @@ class GameScene extends Phaser.Scene {
                 },
                 waveCompleted: function () {
                     // boss1.BossMoving(true,false, 1000, 200, -200);
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' completed!');
                     item.pauseSpawnItemWave();
                     waveEnemy.removeSpawnEnemyWave();
@@ -271,11 +271,11 @@ class GameScene extends Phaser.Scene {
                 },
                 waveEnded: function () {
                     //boss1.BossMoving(true,false, 1000, 200, -200);
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' ended!');
                 },
                 nextWave: function (nextWave) {
-                    console.clear();
+                    // console.clear();
                     nextWave.start();
                 }
             }, wave2: {
@@ -287,7 +287,7 @@ class GameScene extends Phaser.Scene {
                     return this.majinBuuKilled;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Σ(⊙▽⊙") Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' start!');
                     // waveEnemy = new Enemy(waves[2].waveState.waveScene, 0, -1000, enemyKey);
                     // waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
@@ -317,7 +317,7 @@ class GameScene extends Phaser.Scene {
                     health_frame.setVisible(true);
                 },
                 waveCompleted: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' completed!');
                     item.removeSpawnItemWave();
                     waveEnemy.removeSpawnEnemyWave();
@@ -327,12 +327,12 @@ class GameScene extends Phaser.Scene {
 
                 },
                 waveEnded: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' ended!');
 
                 },
                 nextWave: function (nextWave) {
-                    console.clear();
+                    // console.clear();
                     game_song.stop();
                     startScene.call(this.waveState.waveScene, 'ComicPageEnd',token);
                 }
