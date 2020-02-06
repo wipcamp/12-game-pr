@@ -24,32 +24,35 @@ class MainMenu extends Phaser.Scene {
     async init(data) {
         console.log(token)
         const search = window.location.search.substring(1)
-        if (search) {
-            console.log(token)
-            const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
-            const stateInCookie = Cookies.get('state')
-            if (stateInCookie === resFromLineApi.state) {
-                console.log('getTokenMethod')
-                this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-            } else {
-                console.log('state in cookies not equal with substring url param')
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-                if (!data.userId) {
-                    console.log('!data if')
-                    window.location.href = callbackGamePrUrl
-                }else{
-                    console.log('else')
-                    token = data
-                    console.log('test token'+token)
-                    console.log(token)
-                    console.log(data)
-                }
-                // console.log('check state fail')
-            }
+        if (data.userId) {
+            token = data
         } else {
+            if (search) {
+                console.log(token)
+                const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+                const stateInCookie = Cookies.get('state')
+                if (stateInCookie === resFromLineApi.state) {
+                    console.log('getTokenMethod')
+                    this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
+                    Cookies.remove('state');
+                    Cookies.remove('nonce');
+                } else {
+                    console.log('state in cookies not equal with substring url param')
+                    Cookies.remove('state');
+                    Cookies.remove('nonce');
+                    if (!data.userId) {
+                        console.log('!data if')
+                        window.location.href = callbackGamePrUrl
+                    } else {
+                        console.log('else')
+                        token = data
+                        console.log('test token' + token)
+                        console.log(token)
+                        console.log(data)
+                    }
+                    // console.log('check state fail')
+                }
+            } else {
                 const stateGenerate = await lineService.getGenerateCode()
                 const nonceGenerate = await lineService.getGenerateCode()
                 Cookies.set('state', stateGenerate.data)
@@ -57,6 +60,7 @@ class MainMenu extends Phaser.Scene {
                 let stateInCookies = Cookies.get('state')
                 const nonceInCookies = Cookies.get('nonce')
                 window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
+            }
         }
     }
 
