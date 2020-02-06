@@ -15,7 +15,7 @@ class ComicPage1 extends Phaser.Scene{
 
     init(data){
         console.log(data)
-        if(data){
+        if(!data){
             window.location.href=`https://12-gamepr.freezer.wip.camp`
         }else{
             token = data
