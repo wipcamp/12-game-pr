@@ -27,6 +27,7 @@ class GameOver extends Phaser.Scene{
             score = data.newScore;
             await gamePrService.arcadeGameOver(token.userId,score)
             topPlayer = await gamePrService.getScoreBoard()
+            console.log(topPlayer)
         }
     }
 

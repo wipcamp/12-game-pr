@@ -24,25 +24,27 @@ class MainMenu extends Phaser.Scene {
     async init(data) {
         console.log(token)
         const search = window.location.search.substring(1)
+        const checkLogin = Cookies.get('user')
         if (search) {
-            const checkLogin = Cookies.get('user')
-            if (!checkLogin) {
-                console.log(token)
-                const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
-                const stateInCookie = Cookies.get('state')
-                if (stateInCookie === resFromLineApi.state) {
-                    this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
-                    Cookies.remove('state');
-                    Cookies.remove('nonce');
-                } else {
-                    Cookies.remove('state');
-                    Cookies.remove('nonce');
+            console.log(token)
+            const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+            const stateInCookie = Cookies.get('state')
+            if (stateInCookie === resFromLineApi.state) {
+                this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
+                Cookies.remove('state');
+                Cookies.remove('nonce');
+            } else {
+                Cookies.remove('state');
+                Cookies.remove('nonce');
+                if (!data) {
                     window.location.href = callbackGamePrUrl
-                    console.log('check state fail')
+                }else{
+                    token = data
                 }
+                // console.log('check state fail')
             }
         } else {
-            if (!data.token) {
+            if (!data) {
                 const stateGenerate = await lineService.getGenerateCode()
                 const nonceGenerate = await lineService.getGenerateCode()
                 Cookies.set('state', stateGenerate.data)
@@ -119,7 +121,6 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
-        Cookies.set('user', 'loggedIn')
         console.log(token)
     }
 
