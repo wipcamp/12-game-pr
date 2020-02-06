@@ -331,7 +331,7 @@ class GameScene extends Phaser.Scene {
                     console.log('Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' ended!');
 
                 },
-                nextWave: function (nextWave) {
+                nextWave:  (nextWave) => {
                     // console.clear();
                     game_song.stop();
                     this.scene.start('ComicPageEnd',token);

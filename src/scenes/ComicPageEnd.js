@@ -39,7 +39,7 @@ class ComicPageEnd extends Phaser.Scene{
         comic_song.play();
         nextbtn.on('pointerdown', (pointer) =>{
             comic_song.stop();
-            this.goMainMenu()
+            this.goMainMenu().bind(this)
         })
     }
     goMainMenu(){

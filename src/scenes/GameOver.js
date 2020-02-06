@@ -72,7 +72,7 @@ class GameOver extends Phaser.Scene{
         
 
         button_back.on('pointerdown', (pointer) =>{
-            this.goToMainMenu();
+            this.goToMainMenu().bind(this);
         });
 
     }
