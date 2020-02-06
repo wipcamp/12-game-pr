@@ -111,6 +111,7 @@ class GameScene extends Phaser.Scene {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
             token = data
+            console.log(token)
         }
     }
 
