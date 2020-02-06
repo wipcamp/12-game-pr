@@ -23,7 +23,7 @@ class MainMenu extends Phaser.Scene {
 
     async init(data) {
         console.log(token)
-        if (data) {
+        if (data.userId) {
             token = data
         } else {
             const search = window.location.search.substring(1)
