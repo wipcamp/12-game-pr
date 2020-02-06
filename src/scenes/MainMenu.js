@@ -44,6 +44,8 @@ class MainMenu extends Phaser.Scene {
                     console.log('else')
                     token = data
                     console.log('test token'+token)
+                    console.log(token)
+                    console.log(data)
                 }
                 // console.log('check state fail')
             }
