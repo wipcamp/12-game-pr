@@ -78,7 +78,7 @@ class GameOver extends Phaser.Scene{
     }
 
     goToMainMenu(){
-        startScene.call(this,'MainMenu',token);
+        this.scene.start('MainMenu',token);
     }
 
     update(delta,time){

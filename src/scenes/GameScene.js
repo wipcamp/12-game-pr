@@ -334,7 +334,7 @@ class GameScene extends Phaser.Scene {
                 nextWave: function (nextWave) {
                     // console.clear();
                     game_song.stop();
-                    startScene.call(this.waveState.waveScene, 'ComicPageEnd',token);
+                    this.scene.start('ComicPageEnd',token);
                 }
 
             }
@@ -420,7 +420,7 @@ class GameScene extends Phaser.Scene {
         if (healthPlayer < 1) {
             game_song.stop();
             console.clear();
-            startScene.call(this, 'MainMenu',token);
+            this.scene.start('MainMenu',token);
             healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player

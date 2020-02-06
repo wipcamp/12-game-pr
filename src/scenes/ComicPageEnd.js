@@ -43,7 +43,7 @@ class ComicPageEnd extends Phaser.Scene{
         })
     }
     goMainMenu(){
-        startScene.call(this, 'MainMenu',token)
+        this.scene.start('MainMenu',token)
     }
     update(delta, time){
          

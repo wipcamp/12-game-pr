@@ -45,7 +45,7 @@ class ComicPage1 extends Phaser.Scene{
         })
     }
     goGameScene(){
-        startScene.call(this, 'GameScene',token);
+        this.scene.start('GameScene',token);
     }
     update(delta, time){
          
