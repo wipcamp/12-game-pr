@@ -65,8 +65,8 @@ class GameOver extends Phaser.Scene{
     createScoreBoardData(){
         topPlayer.forEach((element,index)=>{
             if(token.userId==element.id){
-            this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000',color:'#fff' });
-            this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000',color:'#fff' });
+            this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000',color:'#00ff00' });
+            this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000',color:'##00ff00' });
             }else{
                 this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
                 this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000' });     
