@@ -28,12 +28,10 @@ class GameOver extends Phaser.Scene {
         } else {
             token = data.tokenMain
             score = data.newScore;
-            console.log('token in GameOver scene'+token)
             await gamePrService.arcadeGameOver(token.userId, score)
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true
-            console.log('top player' + topPlayer)
         }
     }
 
@@ -68,11 +66,8 @@ class GameOver extends Phaser.Scene {
             let name = this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
             let highScore = this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000' });
             if (token.userId == element.id) {
-                console.log(element.id)
-                console.log(token.userId)
-                console.log('same user')
-                name.setColor('#ffff00')
-                highScore.setColor('#ffff00')
+                name.setColor('#da0707')
+                highScore.setColor('#da0707')
             }
         })
     }
