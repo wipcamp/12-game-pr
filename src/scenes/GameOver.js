@@ -12,77 +12,81 @@ let scoreText
 let token = {}
 let topPlayer = []
 let waitScoreBoardData = false
-const namePosition = [{x:110,y:250},{x:110,y:290},{x:110,y:330},{x:110,y:370},{x:110,y:410},{x:110,y:450},{x:110,y:490},{x:110,y:530},{x:110,y:570},{x:110,y:610}]
-const scorePosition = [{x:380,y:250},{x:380,y:290},{x:380,y:330},{x:380,y:370},{x:380,y:410},{x:380,y:450},{x:380,y:490},{x:380,y:530},{x:380,y:570},{x:380,y:610}]
-class GameOver extends Phaser.Scene{
+const namePosition = [{ x: 110, y: 250 }, { x: 110, y: 290 }, { x: 110, y: 330 }, { x: 110, y: 370 }, { x: 110, y: 410 }, { x: 110, y: 450 }, { x: 110, y: 490 }, { x: 110, y: 530 }, { x: 110, y: 570 }, { x: 110, y: 610 }]
+const scorePosition = [{ x: 380, y: 250 }, { x: 380, y: 290 }, { x: 380, y: 330 }, { x: 380, y: 370 }, { x: 380, y: 410 }, { x: 380, y: 450 }, { x: 380, y: 490 }, { x: 380, y: 530 }, { x: 380, y: 570 }, { x: 380, y: 610 }]
+class GameOver extends Phaser.Scene {
 
-    constructor(){
+    constructor() {
         super({
             key: 'GameOver'
         })
     }
 
-    async init(data){
+    async init(data) {
         if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
             token = data.tokenMain
             score = data.newScore;
-            await gamePrService.arcadeGameOver(token.userId,score)
+            console.log('token in GameOver scene'+token)
+            await gamePrService.arcadeGameOver(token.userId, score)
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true
-            console.log('top player'+topPlayer)
+            console.log('top player' + topPlayer)
         }
     }
 
-    preload(){
+    preload() {
         this.load.image('bg', 'src/images/BG.png')
-        this.load.image('score','src/images/Box_OverScore.png')
-        this.load.image('goMainMenu','src/images/Button_B2Menu.png')
+        this.load.image('score', 'src/images/Box_OverScore.png')
+        this.load.image('goMainMenu', 'src/images/Button_B2Menu.png')
 
         preloadScene({
-            scene:this,
+            scene: this,
             key: 'default'
         })
     }
 
-    create(){
+    create() {
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         button_back = this.add.image(300, 750, 'goMainMenu').setInteractive();
         overScore = this.add.image(300, 360, 'score')
         scoreText = this.add.text(280, 150, score, { fontSize: '30px', fill: '#000000' });
 
-        
-        
 
-        button_back.on('pointerdown', (pointer) =>{
-            this.scene.start('MainMenu',token);
+
+
+        button_back.on('pointerdown', (pointer) => {
+            this.scene.start('MainMenu', token);
         });
 
     }
 
-    createScoreBoardData(){
-        topPlayer.forEach((element,index)=>{
-            if(token.userId==element.id){
-            this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000',color:'#00ff00' });
-            this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000',color:'##00ff00' });
-            }else{
-                this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
-                this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000' });     
+    createScoreBoardData() {
+        topPlayer.forEach((element, index) => {
+            let name = this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
+            let highScore = this.add.text(scorePosition[index].x, scorePosition[index].y, element.highScore, { fontSize: '30px', fill: '#000000' });
+            if (token.userId == element.id) {
+                console.log(element.id)
+                console.log(token.userId)
+                console.log('same user')
+                name.setColor('#ffff00')
+                highScore.setColor('#ffff00')
             }
         })
     }
 
-    goToMainMenu(){
-        this.scene.start('MainMenu',token);
-    }
 
-    update(delta,time){
-        if(waitScoreBoardData){
-            this.createScoreBoardData()
-        }
+goToMainMenu() {
+    this.scene.start('MainMenu', token);
+}
+
+update(delta, time) {
+    if (waitScoreBoardData) {
+        this.createScoreBoardData()
     }
+}
 }
 
 export default GameOver
