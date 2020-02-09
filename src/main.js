@@ -1,15 +1,14 @@
 import 'phaser';
 import GameScene from './scenes/GameScene';
 import ComicPage1 from './scenes/ComicPage1';
-import ComicPage2 from './scenes/ComicPage2';
 import ComicPageEnd from './scenes/ComicPageEnd';
 import MainMenu from './scenes/MainMenu';
 import ArcadeMode from './scenes/ArcadeMode';
 import GameOver from './scenes/GameOver';
 import scoreBoard from './scenes/scoreBoard';
+import ResponsiveGame from './scenes/core/ResponsiveGame';
 
 const config = {
-
     type: Phaser.WEBGL,
     pixelArt: true,
     roundPixels: true,
@@ -19,15 +18,15 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            debug: false,
-            gravity: { y: 0 }
+            debug: true,
+            gravity: {y:0}
         }
     },
     scene: [
         MainMenu, ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver, scoreBoard
-
     ]
 };
 
-const game = new Phaser.Game(config);
+const game = new ResponsiveGame(config);
+
 export default game;
