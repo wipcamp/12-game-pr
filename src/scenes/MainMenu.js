@@ -65,12 +65,14 @@ class MainMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', 'src/images/BG.png')
+        this.load.image('bg', 'src/images/BackGround.png')
         this.load.image('gameName', 'src/images/GameName.png')
         this.load.image('howToPlay', 'src/images/Box_H2P.png')
         this.load.image('storyM', 'src/images/Button_Story.png')
         this.load.image('arcadeM', 'src/images/Button_Arcade.png')
+        //this.load.image('viewScoreBoard','src/images/Button_ViewScore.png')
         this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
+        
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         preloadScene({
@@ -100,10 +102,6 @@ class MainMenu extends Phaser.Scene {
             this.scene.start('ArcadeMode', token)
         })
 
-    }
-
-    goToArcadeMode() {
-        this.scene.start('ArcadeMode', token)
     }
 
     update(delta, time) {

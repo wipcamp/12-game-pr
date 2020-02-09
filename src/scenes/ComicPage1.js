@@ -24,7 +24,7 @@ class ComicPage1 extends Phaser.Scene{
 
     preload(){
         this.load.image('comicPg1','src/images/Comic-Intro.jpg');
-        this.load.image('nextbtn','src/images/nextButton.png');
+        this.load.image('nextbtn','src/images/Button_Play.png');
         this.load.audio('comic_song','src/songs/09. Reversal.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({

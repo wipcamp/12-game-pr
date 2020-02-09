@@ -1,4 +1,4 @@
-export default class ResponsiveGame extends Phaser.Game{
+export default class ResponsiveGame extends Phaser.Game {
     constructor(config){
         super(config);
         window.addEventListener('resize', () => this.__resize__(this));

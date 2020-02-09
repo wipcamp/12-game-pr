@@ -118,7 +118,7 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
         this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
-        this.load.image('bg', 'src/images/BG.png')
+        this.load.image('bg', 'src/images/Bg.png')
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
@@ -218,7 +218,7 @@ class GameScene extends Phaser.Scene {
                     nextWave.start();
                 }
             }, wave1: {
-                waveName: 'The Majin Buu 1.',
+                waveName: 'Big Boss 1',
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveDelay: 5000,
@@ -241,6 +241,7 @@ class GameScene extends Phaser.Scene {
                     boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
                     boss1.health = 100;
                     boss1.maxHealth = 100;
+                    boss1.setScale(0.8);
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
                     boss1.BossMoving(1000, 200, -200);
@@ -279,7 +280,7 @@ class GameScene extends Phaser.Scene {
                     nextWave.start();
                 }
             }, wave2: {
-                waveName: 'The Majin Buu 2.',
+                waveName: 'Big Boss 2.',
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveDelay: 7000,
@@ -420,7 +421,7 @@ class GameScene extends Phaser.Scene {
         if (healthPlayer < 1) {
             game_song.stop();
             console.clear();
-            this.scene.start('MainMenu',token);
+            this.scene.start('GameOverStoryMode',token);
             healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
