@@ -60,7 +60,7 @@ class MainMenu extends Phaser.Scene {
                 Cookies.set('nonce', nonceGenerate.data)
                 let stateInCookies = Cookies.get('state')
                 const nonceInCookies = Cookies.get('nonce')
-                //window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
+                window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
             }
         }
     }
