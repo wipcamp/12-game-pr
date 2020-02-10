@@ -10,6 +10,7 @@ let howToPlay
 let storyMode
 let arcadeMode
 let MainMenu_song
+let viewScoreBoard
 const clientId = '1653703435'
 const callbackGamePrUrl = 'https://12-gamepr.freezer.wip.camp'
 let token = {}
@@ -59,7 +60,7 @@ class MainMenu extends Phaser.Scene {
                 Cookies.set('nonce', nonceGenerate.data)
                 let stateInCookies = Cookies.get('state')
                 const nonceInCookies = Cookies.get('nonce')
-                window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
+                //window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
             }
         }
     }
@@ -70,7 +71,7 @@ class MainMenu extends Phaser.Scene {
         this.load.image('howToPlay', 'src/images/Box_H2P.png')
         this.load.image('storyM', 'src/images/Button_Story.png')
         this.load.image('arcadeM', 'src/images/Button_Arcade.png')
-        //this.load.image('viewScoreBoard','src/images/Button_ViewScore.png')
+        this.load.image('viewScoreBoard','src/images/Button_ViewScore.png')
         this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
         
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -84,12 +85,14 @@ class MainMenu extends Phaser.Scene {
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         gameName = this.add.image(300, 100, 'gameName')
         howToPlay = this.add.image(300, 420, 'howToPlay')
-        storyMode = this.add.image(200, 730, 'storyM')
-        arcadeMode = this.add.image(400, 730, 'arcadeM')
+        storyMode = this.add.image(110, 730, 'storyM')
+        arcadeMode = this.add.image(300, 730, 'arcadeM')
+        viewScoreBoard = this.add.image(490, 730,'viewScoreBoard')
         MainMenu_song = this.sound.add('MainMenu_song', { volume: 0.15 })
         MainMenu_song.play()
         storyMode.setInteractive()
         arcadeMode.setInteractive()
+        viewScoreBoard.setInteractive()
         //////////////////////////////////////////////////////////////////////////////////////////
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
@@ -99,7 +102,12 @@ class MainMenu extends Phaser.Scene {
         arcadeMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
             // this.goToArcadeMode()
-            this.scene.start('ArcadeMode', token)
+            this.scene.start('ArcadeMode', token);
+        })
+        //////////////////////////////////////////////////////////////////////////////////////////
+        viewScoreBoard.on('pointerdown', (pointer) => {
+            MainMenu_song.stop()
+            this.scene.start('scoreBoard', token);
         })
 
     }

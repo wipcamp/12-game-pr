@@ -1,4 +1,5 @@
 import { preloadScene } from '../utils/preloadScene'
+let token = {}
 let background
 let button_back
 let ScoreBoard
@@ -8,6 +9,14 @@ class scoreBoard extends Phaser.Scene{
         super({
             key: 'scoreBoard'
         })
+    } 
+
+    init(data){
+        if (!data) {
+            window.location.href = `https://12-gamepr.freezer.wip.camp`
+        } else {
+            token = data
+        }
     }
 
     preload(){
@@ -24,18 +33,16 @@ class scoreBoard extends Phaser.Scene{
 
     create(){
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
-        button_back = this.add.image(300, 750, 'goMainMenu').setInteractive();
+        button_back = this.add.image(300, 750, 'goMainMenu')
         ScoreBoard = this.add.image(300, 360, 'ScoreBoard')
+        button_back.setInteractive();
         
         button_back.on('pointerdown', (pointer) =>{
-            this.goToMainMenu();
+            this.scene.start('MainMenu',token);
         })
     }
 
-    goToMainMenu(){
-        this.scene.start('MainMenu',token);
-    
-    }
+   
 
     update(delta,time){
 

@@ -1,4 +1,3 @@
-import { startScene } from '../utils/goTo'
 import { preloadScene } from '../utils/preloadScene'
 
 let token = {}
@@ -36,6 +35,7 @@ class GameOverStoryMode extends Phaser.Scene{
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         gameOver = this.add.image(300, 350, 'over')
         back2Menu = this.add.image(300, 490, 'goMainMenu').setInteractive()
+        
         back2Menu.on('pointerdown', (pointer) => {
             this.scene.start('MainMenu', token);
         });

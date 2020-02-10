@@ -7,8 +7,8 @@ import ArcadeMode from './scenes/ArcadeMode';
 import GameOver from './scenes/GameOver';
 import scoreBoard from './scenes/scoreBoard';
 import ResponsiveGame from './scenes/core/ResponsiveGame';
-import GameOverStoryMode from './scenes/GameOverStoryMode'
-//import scoreBoard from './scenes/scoreBoard'
+import GameOverStoryMode from './scenes/GameOverStoryMode';
+
 
 const config = {
     type: Phaser.WEBGL,
@@ -25,8 +25,8 @@ const config = {
         }
     },
     scene: [
-        MainMenu, ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode
-        //scoreBoard
+        MainMenu,scoreBoard
+        // ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode,
     ]
 };
 
