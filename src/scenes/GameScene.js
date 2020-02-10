@@ -38,7 +38,7 @@ let itemGroup
 let item;
 
 
-let bg;
+let bgGame;
 
 let health_frame;
 let healthBar;
@@ -118,7 +118,7 @@ class GameScene extends Phaser.Scene {
     preload() {
         this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
         this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
-        this.load.image('bg', 'src/images/Bg.png')
+        this.load.image('bgGame', 'src/images/Bg.png')
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
@@ -139,7 +139,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
+        bgGame = this.add.tileSprite(0, 0, 600, 900, 'bgGame').setOrigin(0, 0)
         ////////////////////////////////////////////////////////////////////////////////////////// spawn item
         item = new Item(this, 0, -1000, itemKey)
         //itemGroup = item.spawnItemWave(itemKey)
@@ -416,7 +416,7 @@ class GameScene extends Phaser.Scene {
 
 
     update(delta, time) {
-        bg.tilePositionY -= 3
+        bgGame.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
             game_song.stop();
