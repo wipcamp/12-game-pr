@@ -28,7 +28,8 @@ class GameOver extends Phaser.Scene {
         } else {
             token = data.tokenMain
             score = data.newScore;
-            await gamePrService.arcadeGameOver(token.userId, score)
+            let newHighScore = await gamePrService.arcadeGameOver(token.userId, score)
+            token.highScore = newHighScore.data
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true
@@ -73,15 +74,16 @@ class GameOver extends Phaser.Scene {
     }
 
 
-goToMainMenu() {
-    this.scene.start('MainMenu', token);
-}
-
-update(delta, time) {
-    if (waitScoreBoardData) {
-        this.createScoreBoardData()
+    goToMainMenu() {
+        this.scene.start('MainMenu', token);
     }
-}
+
+    update(delta, time) {
+        if (waitScoreBoardData) {
+            this.createScoreBoardData()
+            waitScoreBoardData = false
+        }
+    }
 }
 
 export default GameOver
