@@ -28,12 +28,7 @@ class GameOver extends Phaser.Scene {
         } else {
             token = data.tokenMain
             score = data.newScore;
-            let newHighScore = await gamePrService.arcadeGameOver(token.userId, score)
-            console.log(newHighScore)
-            console.log(newHighScore.data)
-            console.log(token.highScore)
-            token.highScore = newHighScore.data
-            console.log('new' + token.highScore)
+            await gamePrService.arcadeGameOver(token.userId, score)
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true

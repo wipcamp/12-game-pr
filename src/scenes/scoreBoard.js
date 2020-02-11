@@ -1,9 +1,11 @@
 import { preloadScene } from '../utils/preloadScene'
 let token = {}
+let highScore
 let background
 let button_back
 let ScoreBoard
 import gamePrService from '../services/GamePrService'
+import game from '../main'
 let topPlayer = []
 let waitScoreBoardData = false
 const namePosition = [{ x: 110, y: 250 }, { x: 110, y: 290 }, { x: 110, y: 330 }, { x: 110, y: 370 }, { x: 110, y: 410 }, { x: 110, y: 450 }, { x: 110, y: 490 }, { x: 110, y: 530 }, { x: 110, y: 570 }, { x: 110, y: 610 }]
@@ -22,6 +24,8 @@ class scoreBoard extends Phaser.Scene{
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
             token = data
+            let res = await gamePrService.getHighScore(token.userId)
+            highScore = res.data
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true
@@ -45,7 +49,7 @@ class scoreBoard extends Phaser.Scene{
         button_back = this.add.image(300, 750, 'goMainMenu')
         ScoreBoard = this.add.image(300, 360, 'ScoreBoard')
 
-        this.add.text(250, 185, token.highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(250, 185, highScore, { fontSize: '30px', fill: '#000000' });
 
         button_back.setInteractive();
         
