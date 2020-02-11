@@ -6,6 +6,8 @@ let ScoreBoard
 import gamePrService from '../services/GamePrService'
 let topPlayer = []
 let waitScoreBoardData = false
+const namePosition = [{ x: 110, y: 250 }, { x: 110, y: 290 }, { x: 110, y: 330 }, { x: 110, y: 370 }, { x: 110, y: 410 }, { x: 110, y: 450 }, { x: 110, y: 490 }, { x: 110, y: 530 }, { x: 110, y: 570 }, { x: 110, y: 610 }]
+const scorePosition = [{ x: 380, y: 250 }, { x: 380, y: 290 }, { x: 380, y: 330 }, { x: 380, y: 370 }, { x: 380, y: 410 }, { x: 380, y: 450 }, { x: 380, y: 490 }, { x: 380, y: 530 }, { x: 380, y: 570 }, { x: 380, y: 610 }]
 
 class scoreBoard extends Phaser.Scene{
 
