@@ -45,7 +45,7 @@ class scoreBoard extends Phaser.Scene{
         button_back = this.add.image(300, 750, 'goMainMenu')
         ScoreBoard = this.add.image(300, 360, 'ScoreBoard')
 
-        this.add.text(250, 200, token.highScore, { fontSize: '30px', fill: '#000000' });
+        this.add.text(250, 185, token.highScore, { fontSize: '30px', fill: '#000000' });
 
         button_back.setInteractive();
         
