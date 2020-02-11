@@ -24,8 +24,8 @@ class scoreBoard extends Phaser.Scene{
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
             token = data
-            let res = await gamePrService.getHighScore(token.userId)
-            highScore = res.data
+            let resHighScore = await gamePrService.getHighScore(token.userId)
+            highScore = resHighScore.data
             let res = await gamePrService.getScoreBoard()
             topPlayer = res.data
             waitScoreBoardData = true
