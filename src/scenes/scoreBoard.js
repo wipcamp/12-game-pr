@@ -15,7 +15,7 @@ class scoreBoard extends Phaser.Scene{
         })
     } 
 
-    init(data){
+    async init(data){
         if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
