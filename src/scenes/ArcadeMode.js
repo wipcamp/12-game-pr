@@ -27,7 +27,7 @@ let itemGroup
 let item;
 let HitItem
 
-let bg;
+let bgGameArcade;
 let scoreBG
 
 let game_song
@@ -54,7 +54,7 @@ class ArcadeMode extends Phaser.Scene {
 
     preload(){
 
-        this.load.image('bg', 'src/images/BG.png')  
+        this.load.image('bgGame', 'src/images/Bg.png')  
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
@@ -73,7 +73,7 @@ class ArcadeMode extends Phaser.Scene {
     }
     create(){
         sessionStorage.clear()
-        bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
+        bgGameArcade = this.add.tileSprite(0, 0, 600, 900, 'bgGame').setOrigin(0, 0)
         scoreBG = this.add.image(60,40,'scoreBG')
         /////////////////////////////////////////////////////////////////////
         game_song = this.sound.add('game_song',{volume: 0.15});
@@ -199,7 +199,7 @@ class ArcadeMode extends Phaser.Scene {
             score = 0;
         }
         scoreText.setText(" " + score);
-        bg.tilePositionY -= 3
+        bgGameArcade.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
             player.moveLeft(200);
