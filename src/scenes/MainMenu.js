@@ -29,29 +29,42 @@ class MainMenu extends Phaser.Scene {
         } else {
             const search = window.location.search.substring(1)
             if (search) {
-                console.log(token)
                 const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
-                const stateInCookie = Cookies.get('state')
-                if (stateInCookie === resFromLineApi.state) {
-                    console.log('getTokenMethod')
-                    this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
-                    Cookies.remove('state');
-                    Cookies.remove('nonce');
+                const verifyCode = resFromLineApi.verifyCode
+                const timeStart = resFromLineApi.timeStart
+                const stateFromLine = resFromLineApi.state
+                const codeFromLine = resFromLineApi.code
+                if (verifyCode && timeStart) {
+                    console.log(verifyCode)
+                    console.log(timeStart)
+                    this.scene.start('MiniGame', { verifyCode: verifyCode, timeStart: timeStart })
                 } else {
-                    console.log('state in cookies not equal with substring url param')
-                    Cookies.remove('state');
-                    Cookies.remove('nonce');
-                    if (!data.userId) {
-                        console.log('!data if')
-                        window.location.href = callbackGamePrUrl
-                    } else {
-                        console.log('else')
-                        token = data
-                        console.log('test token' + token)
-                        console.log(token)
-                        console.log(data)
+                    if(!stateFromLine||!codeFromLine){
+                        window.location.href=callbackGamePrUrl
                     }
-                    // console.log('check state fail')
+                    console.log(token)
+                    const stateInCookie = Cookies.get('state')
+                    if (stateInCookie === stateFromLine) {
+                        console.log('getTokenMethod')
+                        this.getTokenFromLineApi(codeFromLine, Cookies.get('nonce'))
+                        Cookies.remove('state');
+                        Cookies.remove('nonce');
+                    } else {
+                        console.log('state in cookies not equal with substring url param')
+                        Cookies.remove('state');
+                        Cookies.remove('nonce');
+                        if (!data.userId) {
+                            console.log('!data if')
+                            window.location.href = callbackGamePrUrl
+                        } else {
+                            console.log('else')
+                            token = data
+                            console.log('test token' + token)
+                            console.log(token)
+                            console.log(data)
+                        }
+                        // console.log('check state fail')
+                    }
                 }
             } else {
                 const stateGenerate = await lineService.getGenerateCode()
@@ -72,9 +85,9 @@ class MainMenu extends Phaser.Scene {
         this.load.image('howToPlay', 'src/images/Box_H2P.png')
         this.load.image('storyM', 'src/images/Button_Story.png')
         this.load.image('arcadeM', 'src/images/Button_Arcade.png')
-        this.load.image('viewScoreBoard','src/images/Button_ViewScore.png')
+        this.load.image('viewScoreBoard', 'src/images/Button_ViewScore.png')
         this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
-        
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         preloadScene({
@@ -88,7 +101,7 @@ class MainMenu extends Phaser.Scene {
         howToPlay = this.add.image(300, 420, 'howToPlay')
         storyMode = this.add.image(430, 730, 'storyM').setScale(1.2)
         arcadeMode = this.add.image(180, 730, 'arcadeM').setScale(1.2)
-        viewScoreBoard = this.add.image(515, 40,'viewScoreBoard').setScale(0.8)
+        viewScoreBoard = this.add.image(515, 40, 'viewScoreBoard').setScale(0.8)
         MainMenu_song = this.sound.add('MainMenu_song', { volume: 0.15 })
         MainMenu_song.play()
         storyMode.setInteractive()

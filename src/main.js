@@ -8,7 +8,8 @@ import GameOver from './scenes/GameOver';
 import scoreBoard from './scenes/scoreBoard';
 import ResponsiveGame from './scenes/core/ResponsiveGame';
 import GameOverStoryMode from './scenes/GameOverStoryMode';
-
+import MiniGame from './scenes/MiniGame';
+import GameOverMiniGame from './scenes/GameOverMiniGame';
 
 const config = {
     type: Phaser.WEBGL,
@@ -25,7 +26,7 @@ const config = {
         }
     },
     scene: [
-        MainMenu,scoreBoard,ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode
+        MainMenu,MiniGame,GameOverMiniGame,scoreBoard,ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode
     ]
 };
 
