@@ -84,6 +84,16 @@ class ArcadeMode extends Phaser.Scene {
         // player.setSize(0.15)
         // player.setHitBox(384, 216)
         // player.setoffset(300, 200)
+        
+        player.setInteractive()
+        this.input.setDraggable(player)
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+    
+        });
+
         let playerAni = this.time.addEvent({
             delay: 1000,
             callback: function () {
