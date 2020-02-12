@@ -49,7 +49,7 @@ class scoreBoard extends Phaser.Scene{
         button_back = this.add.image(300, 750, 'goMainMenu')
         ScoreBoard = this.add.image(300, 360, 'ScoreBoard')
 
-        this.add.text(250, 185, highScore, { fontSize: '30px', fill: '#000000' });
+        
 
         button_back.setInteractive();
         
@@ -57,6 +57,11 @@ class scoreBoard extends Phaser.Scene{
             this.scene.start('MainMenu',token);
         })
     }
+
+    createHighScorePlayer(){
+        this.add.text(250, 185, highScore, { fontSize: '30px', fill: '#000000' });
+    }
+
     createScoreBoardData() {
         topPlayer.forEach((element, index) => {
             let name = this.add.text(namePosition[index].x, namePosition[index].y, element.name, { fontSize: '30px', fill: '#000000' });
@@ -71,6 +76,7 @@ class scoreBoard extends Phaser.Scene{
 
     update(delta,time){
         if (waitScoreBoardData) {
+            this.createHighScorePlayer()
             this.createScoreBoardData()
             waitScoreBoardData = false
         }

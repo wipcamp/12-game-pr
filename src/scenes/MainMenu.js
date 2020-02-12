@@ -63,6 +63,7 @@ class MainMenu extends Phaser.Scene {
                 window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
             }
         }
+
     }
 
     preload() {
