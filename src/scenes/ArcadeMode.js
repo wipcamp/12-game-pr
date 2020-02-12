@@ -54,7 +54,7 @@ class ArcadeMode extends Phaser.Scene {
 
     preload(){
 
-        this.load.image('bgGame', 'src/images/BG.png')  
+        this.load.image('bgGame', 'src/images/Bg.png')  
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
