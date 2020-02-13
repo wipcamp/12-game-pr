@@ -162,7 +162,7 @@ class GameScene extends Phaser.Scene {
             increaseHealth(1);
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Player Health
-        //let boss1;
+        let boss1;
 
 
         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
