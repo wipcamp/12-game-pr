@@ -172,6 +172,14 @@ class GameScene extends Phaser.Scene {
         player = new Player(this, 300, 750, playerKey)
         player.setWorldBound(true);
         bulletGroup = player.playerAreShooting(bulletKey, player);
+        player.setInteractive()
+        this.input.setDraggable(player)
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+    
+        });
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
