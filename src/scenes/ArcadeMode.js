@@ -5,6 +5,7 @@ import Enemy from './core/Enemy'
 import Player from './core/Player'
 import Item from './core/item';
 import { preloadScene } from '../utils/preloadScene';
+import Boss from './core/Boss.js'
 import {startScene} from '../utils/goTo'
 
 let enemyKey = 'enemy'
@@ -34,6 +35,16 @@ let game_song
 
 let scoreText
 var score = 0
+
+let boss1Key = 'boss1';
+let bulletBossKey = 'bossBullet';
+let b_bullets;
+let bulletBossGroup;
+
+let boss2Key = 'boss2';
+let bulletBoss2Key = 'bossBullet2';
+let b_bullets2;
+let bulletBoss2Group;
 
 let token = {}
 
