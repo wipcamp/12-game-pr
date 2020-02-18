@@ -1,6 +1,7 @@
 import 'Phaser';
 
 import Bullet from './core/Bullet'
+import Boss from './core/Boss'
 import Enemy from './core/Enemy'
 import Player from './core/Player'
 import Item from './core/item';
