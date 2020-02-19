@@ -34,7 +34,10 @@ module.exports = {
     watch: true,
     plugins: [
         definePlugin,
-        new Dotenv(),
+        new Dotenv({
+            path: './.env',
+            safe: true
+        }),
         //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
         new HtmlWebpackPlugin({
             filename: './index.html',
