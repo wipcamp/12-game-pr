@@ -7,9 +7,8 @@ export const preloadScene = (data) => {
 }
 
 const defaultPreload = (scene) => {
-    
-    // scene.load.image('BgPrep', 'src/images/galaxy.jpg')
-    // let BgPre = scene.add.image(0, 0,'BgPrep').setOrigin(0,0)
+    // scene.load.image('BgPre', 'src/images/galaxy.jpg');
+    let BgPre = scene.add.image(0, 0,'BgPre').setOrigin(0,0)
 
     //let progressBox = scene.add.graphics();
     let progressBar = scene.add.graphics();
