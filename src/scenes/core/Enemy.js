@@ -23,7 +23,7 @@ export default class Enemy extends ObjectProperties{
         enemyGroup = this.scene.physics.add.group();
 
         event = this.scene.time.addEvent({
-            delay: 2000,
+            delay: 800,
             callback: function () {
                 if (!this.scene.anims.get('enemyAni')){
                     this.scene.anims.create({
@@ -49,7 +49,7 @@ export default class Enemy extends ObjectProperties{
             loop: false,
             pause: false,
             // timeScale: 1,
-            repeat : 9
+            repeat : 14
         })
         return enemyGroup;
     }
