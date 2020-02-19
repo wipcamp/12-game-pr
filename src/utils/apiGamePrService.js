@@ -1,10 +1,9 @@
 import axios from 'axios'
-import gameConfig from '../main'
 
-// const  apiUrl   = window['runConfig'].apiUrl;
+// const  {apiUrl}   = window["runConfig"];
 const createInstance = (headers) => {
   return axios.create({
-    baseURL: gameConfig.apiUrl,
+    baseURL: `https://12-gameservice.freezer.wip.camp`,
     // headers: {
     //   'Authorization': `Bearer ${CookiesService.gettokenJWTCookie()}`,
     //   'Content-Type': 'application/json'

@@ -3,8 +3,8 @@ import { preloadScene } from '../utils/preloadScene'
 
 let comic_song
 let comicPgEnd
-let nextbtn
-const token = {}
+let back2menu
+let token = {}
 class ComicPageEnd extends Phaser.Scene{
 
     constructor(){
@@ -17,14 +17,14 @@ class ComicPageEnd extends Phaser.Scene{
         if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
-            token = data.token
+            token = data
         }
     }
 
     preload(){
-        this.load.image('comicPgEnd','../images/Comic-Ending.jpg');
-        this.load.image('nextbtn','../images/Button_B2Menu.png');
-        this.load.audio('comic_song','../songs/BG.mp3');
+        this.load.image('comicPgEnd','src/images/Comic-Ending-Pr.jpg');
+        this.load.image('back2Menubtn','src/images/Button_B2Menu.png');
+        this.load.audio('comic_song','src/songs/BG.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,
@@ -34,16 +34,16 @@ class ComicPageEnd extends Phaser.Scene{
     
     create(){
         comicPgEnd = this.add.image(0, 0,'comicPgEnd').setOrigin(0,0).setScale(0.67);
-        nextbtn = this.add.image(500, 760, 'nextbtn').setInteractive();
+        back2menu = this.add.image(500, 760, 'back2Menubtn').setInteractive();
         comic_song = this.sound.add('comic_song',{volume: 0.15});
         comic_song.play();
-        nextbtn.on('pointerdown', (pointer) =>{
+        back2menu.on('pointerdown', (pointer) =>{
             comic_song.stop();
-            this.goMainMenu()
+            this.scene.start('MainMenu',token)
         })
     }
     goMainMenu(){
-        startScene.call(this, 'MainMenu',token)
+        this.scene.start('MainMenu',token)
     }
     update(delta, time){
          

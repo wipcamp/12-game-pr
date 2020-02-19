@@ -1,4 +1,5 @@
 import api from '../utils/apiGamePrService'
+import Axios from 'axios';
 // import Cookies from './CookieService'
 
 const profileService = {
@@ -6,13 +7,17 @@ const profileService = {
         let res = await api.get(`/profileGamePr?id=${lineId}&name=${name}`)
         return res;
     },
-    arcadeGameOver : async (lindId,score) => {
+    arcadeGameOver : async (lineId,score) => {
         let res = await api.put(`/gamePrGameOver?id=${lineId}&score=${score}`)
         return res;
     },
     getScoreBoard : async () => {
         let res = await api.get(`/scoreBoard`)
         return res;
+    },
+    getHighScore : async (id) => {
+        let res = await api.get(`/getHighScore?id=${id}`)
+        return res
     }
 
   

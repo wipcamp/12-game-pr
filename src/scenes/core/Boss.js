@@ -19,7 +19,7 @@ export default class Boss extends bossBullet {
       pause: false,
       loop: true,
       callback: function () {
-          this.body.setVelocityX(Phaser.Math.Between(Con, Pos));
+        this.body.setVelocityX(Phaser.Math.Between(Con, Pos));
       },
       callbackScope: this,
       timeScale: 1
@@ -30,7 +30,7 @@ export default class Boss extends bossBullet {
     event.remove(false);
   }
 
-  playAnimateB(boss, bossKey,fame) {
+  playAnimateB(boss, bossKey, fame) {
     this.scene.anims.create({
       key: 'bossAni',
       frames: this.scene.anims.generateFrameNumbers(bossKey, {
@@ -42,7 +42,7 @@ export default class Boss extends bossBullet {
     })
     boss.anims.play('bossAni', true);
   }
-  playAnimateB2(boss2, boss2Key,fame) {
+  playAnimateB2(boss2, boss2Key, fame) {
     this.scene.anims.create({
       key: 'boss2Ani',
       frames: this.scene.anims.generateFrameNumbers(boss2Key, {
@@ -58,4 +58,6 @@ export default class Boss extends bossBullet {
   bossCheckIsDead(value) {
     return value;
   }
+
+  
 }

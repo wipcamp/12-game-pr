@@ -1,18 +1,19 @@
 import { preloadScene } from '../utils/preloadScene'
 import { startScene } from '../utils/goTo'
 import Cookies from 'js-cookie';
-import LineService from "../services/LineService";
+import lineService from "../services/LineService";
 import gamePrService from "../services/GamePrService";
-
+import axios from 'axios'
 let background
 let gameName
 let howToPlay
 let storyMode
 let arcadeMode
 let MainMenu_song
-const clientId = '1653724802'
+let viewScoreBoard
+const clientId = '1653703435'
 const callbackGamePrUrl = 'https://12-gamepr.freezer.wip.camp'
-const token = {}
+let token = {}
 class MainMenu extends Phaser.Scene {
     constructor() {
         super({
@@ -22,24 +23,52 @@ class MainMenu extends Phaser.Scene {
 
 
     async init(data) {
-        const search = window.location.search.substring(1)
-        if (search) {
-            const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
-            const stateInCookie = Cookies.get('state')
-            if (stateInCookie === resFromLineApi.state) {
-                this.getTokenFromLineApi(resFromLineApi.code, Cookies.get('nonce'))
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-            } else {
-                Cookies.remove('state');
-                Cookies.remove('nonce');
-                window.location.href = callbackGamePrUrl
-                console.log('check state fail')
-            }
+        console.log(token)
+        if (data.userId) {
+            token = data
         } else {
-            if (!data) {
-                const stateGenerate = await LineService.getGenerateCode()
-                const nonceGenerate = await LineService.getGenerateCode()
+            const search = window.location.search.substring(1)
+            if (search) {
+                const resFromLineApi = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+                const verifyCode = resFromLineApi.verifyCode
+                const timeStart = resFromLineApi.timeStart
+                const stateFromLine = resFromLineApi.state
+                const codeFromLine = resFromLineApi.code
+                if (verifyCode && timeStart) {
+                    console.log(verifyCode)
+                    console.log(timeStart)
+                    this.scene.start('MiniGame', { verifyCode: verifyCode, timeStart: timeStart })
+                } else {
+                    if(!stateFromLine||!codeFromLine){
+                        window.location.href=callbackGamePrUrl
+                    }
+                    console.log(token)
+                    const stateInCookie = Cookies.get('state')
+                    if (stateInCookie === stateFromLine) {
+                        console.log('getTokenMethod')
+                        this.getTokenFromLineApi(codeFromLine, Cookies.get('nonce'))
+                        Cookies.remove('state');
+                        Cookies.remove('nonce');
+                    } else {
+                        console.log('state in cookies not equal with substring url param')
+                        Cookies.remove('state');
+                        Cookies.remove('nonce');
+                        if (!data.userId) {
+                            console.log('!data if')
+                            window.location.href = callbackGamePrUrl
+                        } else {
+                            console.log('else')
+                            token = data
+                            console.log('test token' + token)
+                            console.log(token)
+                            console.log(data)
+                        }
+                        // console.log('check state fail')
+                    }
+                }
+            } else {
+                const stateGenerate = await lineService.getGenerateCode()
+                const nonceGenerate = await lineService.getGenerateCode()
                 Cookies.set('state', stateGenerate.data)
                 Cookies.set('nonce', nonceGenerate.data)
                 let stateInCookies = Cookies.get('state')
@@ -47,15 +76,19 @@ class MainMenu extends Phaser.Scene {
                 window.location.href = `https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=${clientId}&redirect_uri=${callbackGamePrUrl}&state=${stateInCookies}&scope=openid%20email%20profile&nonce=${nonceInCookies}`
             }
         }
+
     }
 
     preload() {
-        this.load.image('bg', '../images/BG.png')
-        this.load.image('gameName', '../images/GameName.png')
-        this.load.image('howToPlay', '../images/Box_H2P.png')
-        this.load.image('storyM', '../images/Button_Story.png')
-        this.load.image('arcadeM', '../images/Button_Arcade.png')
-        this.load.audio('MainMenu_song', '../songs/BG.mp3')
+        this.load.image('bg', 'src/images/BackGround01.png')
+        this.load.image('gameName', 'src/images/GameName.png')
+        this.load.image('howToPlay', 'src/images/Box_H2P.png')
+        this.load.image('storyM', 'src/images/Button_Story.png')
+        this.load.image('arcadeM', 'src/images/Button_Arcade.png')
+        this.load.image('viewScoreBoard', 'src/images/Button_ViewScore.png')
+        this.load.image('BgPre', 'src/images/galaxy.jpg');
+        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
+
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         preloadScene({
@@ -67,27 +100,31 @@ class MainMenu extends Phaser.Scene {
         background = this.add.image(0, 0, 'bg').setOrigin(0, 0)
         gameName = this.add.image(300, 100, 'gameName')
         howToPlay = this.add.image(300, 420, 'howToPlay')
-        storyMode = this.add.image(200, 730, 'storyM')
-        arcadeMode = this.add.image(400, 730, 'arcadeM')
+        storyMode = this.add.image(430, 730, 'storyM').setScale(1.2)
+        arcadeMode = this.add.image(180, 730, 'arcadeM').setScale(1.2)
+        viewScoreBoard = this.add.image(515, 40, 'viewScoreBoard').setScale(0.8)
         MainMenu_song = this.sound.add('MainMenu_song', { volume: 0.15 })
         MainMenu_song.play()
         storyMode.setInteractive()
         arcadeMode.setInteractive()
+        viewScoreBoard.setInteractive()
         //////////////////////////////////////////////////////////////////////////////////////////
         storyMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.scene.start('ComicPage1',token);
+            this.scene.start('ComicPage1', token);
         });
         //////////////////////////////////////////////////////////////////////////////////////////
         arcadeMode.on('pointerdown', (pointer) => {
             MainMenu_song.stop()
-            this.goToArcadeMode()
+            // this.goToArcadeMode()
+            this.scene.start('ArcadeMode', token);
+        })
+        //////////////////////////////////////////////////////////////////////////////////////////
+        viewScoreBoard.on('pointerdown', (pointer) => {
+            MainMenu_song.stop()
+            this.scene.start('scoreBoard', token);
         })
 
-    }
-
-    goToArcadeMode() {
-        startScene.call(this, 'ArcadeMode'.token)
     }
 
     update(delta, time) {
@@ -95,11 +132,14 @@ class MainMenu extends Phaser.Scene {
     }
 
     async getTokenFromLineApi(code, nonce) {
-        const objectResponse = await LineService.lineLogin(code, nonce)
+        console.log('get token')
+        console.log('nonce' + nonce)
+        const objectResponse = await lineService.lineLogin(code, nonce, callbackGamePrUrl)
         if (objectResponse == null) {
+            console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
         }
-        const userObject = await gamePrService.getProfile(objectResponse.data.userId,objectResponse.data.name)
+        const userObject = await gamePrService.getProfile(objectResponse.data.userId, objectResponse.data.name)
         const tokenObject = {
             scope: objectResponse.data.scope,
             access_token: objectResponse.data.access_token,
@@ -111,6 +151,7 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
+        console.log(token)
     }
 
 } export default MainMenu

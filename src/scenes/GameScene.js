@@ -38,7 +38,7 @@ let itemGroup
 let item;
 
 
-let bg;
+let bgGame;
 
 let health_frame;
 let healthBar;
@@ -48,7 +48,7 @@ let boss1MaxHealth = 100;
 
 let game_song
 
-const token = {}
+let token = {}
 
 
 
@@ -106,18 +106,19 @@ class GameScene extends Phaser.Scene {
         })
     }
 
-    init(data){
+    init(data) {
         if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
-            token = data.token
+            token = data
+            console.log(token)
         }
     }
 
     preload() {
         this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
         this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
-        this.load.image('bg', 'src/images/BG.png')
+        this.load.image('bgGame', 'src/images/Bg.png')
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
@@ -138,7 +139,7 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
-        bg = this.add.tileSprite(0, 0, 600, 900, 'bg').setOrigin(0, 0)
+        bgGame = this.add.tileSprite(0, 0, 600, 900, 'bgGame').setOrigin(0, 0)
         ////////////////////////////////////////////////////////////////////////////////////////// spawn item
         item = new Item(this, 0, -1000, itemKey)
         //itemGroup = item.spawnItemWave(itemKey)
@@ -171,6 +172,12 @@ class GameScene extends Phaser.Scene {
         player = new Player(this, 300, 750, playerKey)
         player.setWorldBound(true);
         bulletGroup = player.playerAreShooting(bulletKey, player);
+        player.setInteractive()
+        this.input.setDraggable(player)
+        this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -190,7 +197,7 @@ class GameScene extends Phaser.Scene {
                     return this.enemyKillCount === 10;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(¯▽¯；) Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' start!');
                     waveEnemy = new Enemy(waves[0].waveState.waveScene, 0, -1000, enemyKey);
                     waveEnemyGroup = waveEnemy.spawnEnemyWave(enemyKey, player);
@@ -204,20 +211,20 @@ class GameScene extends Phaser.Scene {
                     waveScene.physics.add.overlap(bulletGroup, waveEnemyGroup, HitWaveEnemy.bind(waves[0]), null, this);
                 },
                 waveCompleted: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' completed!');
                 },
                 waveEnded: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[0].waveState.waveNo + ' ' + waves[0].waveState.waveName + ' ended!');
                     waveEnemy.removeSpawnEnemyWave();
                 },
                 nextWave: function (nextWave) {
-                    console.clear();
+                    // console.clear();
                     nextWave.start();
                 }
             }, wave1: {
-                waveName: 'The Majin Buu 1.',
+                waveName: 'Big Boss 1',
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveDelay: 5000,
@@ -225,7 +232,7 @@ class GameScene extends Phaser.Scene {
                     return this.majinBuuKilled;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Σ( ° △ °|||) Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' start!');
                     waveEnemy = new Enemy(waves[1].waveState.waveScene, 0, -1000, enemyKey);
                     waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
@@ -240,6 +247,7 @@ class GameScene extends Phaser.Scene {
                     boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
                     boss1.health = 100;
                     boss1.maxHealth = 100;
+                    boss1.setScale(0.8);
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
                     boss1.BossMoving(1000, 200, -200);
@@ -260,7 +268,7 @@ class GameScene extends Phaser.Scene {
                 },
                 waveCompleted: function () {
                     // boss1.BossMoving(true,false, 1000, 200, -200);
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' completed!');
                     item.pauseSpawnItemWave();
                     waveEnemy.removeSpawnEnemyWave();
@@ -270,15 +278,15 @@ class GameScene extends Phaser.Scene {
                 },
                 waveEnded: function () {
                     //boss1.BossMoving(true,false, 1000, 200, -200);
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[1].waveState.waveNo + ' ' + waves[1].waveState.waveName + ' ended!');
                 },
                 nextWave: function (nextWave) {
-                    console.clear();
+                    // console.clear();
                     nextWave.start();
                 }
             }, wave2: {
-                waveName: 'The Majin Buu 2.',
+                waveName: 'Big Boss 2.',
                 waveNo: ++waveNo,
                 waveScene: this,
                 waveDelay: 7000,
@@ -286,7 +294,7 @@ class GameScene extends Phaser.Scene {
                     return this.majinBuuKilled;
                 },
                 waveSteps: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Σ(⊙▽⊙") Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' start!');
                     // waveEnemy = new Enemy(waves[2].waveState.waveScene, 0, -1000, enemyKey);
                     // waveEnemyGroup = waveEnemy.spawnEnemyWaveInf(enemyKey, player);
@@ -316,7 +324,7 @@ class GameScene extends Phaser.Scene {
                     health_frame.setVisible(true);
                 },
                 waveCompleted: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('(/≧▽≦)/ Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' completed!');
                     item.removeSpawnItemWave();
                     waveEnemy.removeSpawnEnemyWave();
@@ -326,14 +334,14 @@ class GameScene extends Phaser.Scene {
 
                 },
                 waveEnded: function () {
-                    console.clear();
+                    // console.clear();
                     console.log('Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' ended!');
 
                 },
-                nextWave: function (nextWave) {
-                    console.clear();
+                nextWave: (nextWave) => {
+                    // console.clear();
                     game_song.stop();
-                    startScene.call(this.waveState.waveScene, 'ComicPageEnd',token);
+                    this.scene.start('ComicPageEnd', token);
                 }
 
             }
@@ -414,12 +422,12 @@ class GameScene extends Phaser.Scene {
 
 
     update(delta, time) {
-        bg.tilePositionY -= 1
+        bgGame.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Check Health 0
         if (healthPlayer < 1) {
             game_song.stop();
             console.clear();
-            startScene.call(this, 'MainMenu');
+            this.scene.start('GameOverStoryMode', token);
             healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player

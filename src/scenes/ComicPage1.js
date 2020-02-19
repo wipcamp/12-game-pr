@@ -4,7 +4,7 @@ import {preloadScene} from '../utils/preloadScene'
 let comicPg1
 let nextbtn
 let comic_song
-const token = {}
+let token = {}
 class ComicPage1 extends Phaser.Scene{
 
     constructor(){
@@ -14,17 +14,18 @@ class ComicPage1 extends Phaser.Scene{
     }
 
     init(data){
+        console.log(data)
         if(!data){
             window.location.href=`https://12-gamepr.freezer.wip.camp`
         }else{
-            token = data.token
+            token = data
         }
     }
 
     preload(){
-        this.load.image('comicPg1','../images/Comic-Intro.jpg');
-        this.load.image('nextbtn','../images/nextButton.png');
-        this.load.audio('comic_song','../songs/09. Reversal.mp3');
+        this.load.image('comicPg1','src/images/Comic-Intro.jpg');
+        this.load.image('nextbtn','src/images/Button_Play.png');
+        this.load.audio('comic_song','src/songs/09. Reversal.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,
@@ -44,7 +45,7 @@ class ComicPage1 extends Phaser.Scene{
         })
     }
     goGameScene(){
-        startScene.call(this, 'GameScene',token);
+        this.scene.start('GameScene',token);
     }
     update(delta, time){
          
