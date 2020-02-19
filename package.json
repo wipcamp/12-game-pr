@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "asyncawait": "^3.0.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "dotenv": "^6.2.0",
     "dotenv-webpack": "^1.7.0",
     "js-cookie": "^2.2.1",
