@@ -174,7 +174,6 @@ class GameScene extends Phaser.Scene {
         bulletGroup = player.playerAreShooting(bulletKey, player);
         player.setInteractive()
         this.input.setDraggable(player)
-        this.input.setFriction(0.7, 0)
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
             gameObject.y = dragY;

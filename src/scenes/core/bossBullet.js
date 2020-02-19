@@ -110,7 +110,7 @@ export default class bossBullet extends ObjectProperties {
    bossIsShootingArcade(b_bulletKey, boss) {
     b_bullets = this.scene.physics.add.group();
     b_bulletEvent1 = this.scene.time.addEvent({
-        delay: 800,
+        delay: 1000,
         callback: function() {
             let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
             b_bullets.add(b_bullet)
@@ -128,7 +128,7 @@ export default class bossBullet extends ObjectProperties {
     })
 
     b_bulletEvent2 = this.scene.time.addEvent({
-        delay:  800,
+        delay:  1000,
         callback: function() {
             let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
             b_bullets.add(b_bullet)
@@ -146,7 +146,7 @@ export default class bossBullet extends ObjectProperties {
     })
 
     b_bulletEvent3 = this.scene.time.addEvent({
-        delay: 800,
+        delay: 1000,
         callback: function() {
             let b_bullet = this.scene.physics.add.image(boss.x, boss.y - 50, b_bulletKey)
             b_bullets.add(b_bullet)
