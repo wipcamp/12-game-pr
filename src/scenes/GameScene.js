@@ -106,7 +106,7 @@ class GameScene extends Phaser.Scene {
         })
     }
 
-    init(data){
+    init(data) {
         if (!data) {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
@@ -174,11 +174,10 @@ class GameScene extends Phaser.Scene {
         bulletGroup = player.playerAreShooting(bulletKey, player);
         player.setInteractive()
         this.input.setDraggable(player)
+        this.input.setFriction(0.7, 0)
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-
             gameObject.x = dragX;
             gameObject.y = dragY;
-    
         });
         ////////////////////////////////////////////////////////////////////////////////////////// Add Keyboard 
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -340,10 +339,10 @@ class GameScene extends Phaser.Scene {
                     console.log('Wave ' + waves[2].waveState.waveNo + ' ' + waves[2].waveState.waveName + ' ended!');
 
                 },
-                nextWave:  (nextWave) => {
+                nextWave: (nextWave) => {
                     // console.clear();
                     game_song.stop();
-                    this.scene.start('ComicPageEnd',token);
+                    this.scene.start('ComicPageEnd', token);
                 }
 
             }
@@ -429,7 +428,7 @@ class GameScene extends Phaser.Scene {
         if (healthPlayer < 1) {
             game_song.stop();
             console.clear();
-            this.scene.start('GameOverStoryMode',token);
+            this.scene.start('GameOverStoryMode', token);
             healthPlayer = 3;
         }
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player

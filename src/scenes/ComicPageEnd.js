@@ -22,7 +22,7 @@ class ComicPageEnd extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('comicPgEnd','src/images/Comic-Ending.jpg');
+        this.load.image('comicPgEnd','src/images/Comic-Ending-Pr.jpg');
         this.load.image('back2Menubtn','src/images/Button_B2Menu.png');
         this.load.audio('comic_song','src/songs/BG.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////////

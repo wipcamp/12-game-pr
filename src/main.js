@@ -1,4 +1,5 @@
 import 'phaser';
+import Preload from './utils/Preload';
 import GameScene from './scenes/GameScene';
 import ComicPage1 from './scenes/ComicPage1';
 import ComicPageEnd from './scenes/ComicPageEnd';
@@ -26,7 +27,7 @@ const config = {
         }
     },
     scene: [
-        MainMenu,MiniGame,GameOverMiniGame,scoreBoard,ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode
+        Preload, MainMenu,MiniGame,GameOverMiniGame,scoreBoard,ComicPage1, GameScene, ComicPageEnd,ArcadeMode, GameOver,GameOverStoryMode
     ]
 };
 

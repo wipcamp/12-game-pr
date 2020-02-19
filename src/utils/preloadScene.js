@@ -7,7 +7,9 @@ export const preloadScene = (data) => {
 }
 
 const defaultPreload = (scene) => {
-    
+    // scene.load.image('BgPre', 'src/images/galaxy.jpg');
+    let BgPre = scene.add.image(0, 0,'BgPre').setOrigin(0,0)
+
     //let progressBox = scene.add.graphics();
     let progressBar = scene.add.graphics();
     //progressBox.fillStyle(0xffffff,1);
@@ -23,8 +25,8 @@ const defaultPreload = (scene) => {
             font: '20px monospace',
             fill: '#ffffff'
         }
-    });
-    loadingText.setOrigin(0.5, 0.5);
+    }); 
+    loadingText.setOrigin(0.5, 0.5)//.setFont('Russo One')
 
     let percentText = scene.make.text({
         x: 445,
@@ -35,8 +37,7 @@ const defaultPreload = (scene) => {
             fill: '#ffffff'
         }
     });
-    percentText.setOrigin(0.5, 0.5);
-
+    percentText.setOrigin(0.5, 0.5)//.setFont('Russo One')
     let assetText = scene.make.text({
         x: width / 2,
         y: height / 2 + 50,

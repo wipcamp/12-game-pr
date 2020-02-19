@@ -5,6 +5,8 @@ import Enemy from './core/Enemy'
 import Player from './core/Player'
 import Item from './core/item';
 import { preloadScene } from '../utils/preloadScene';
+import { default as spawnBoss } from '../utils/randomBosses';
+import Boss from './core/Boss.js'
 import {startScene} from '../utils/goTo'
 
 let enemyKey = 'enemy'
@@ -15,9 +17,9 @@ let playerKey = 'player';
 let player;
 
 let bulletKey = 'bullet';
-let bulletGroup;
+// let bulletGroup;
 
-var healthPlayer = 3;
+// var healthPlayer = 3;
 let heart1
 let heart2
 let heart3
@@ -26,14 +28,29 @@ let itemKey = 'items';
 let itemGroup
 let item;
 let HitItem
+let touchingItem
 
 let bgGameArcade;
 let scoreBG
 
 let game_song
 
-let scoreText
-var score = 0
+let score = {
+    text: '',
+    total: 0
+}
+
+let boss1Key = 'boss1';
+let bulletBossKey = 'bossBullet';
+let b_bullets;
+let bulletBossGroup;
+
+let boss2Key = 'boss2';
+let bulletBoss2Key = 'bossBullet2';
+let b_bullets2;
+let bulletBoss2Group;
+
+let bossInterval;
 
 let token = {}
 
@@ -41,7 +58,10 @@ class ArcadeMode extends Phaser.Scene {
     constructor() {
         super({
             key: 'ArcadeMode'
-        })
+        });
+        this.healthPlayer = 3;
+        this.bossCount = 0;
+        this.canRoll = true;
     }
 
     init(data){
@@ -54,7 +74,11 @@ class ArcadeMode extends Phaser.Scene {
 
     preload(){
 
-        this.load.image('bgGame', 'src/images/Bg.png')  
+        this.load.image('bgGame', 'src/images/Bg.png')
+        this.load.spritesheet(boss1Key, 'src/images/Boss.png', { frameWidth: 323, frameHeight: 279 })
+        this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
+        this.load.spritesheet(bulletBossKey, 'src/images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
+        this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
         this.load.spritesheet(itemKey, 'src/images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(playerKey, 'src/images/Player.png', { frameWidth: 100, frameHeight: 100 })
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
@@ -72,7 +96,6 @@ class ArcadeMode extends Phaser.Scene {
         })
     }
     create(){
-        sessionStorage.clear()
         bgGameArcade = this.add.tileSprite(0, 0, 600, 900, 'bgGame').setOrigin(0, 0)
         scoreBG = this.add.image(60,40,'scoreBG')
         /////////////////////////////////////////////////////////////////////
@@ -84,7 +107,6 @@ class ArcadeMode extends Phaser.Scene {
         // player.setSize(0.15)
         // player.setHitBox(384, 216)
         // player.setoffset(300, 200)
-        
         player.setInteractive()
         this.input.setDraggable(player)
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
@@ -93,7 +115,7 @@ class ArcadeMode extends Phaser.Scene {
             gameObject.y = dragY;
     
         });
-
+        //////////////////////////////////////////////////////////////////
         let playerAni = this.time.addEvent({
             delay: 1000,
             callback: function () {
@@ -103,20 +125,50 @@ class ArcadeMode extends Phaser.Scene {
             paused: false,
             callbackScope: this,
             startAt: 0
-        })
+        });
         //////////////////////////////////////////////////////////////////
-        scoreText = this.add.text(23, 40,  score, { fontSize: '20px', fill: '#ffffff' });
+        let bossEvent = timeMillis => {
+            if(this.bossCount===0) {
+                this.canRoll = false;
+                let boss = this.time.addEvent({
+                    delay: timeMillis,
+                    callback: function () {
+                        spawnBoss({
+                            scene: this,
+                            score,
+                            player,
+                        });
+                    },
+                    callbackScope: this
+                });
+                setTimeout(() => {boss.remove(false)}, timeMillis + 100);
+            }
+        };
         //////////////////////////////////////////////////////////////////
-        bulletGroup = player.playerAreShooting(bulletKey, player);
+        let registerBossEvent = this.time.addEvent({
+            delay: 1000,
+            callback: function () {
+                if(this.canRoll) {
+                    const time = Math.floor(Math.random() * 3000)+ 6000;
+                    bossEvent(time);
+                }
+            },
+            callbackScope: this,
+            loop: true
+        });
+        //////////////////////////////////////////////////////////////////
+        score.text = this.add.text(23, 40,  score.total, { fontSize: '20px', fill: '#ffffff' });
+        //////////////////////////////////////////////////////////////////
+        this.bulletGroup = player.playerAreShooting(bulletKey, player);
         //////////////////////////////////////////////////////////////////
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
          ////////////////////////////////////////////////////////////////////////////////////////// Player Health
-         heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
-         heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
-         heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
+         this.heart1 = this.add.image(585, 20, 'heart').setScale(0.5)
+         this.heart2 = this.add.image(549, 20, 'heart').setScale(0.5)
+         this.heart3 = this.add.image(513, 20, 'heart').setScale(0.5)
         //////////////////////////////////////////////////////////////////
             enemy = new Enemy( this,0, -1000, enemyKey);
             enemyGroup = enemy.spawnEnemyArcede(enemyKey, player);
@@ -126,20 +178,20 @@ class ArcadeMode extends Phaser.Scene {
             // bulletBossKey.disableBody(true,true);
             enemyGroup.destroy();
             // bulletBossKey.destroy();
-            healthPlayer = healthPlayer - 1;
-            if (healthPlayer === 2) {
-                heart3.setVisible(false);
+            this.healthPlayer = this.healthPlayer - 1;
+            if (this.healthPlayer === 2) {
+                this.heart3.setVisible(false);
             }
-            else if (healthPlayer === 1) {
-                heart2.setVisible(false);
+            else if (this.healthPlayer === 1) {
+                this.heart2.setVisible(false);
             }
-            else if (healthPlayer === 0) {
-                heart1.setVisible(false);
+            else if (this.healthPlayer === 0) {
+                this.heart1.setVisible(false);
             }
         }
 
         function HitEnemy(bulletGroup, enemyGroup, ) {
-            score = score + 10;
+            score.total = score.total + 10;
             enemyGroup.disableBody(true, true);
             enemyGroup.destroy();
             bulletGroup.disableBody(true, true);
@@ -150,48 +202,47 @@ class ArcadeMode extends Phaser.Scene {
 
         
         this.physics.add.overlap(player, enemyGroup, touchingEnemy,null, this)
-        this.physics.add.overlap(bulletGroup, enemyGroup, HitEnemy)
+        this.physics.add.overlap(this.bulletGroup, enemyGroup, HitEnemy)
 
         ////////////////////////////////////////////////////////////////////
         item = new Item(this, 0, -1000, itemKey)
         itemGroup = item.spawnItemArcade(itemKey)
         ////////////////////////////////////////////////////////////////////
-        function HitItem(bulletGroup, itemGroup, ) {
+        HitItem = (bulletGroup, itemGroup, ) => {
             itemGroup.disableBody(true, true);
             itemGroup.destroy();
             bulletGroup.disableBody(true, true);
             bulletGroup.destroy();
-             increaseHealth(1);
+            increaseHealth.call(this,1);
             // console.log("Ya")
 
         }
         /////////////////////////////////////////////////////////////////////
-        function touchingItem(player, itemGroup) {
+        touchingItem = (player, itemGroup) => {
             itemGroup.disableBody(true, true);
             itemGroup.destroy();
-             increaseHealth(1);
-
+            increaseHealth.call(this,1);
         }
         
-        this.physics.add.overlap(bulletGroup, itemGroup, HitItem)
+        this.physics.add.overlap(this.bulletGroup, itemGroup, HitItem)
         this.physics.add.overlap(player, itemGroup,touchingItem)
         ///////////////////////////////////////////////////////////////////////
         function increaseHealth(health) {
-            if (healthPlayer < 3 && healthPlayer > 0) {
-                healthPlayer += health;
-                showHealth();
+            if (this.healthPlayer < 3 && this.healthPlayer > 0) {
+                this.healthPlayer += health;
+                showHealth.call(this);
             }
         }
 
         function showHealth() {
-            if (healthPlayer == 3) {
-                heart3.setVisible(true);
+            if (this.healthPlayer == 3) {
+                this.heart3.setVisible(true);
             }
-            else if (healthPlayer == 2) {
-                heart2.setVisible(true);
+            else if (this.healthPlayer == 2) {
+                this.heart2.setVisible(true);
             }
-            else if (healthPlayer == 1) {
-                heart1.setVisible(true);
+            else if (this.healthPlayer == 1) {
+                this.heart1.setVisible(true);
             }
         }
         
@@ -199,16 +250,17 @@ class ArcadeMode extends Phaser.Scene {
 
     }
     update(){
-        if (healthPlayer < 1) {
+        if (this.healthPlayer < 1) {
             game_song.stop();
             
-            this.scene.start('GameOver',{tokenMain: token, newScore:score});
+            this.scene.start('GameOver',{tokenMain: token, newScore:score.total});
             // startScene.call(this, 'GameOver');
-            healthPlayer = 3;
+            this.healthPlayer = 3;
+            this.bossCount = 0;
             //////////////////////////////////////////////
-            score = 0;
+            score.total = 0;
         }
-        scoreText.setText(" " + score);
+        score.text.setText(" " + score.total);
         bgGameArcade.tilePositionY -= 3
         ////////////////////////////////////////////////////////////////////////////////////////// Control Player
         if (this.keyA.isDown) {
@@ -230,4 +282,6 @@ class ArcadeMode extends Phaser.Scene {
         }
 
     }
-}export default ArcadeMode
+}
+
+export default ArcadeMode
