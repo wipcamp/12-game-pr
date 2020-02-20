@@ -24,7 +24,7 @@ class GameOver extends Phaser.Scene {
 
     async init(data) {
         if (!data) {
-            window.location.href = `https://12-gamepr.freezer.wip.camp`
+            window.location.href = `https://gamepr.wip.camp`
         } else {
             token = data.tokenMain
             score = data.newScore;

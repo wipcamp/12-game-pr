@@ -12,7 +12,7 @@ let arcadeMode
 let MainMenu_song
 let viewScoreBoard
 const clientId = '1653703435'
-const callbackGamePrUrl = 'https://12-gamepr.freezer.wip.camp'
+const callbackGamePrUrl = 'https://gamepr.wip.camp'
 let token = {}
 class MainMenu extends Phaser.Scene {
     constructor() {
