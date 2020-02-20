@@ -4,7 +4,7 @@ import api from '../utils/apiLineService'
 
 const lineService = {
     lineLogin : async (code,nonce,url) => {
-        let res = await api.get(`/auth?code=${code}&url=${url}`)
+        let res = await api.get(`/auth?code=${code}&url=${url}&nonce=${nonce}`)
         return res;
     },
     getGenerateCode : async()=>{
