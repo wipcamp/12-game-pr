@@ -30,7 +30,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
+
 
 # Dependency directories
 node_modules/
@@ -60,10 +60,9 @@ typings/
 # next.js build output
 .next
 
-<<<<<<< HEAD
 node_modules/
 dist/
-build/
+
 dev/
 .vscode/
 .idea
@@ -80,10 +79,8 @@ dump/
 *.bak*
 *.old*
 higherVolume/
-=======
 dev/
 
 .idea/
 
 12-game-pr.iml
->>>>>>> develop
