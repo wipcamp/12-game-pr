@@ -80,14 +80,14 @@ class MainMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', 'src/images/BackGround01.png')
-        this.load.image('gameName', 'src/images/GameName.png')
-        this.load.image('howToPlay', 'src/images/Box_H2P.png')
-        this.load.image('storyM', 'src/images/Button_Story.png')
-        this.load.image('arcadeM', 'src/images/Button_Arcade.png')
-        this.load.image('viewScoreBoard', 'src/images/Button_ViewScore.png')
-        this.load.image('BgPre', 'src/images/galaxy.jpg');
-        this.load.audio('MainMenu_song', 'src/songs/BG.mp3')
+        this.load.image('bg', './images/BackGround01.png')
+        this.load.image('gameName', './images/GameName.png')
+        this.load.image('howToPlay', './images/Box_H2P.png')
+        this.load.image('storyM', './images/Button_Story.png')
+        this.load.image('arcadeM', './images/Button_Arcade.png')
+        this.load.image('viewScoreBoard', './images/Button_ViewScore.png')
+        this.load.image('BgPre', './images/galaxy.jpg');
+        this.load.audio('MainMenu_song', './songs/BG.mp3')
 
         /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
