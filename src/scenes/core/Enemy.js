@@ -53,6 +53,14 @@ export default class Enemy extends ObjectProperties{
         })
         return enemyGroup;
     }
+    
+    resetDelayEnemyAtBossWave(){
+        event.paused = true
+    }
+
+    resetDelayEnemyAtNormalWave(){
+        event.paused = false
+    }
 
     spawnEnemyWaveInf(enemyKey,player){
         enemyGroup = this.scene.physics.add.group();

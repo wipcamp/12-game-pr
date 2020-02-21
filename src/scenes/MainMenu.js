@@ -23,7 +23,7 @@ class MainMenu extends Phaser.Scene {
 
 
     async init(data) {
-        console.log(token)
+        // console.log(token)
         if (data.userId) {
             token = data
         } else {
@@ -35,33 +35,33 @@ class MainMenu extends Phaser.Scene {
                 const stateFromLine = resFromLineApi.state
                 const codeFromLine = resFromLineApi.code
                 if (verifyCode && timeStart) {
-                    console.log(verifyCode)
-                    console.log(timeStart)
+                    // console.log(verifyCode)
+                    // console.log(timeStart)
                     this.scene.start('MiniGame', { verifyCode: verifyCode, timeStart: timeStart })
                 } else {
                     if(!stateFromLine||!codeFromLine){
                         window.location.href=callbackGamePrUrl
                     }
-                    console.log(token)
+                    // console.log(token)
                     const stateInCookie = Cookies.get('state')
                     if (stateInCookie === stateFromLine) {
-                        console.log('getTokenMethod')
+                        // console.log('getTokenMethod')
                         this.getTokenFromLineApi(codeFromLine, Cookies.get('nonce'))
                         Cookies.remove('state');
                         Cookies.remove('nonce');
                     } else {
-                        console.log('state in cookies not equal with substring url param')
+                        // console.log('state in cookies not equal with substring url param')
                         Cookies.remove('state');
                         Cookies.remove('nonce');
                         if (!data.userId) {
-                            console.log('!data if')
+                            // console.log('!data if')
                             window.location.href = callbackGamePrUrl
                         } else {
-                            console.log('else')
+                            // console.log('else')
                             token = data
-                            console.log('test token' + token)
-                            console.log(token)
-                            console.log(data)
+                            // console.log('test token' + token)
+                            // console.log(token)
+                            // console.log(data)
                         }
                         // console.log('check state fail')
                     }
@@ -132,11 +132,11 @@ class MainMenu extends Phaser.Scene {
     }
 
     async getTokenFromLineApi(code, nonce) {
-        console.log('get token')
-        console.log('nonce' + nonce)
+        // console.log('get token')
+        // console.log('nonce' + nonce)
         const objectResponse = await lineService.lineLogin(code, nonce, callbackGamePrUrl)
         if (objectResponse == null) {
-            console.log('check nonce failed')
+            // console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
         }
         const userObject = await gamePrService.getProfile(objectResponse.data.userId, objectResponse.data.name)
@@ -151,7 +151,7 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
-        console.log(token)
+        // console.log(token)
     }
 
 } export default MainMenu

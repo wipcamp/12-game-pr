@@ -75,7 +75,7 @@ class ArcadeMode extends Phaser.Scene {
     preload(){
 
         this.load.image('bgGame', 'src/images/Bg.png')
-        this.load.spritesheet(boss1Key, 'src/images/Boss.png', { frameWidth: 323, frameHeight: 279 })
+        this.load.spritesheet(boss1Key, 'src/images/Boss.png', { frameWidth: 161.5, frameHeight: 140 })
         this.load.spritesheet(boss2Key, 'src/images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
         this.load.spritesheet(bulletBossKey, 'src/images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
         this.load.spritesheet(bulletBoss2Key, 'src/images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
@@ -128,6 +128,7 @@ class ArcadeMode extends Phaser.Scene {
         });
         //////////////////////////////////////////////////////////////////
         let bossEvent = timeMillis => {
+            // console.log('2')
             if(this.bossCount===0) {
                 this.canRoll = false;
                 let boss = this.time.addEvent({
@@ -146,8 +147,9 @@ class ArcadeMode extends Phaser.Scene {
         };
         //////////////////////////////////////////////////////////////////
         let registerBossEvent = this.time.addEvent({
-            delay: 1000,
+            delay: 60000,
             callback: function () {
+                // console.log('1')
                 if(this.canRoll) {
                     const time = Math.floor(Math.random() * 3000)+ 6000;
                     bossEvent(time);
@@ -260,6 +262,11 @@ class ArcadeMode extends Phaser.Scene {
             //////////////////////////////////////////////
             score.total = 0;
             this.canRoll = true
+        }
+        if(this.bossCount!=0){
+            enemy.resetDelayEnemyAtBossWave()
+        }else{
+            enemy.resetDelayEnemyAtNormalWave()
         }
         score.text.setText(" " + score.total);
         bgGameArcade.tilePositionY -= 3

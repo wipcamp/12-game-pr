@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// const  { lineApi }   = window["runConfig"]
+
 const createInstance = (headers) => {
   return axios.create({
     baseURL: process.env.LINE_API

@@ -111,7 +111,7 @@ class GameScene extends Phaser.Scene {
             window.location.href = `https://12-gamepr.freezer.wip.camp`
         } else {
             token = data
-            console.log(token)
+            // console.log(token)
         }
     }
 
@@ -124,7 +124,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet(bulletKey, 'src/images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
         this.load.image('heart', 'src/images/Heart.png')
         this.load.spritesheet(enemyKey, 'src/images/enemy.png', { frameWidth: 70, frameHeight: 121 })
-        this.load.spritesheet(boss1Key, 'src/images/Boss.png', { frameWidth: 323, frameHeight: 279 })
+        this.load.spritesheet(boss1Key, 'src/images/Boss.png', {  frameWidth: 161.5, frameHeight: 140  })
         this.load.spritesheet(bulletBossKey, 'src/images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
         this.load.image('health_frame', 'src/images/Health-Frame.png');
         this.load.image('black-bar', 'src/images/health-black.png');
@@ -247,10 +247,12 @@ class GameScene extends Phaser.Scene {
                     boss1 = new Boss(waves[1].waveState.waveScene, 300, 500, boss1Key);
                     boss1.health = 100;
                     boss1.maxHealth = 100;
-                    boss1.setScale(0.8);
+                    // boss1.setScale(0.8);
                     boss1.moveUp(200);
                     boss1.setWorldBound(true);
                     boss1.BossMoving(1000, 200, -200);
+                    boss1.setoffset(-10, -50)
+                    boss1.setSize(1.5, 1.5)
                     // boss1.setoffset()
                     /**************************************************************** */
                     bulletBossGroup = boss1.bossIsShooting(bulletBossKey, boss1);

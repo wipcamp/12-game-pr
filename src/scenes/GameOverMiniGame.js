@@ -48,7 +48,7 @@ class GameOverMiniGame extends Phaser.Scene{
 
     gameOver() {
         const timePlayed = new Date()
-        window.location.href = `https://12-gamecamp.freezer.wip.camp/?verifyCode=${userData.userData.verifyCode}&timeStart=${userData.userData.timeStart}&score=${userData.score}&timePlay=${timePlayed.getTime()}`
+        window.location.href = "gamecamp path"//`https://12-gamecamp.freezer.wip.camp/?verifyCode=${userData.userData.verifyCode}&timeStart=${userData.userData.timeStart}&score=${userData.score}&timePlay=${timePlayed.getTime()}`
     }
 
 }

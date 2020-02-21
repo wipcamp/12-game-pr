@@ -81,6 +81,10 @@ const bossSpawner = {
         boss.moveUp(200);
         boss.setWorldBound(true);
         boss.BossMoving(1000, 200, -200);
+        if (bossKey == 'boss1') {
+            boss.setoffset(-10, -50)
+            boss.setSize(1.5, 1.5)
+        }
         // boss1.setoffset()
         /**************************************************************** */
         const bulletBossGroup = boss.bossIsShootingArcade(bossKey === 'boss1' ?

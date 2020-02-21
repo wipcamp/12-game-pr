@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-// const  {apiUrl}   = window["runConfig"];
+
 const createInstance = (headers) => {
   return axios.create({
     baseURL: process.env.GAME_API,
