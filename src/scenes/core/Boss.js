@@ -1,4 +1,4 @@
-import 'Phaser';
+import Phaser from "phaser"
 import bossBullet from './bossBullet';
 
 let event;

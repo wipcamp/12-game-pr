@@ -1,4 +1,4 @@
-import 'Phaser';
+import Phaser from "phaser"
 
 import Bullet from './core/Bullet'
 import Boss from './core/Boss'

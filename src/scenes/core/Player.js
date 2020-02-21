@@ -1,4 +1,4 @@
-import 'Phaser';
+import Phaser from "phaser"
 import ObjectProperties from './ObjectProperties';
 import Bullet from './Bullet';
 export default class Player extends Bullet {

@@ -1,4 +1,4 @@
-import 'Phaser';
+import Phaser from "phaser"
 import ObjectProperties from './ObjectProperties';
 let event;
 let itemGroup;
