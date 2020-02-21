@@ -73,6 +73,7 @@ const tearDownBossProps = function(){
     backgroundBar.destroy();
     healthBar.destroy();
     health_frame.destroy();
+    state.scene.canRoll = true;
 };
 
 const bossSpawner = {
@@ -88,7 +89,8 @@ const bossSpawner = {
         boss.BossMoving(1000, 200, -200);
 // boss1.setoffset()
         /**************************************************************** */
-        const bulletBossGroup = boss.bossIsShootingArcade('bossBullet', boss);
+        const bulletBossGroup = boss.bossIsShootingArcade(bossKey==='boss1' ?
+        'bossBullet' : 'bossBullet2', boss);
         /*************************************************************** */
         if (bossKey==='boss1') {
             boss.playAnimateB.call(state, boss, bossKey, 12);

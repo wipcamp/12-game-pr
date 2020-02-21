@@ -259,6 +259,7 @@ class ArcadeMode extends Phaser.Scene {
             this.bossCount = 0;
             //////////////////////////////////////////////
             score.total = 0;
+            this.canRoll = true
         }
         score.text.setText(" " + score.total);
         bgGameArcade.tilePositionY -= 3
