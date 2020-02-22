@@ -33,10 +33,10 @@ class scoreBoard extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('bg', './images/BG.png')
+        this.load.image('bg', '../../images/BG.png')
         //this.load.image('gameOver','./images/Box_Over.png')
-        this.load.image('ScoreBoard','./images/Box_ScoreBoard.png')
-        this.load.image('goMainMenu','./images/Button_B2Menu.png')
+        this.load.image('ScoreBoard','../../images/Box_ScoreBoard.png')
+        this.load.image('goMainMenu','../../images/Button_B2Menu.png')
 
         preloadScene({
             scene:this,

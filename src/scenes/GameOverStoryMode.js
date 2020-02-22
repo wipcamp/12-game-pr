@@ -21,9 +21,9 @@ class GameOverStoryMode extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('bg', './images/BackGround.png')
-        this.load.image('over', './images/Box_Over.png')
-        this.load.image('goMainMenu', './images/Button_B2Menu.png')
+        this.load.image('bg', '../../images/BackGround.png')
+        this.load.image('over', '../../images/Box_Over.png')
+        this.load.image('goMainMenu', '../../images/Button_B2Menu.png')
         //////////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene:this,

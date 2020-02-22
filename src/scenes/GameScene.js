@@ -116,20 +116,20 @@ class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet(boss2Key, './images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
-        this.load.spritesheet(bulletBoss2Key, './images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
-        this.load.image('bgGame', './images/Bg.png')
-        this.load.spritesheet(itemKey, './images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.spritesheet(playerKey, './images/Player.png', { frameWidth: 100, frameHeight: 100 })
-        this.load.spritesheet(bulletKey, './images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
-        this.load.image('heart', './images/Heart.png')
-        this.load.spritesheet(enemyKey, './images/enemy.png', { frameWidth: 70, frameHeight: 121 })
-        this.load.spritesheet(boss1Key, './images/Boss.png', {  frameWidth: 161.5, frameHeight: 140  })
-        this.load.spritesheet(bulletBossKey, './images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
-        this.load.image('health_frame', './images/Health-Frame.png');
-        this.load.image('black-bar', './images/health-black.png');
-        this.load.image('red-bar', './images/health-red.png');
-        this.load.audio('game_song', './songs/08. Operation.mp3');
+        this.load.spritesheet(boss2Key, '../../images/Boss2.png', { frameWidth: 300, frameHeight: 300 })
+        this.load.spritesheet(bulletBoss2Key, '../../images/BulletBoss2.png', { frameWidth: 27, frameHeight: 149 })
+        this.load.image('bgGame', '../../images/Bg.png')
+        this.load.spritesheet(itemKey, '../../images/Healthdrop.png', { frameWidth: 100, frameHeight: 100 })
+        this.load.spritesheet(playerKey, '../../images/Player.png', { frameWidth: 100, frameHeight: 100 })
+        this.load.spritesheet(bulletKey, '../../images/BulletPlayer.png', { frameWidth: 45, frameHeight: 152 })
+        this.load.image('heart', '../../images/Heart.png')
+        this.load.spritesheet(enemyKey, '../../images/enemy.png', { frameWidth: 70, frameHeight: 121 })
+        this.load.spritesheet(boss1Key, '../../images/Boss.png', {  frameWidth: 161.5, frameHeight: 140  })
+        this.load.spritesheet(bulletBossKey, '../../images/BulletBoss.png', { frameWidth: 75, frameHeight: 150 })
+        this.load.image('health_frame', '../../images/Health-Frame.png');
+        this.load.image('black-bar', '../../images/health-black.png');
+        this.load.image('red-bar', '../../images/health-red.png');
+        this.load.audio('game_song', '../../songs/08. Operation.mp3');
         //////////////////////////////////////////////////////////////////////////////////////////
         preloadScene({
             scene: this,

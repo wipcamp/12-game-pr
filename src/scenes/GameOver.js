@@ -36,9 +36,9 @@ class GameOver extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', './images/BG.png')
-        this.load.image('score', './images/Box_OverScore.png')
-        this.load.image('goMainMenu', './images/Button_B2Menu.png')
+        this.load.image('bg', '../../images/BG.png')
+        this.load.image('score', '../../images/Box_OverScore.png')
+        this.load.image('goMainMenu', '../../images/Button_B2Menu.png')
 
         preloadScene({
             scene: this,
