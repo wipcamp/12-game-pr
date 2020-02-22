@@ -32,10 +32,10 @@ module.exports = {
     },
     plugins: [
         definePlugin,
-        new Dotenv({
-            path: './.env',
-            safe: true
-        }),
+        // new Dotenv({
+        //     path: './.env',
+        //     safe: true
+        // }),
         new CleanWebpackPlugin([ 'build' ]),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new HtmlWebpackPlugin({
