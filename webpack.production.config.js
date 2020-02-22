@@ -31,11 +31,13 @@ module.exports = {
         filename: 'js/bundle.js'
     },
     plugins: [
-        new Dotenv(),
         definePlugin,
         new CleanWebpackPlugin([ 'build' ]),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-
+        new Dotenv({
+            path: './.env',
+            safe: true
+        }),
         /* new webpack.optimize.UglifyJsPlugin({
       drop_console: true,
       minimize: true,
