@@ -80,7 +80,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', 'gamepr.wip.camp/images/BackGround01.png')
+        this.load.image('bg', '../images/BackGround01.png')
         this.load.image('gameName', '../../images/GameName.png')
         this.load.image('howToPlay', '../../images/Box_H2P.png')
         this.load.image('storyM', '../../images/Button_Story.png')
