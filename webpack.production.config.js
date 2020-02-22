@@ -62,14 +62,13 @@ module.exports = {
             hash: true
         }),
         new CopyWebpackPlugin([
-            { from: 'src/images', to: 'images' },
             { from: 'src/utils/', to: 'utils' }
         ])
     
     ],
     module: {
         rules: [
-            { test: /\.js$/, use: [ 'babel-loader' ], include: path.join(__dirname, './') },
+            { test: /\.js$/, use: [ 'babel-loader' ], include: path.join(__dirname, 'src') },
             { test: /phaser-split\.js$/, use: 'raw-loader' },
             { test: [ /\.vert$/, /\.frag$/ ], use: 'raw-loader' }
         ]
