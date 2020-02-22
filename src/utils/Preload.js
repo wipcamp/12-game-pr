@@ -7,7 +7,7 @@ class Preload extends Phaser.Scene {
         })
     }
     preload() {
-        this.load.image('BgPre', 'src/images/BackGround.png');
+        this.load.image('BgPre', './images/BackGround.png');
     }
 
     update() {
