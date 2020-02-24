@@ -151,7 +151,7 @@ class MainMenu extends Phaser.Scene {
             highScore: userObject.data.highScore
         }
         token = tokenObject
-        console.log(objectResponse.data.name)
+        // console.log(token)
     }
 
 } export default MainMenu
