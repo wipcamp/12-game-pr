@@ -84,3 +84,5 @@ dev/
 .idea/
 
 12-game-pr.iml
+
+/runtime-config.js

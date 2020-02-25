@@ -1,9 +1,10 @@
 import axios from 'axios'
 
+const { apiGameUrl } = window['runConfig'];
 
 const createInstance = (headers) => {
   return axios.create({
-    baseURL: process.env.GAME_API,
+    baseURL: apiGameUrl
     // headers: {
     //   'Authorization': `Bearer ${CookiesService.gettokenJWTCookie()}`,
     //   'Content-Type': 'application/json'

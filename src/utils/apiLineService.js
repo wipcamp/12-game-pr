@@ -1,9 +1,10 @@
 import axios from 'axios'
 
+const { apiLineUrl } = window['runConfig'];
 
 const createInstance = (headers) => {
   return axios.create({
-    baseURL: process.env.LINE_API
+    baseURL:  apiLineUrl
     // headers: {
     //   'Authorization': `Bearer ${CookiesService.gettokenJWTCookie()}`,
     //   'Content-Type': 'application/json'
