@@ -14,7 +14,7 @@ class GameOverMiniGame extends Phaser.Scene{
 
     init(data){
         if (!data) {
-            window.location.href = `https://12-gamepr.freezer.wip.camp`
+            window.location.href = `https://gamepr.wip.camp`
         } else {
             userData = data
         }
