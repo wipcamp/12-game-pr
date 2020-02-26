@@ -4,7 +4,7 @@ import Axios from 'axios';
 
 const profileService = {
     getProfile : async (lineId,name) => {
-        let res = await api.get(`/profileGamePr?id=${lineId}&name=${name}`)
+        let res = await api.put(`/profileGamePr?id=${lineId}&name=${name}`)
         return res;
     },
     arcadeGameOver : async (lineId,score) => {
