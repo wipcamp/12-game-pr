@@ -152,27 +152,39 @@ class MainMenu extends Phaser.Scene {
                 expires_in: objectResponse.data.expires_in,
                 id_token: objectResponse.data.id_token,
                 userId: objectResponse.data.userId,
-                userName: objectResponse.data.name,
+                userName: userObject.data.name,
                 highScore: userObject.data.highScore
             }
             token = tokenObject
         } else {
+            let newName
+            let validingName = true
+            let nameValidate = ""
             // console.log('non exists')
             if (!this.checkValidName(userNameFromLineApi)) {
                 // console.log('name invalid')
-                let newName
-                let validingName = true
                 do {
                     validingName = true
-                    alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้ กรุณาตั้งชื่อใหม่')
+                    alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้และความยาวไม่เกิน15ตัวอักษร กรุณาตั้งชื่อใหม่')
                     newName = prompt("Please enter your name:", "your name");
                     validingName = !this.checkValidName(newName)
                 }
-                while (validingName||newName==null||newName=="")
+                while (validingName || newName == null || newName == "" || newName.length > 15)
                 userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
             } else {
                 // console.log('name pass')
-                userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
+                nameValidate = userNameFromLineApi
+                if (userNameFromLineApi.length > 15) {
+                    do {
+                        validingName = true
+                        alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้และความยาวไม่เกิน15ตัวอักษร กรุณาตั้งชื่อใหม่')
+                        newName = prompt("Please enter your name:", "your name");
+                        validingName = !this.checkValidName(newName)
+                    }
+                    while (validingName || newName == null || newName == "" || newName.length > 15)
+                    nameValidate = newName
+                }
+                userObject = await gamePrService.getProfile(objectResponse.data.userId, nameValidate)
             }
             const tokenObject = {
                 scope: objectResponse.data.scope,
@@ -181,7 +193,7 @@ class MainMenu extends Phaser.Scene {
                 expires_in: objectResponse.data.expires_in,
                 id_token: objectResponse.data.id_token,
                 userId: objectResponse.data.userId,
-                userName: objectResponse.data.name,
+                userName: newName==null?nameValidate:newName,
                 highScore: userObject.data.highScore
             }
             token = tokenObject
