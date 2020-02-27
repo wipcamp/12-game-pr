@@ -141,7 +141,8 @@ class MainMenu extends Phaser.Scene {
         }
         let userNameFromLineApi = objectResponse.data.name
         let userObject
-        if (gamePrService.checkUserPr(objectResponse.data.userId).data) {
+        let checkRes = await gamePrService.checkUserPr(objectResponse.data.userId)
+        if (checkRes.data) {
             console.log('exists')
             userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
             const tokenObject = {
@@ -159,14 +160,14 @@ class MainMenu extends Phaser.Scene {
             console.log('non exists')
             if (!this.checkValidName(userNameFromLineApi)) {
                 console.log('name invalid')
-                let newName = ""
+                let newName
                 let validingName = true
                 do {
                     alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้ กรุณาตั้งชื่อใหม่')
                     newName = prompt("Please enter your name:", "your name");
                     validingName = !this.checkValidName(newName)
                 }
-                while (validingName)
+                while (validingName&&newName)
                 userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
             } else {
                 console.log('name pass')
