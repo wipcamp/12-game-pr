@@ -167,7 +167,7 @@ class MainMenu extends Phaser.Scene {
                     newName = prompt("Please enter your name:", "your name");
                     validingName = !this.checkValidName(newName)
                 }
-                while (validingName&&newName)
+                while (validingName&&newName!=null)
                 userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
             } else {
                 console.log('name pass')
