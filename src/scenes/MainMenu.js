@@ -142,6 +142,7 @@ class MainMenu extends Phaser.Scene {
         let userNameFromLineApi = objectResponse.data.name
         let userObject
         if (gamePrService.checkUserPr(objectResponse.data.userId).data) {
+            console.log('exists')
             userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
             const tokenObject = {
                 scope: objectResponse.data.scope,
@@ -155,7 +156,9 @@ class MainMenu extends Phaser.Scene {
             }
             token = tokenObject
         } else {
+            console.log('non exists')
             if (!this.checkValidName(userNameFromLineApi)) {
+                console.log('name invalid')
                 let newName = ""
                 let validingName = true
                 do {
@@ -166,6 +169,7 @@ class MainMenu extends Phaser.Scene {
                 while (validingName)
                 userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
             } else {
+                console.log('name pass')
                 userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
             }
             const tokenObject = {
