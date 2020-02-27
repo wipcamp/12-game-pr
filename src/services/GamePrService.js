@@ -12,7 +12,7 @@ const profileService = {
         return res;
     },
     getScoreBoard : async () => {
-        let res = await api.get(`/scoreBoard`)
+        let res = await api.post(`/scoreBoard`)
         return res;
     },
     getHighScore : async (id) => {
