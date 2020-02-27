@@ -141,7 +141,7 @@ class MainMenu extends Phaser.Scene {
         }
         let userNameFromLineApi = objectResponse.data.name
         let userObject
-        if(gamePrService.checkUserPr(objectResponse.data.userId).data){
+        if (gamePrService.checkUserPr(objectResponse.data.userId).data) {
             userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
             const tokenObject = {
                 scope: objectResponse.data.scope,
@@ -154,32 +154,32 @@ class MainMenu extends Phaser.Scene {
                 highScore: userObject.data.highScore
             }
             token = tokenObject
-            return
-        }
-        if (!this.checkValidName(userNameFromLineApi)) {
-            let newName = ""
-            let validingName = true
-            do {
-                alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้ กรุณาตั้งชื่อใหม่')
-                newName = prompt("Please enter your name:", "your name");
-                validingName = !this.checkValidName(newName)
-            }
-            while (validingName)
-            userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
         } else {
-            userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
+            if (!this.checkValidName(userNameFromLineApi)) {
+                let newName = ""
+                let validingName = true
+                do {
+                    alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้ กรุณาตั้งชื่อใหม่')
+                    newName = prompt("Please enter your name:", "your name");
+                    validingName = !this.checkValidName(newName)
+                }
+                while (validingName)
+                userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
+            } else {
+                userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
+            }
+            const tokenObject = {
+                scope: objectResponse.data.scope,
+                access_token: objectResponse.data.access_token,
+                token_type: objectResponse.data.token_type,
+                expires_in: objectResponse.data.expires_in,
+                id_token: objectResponse.data.id_token,
+                userId: objectResponse.data.userId,
+                userName: objectResponse.data.name,
+                highScore: userObject.data.highScore
+            }
+            token = tokenObject
         }
-        const tokenObject = {
-            scope: objectResponse.data.scope,
-            access_token: objectResponse.data.access_token,
-            token_type: objectResponse.data.token_type,
-            expires_in: objectResponse.data.expires_in,
-            id_token: objectResponse.data.id_token,
-            userId: objectResponse.data.userId,
-            userName: objectResponse.data.name,
-            highScore: userObject.data.highScore
-        }
-        token = tokenObject
         // console.log(token)
     }
 
