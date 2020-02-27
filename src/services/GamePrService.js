@@ -18,6 +18,10 @@ const profileService = {
     getHighScore : async (id) => {
         let res = await api.get(`/getHighScore?id=${id}`)
         return res
+    },
+    checkUserPr : async (id) => {
+        let res = await api.get(`/checkUserPr?id=${id}`)
+        return res
     }
 
   

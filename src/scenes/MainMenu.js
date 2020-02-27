@@ -39,8 +39,8 @@ class MainMenu extends Phaser.Scene {
                     // console.log(timeStart)
                     this.scene.start('MiniGame', { verifyCode: verifyCode, timeStart: timeStart })
                 } else {
-                    if(!stateFromLine||!codeFromLine){
-                        window.location.href=callbackGamePrUrl
+                    if (!stateFromLine || !codeFromLine) {
+                        window.location.href = callbackGamePrUrl
                     }
                     // console.log(token)
                     const stateInCookie = Cookies.get('state')
@@ -139,7 +139,36 @@ class MainMenu extends Phaser.Scene {
             // console.log('check nonce failed')
             window.location.href = callbackGamePrUrl
         }
-        const userObject = await gamePrService.getProfile(objectResponse.data.userId, objectResponse.data.name)
+        let userNameFromLineApi = objectResponse.data.name
+        let userObject
+        if(gamePrService.checkUserPr(objectResponse.data.userId).data){
+            userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
+            const tokenObject = {
+                scope: objectResponse.data.scope,
+                access_token: objectResponse.data.access_token,
+                token_type: objectResponse.data.token_type,
+                expires_in: objectResponse.data.expires_in,
+                id_token: objectResponse.data.id_token,
+                userId: objectResponse.data.userId,
+                userName: objectResponse.data.name,
+                highScore: userObject.data.highScore
+            }
+            token = tokenObject
+            return
+        }
+        if (!this.checkValidName(userNameFromLineApi)) {
+            let newName = ""
+            let validingName = true
+            do {
+                alert('ชื่อผู้เล่นไม่สามารถใช้อักขระพิเศษหรือภาษาอื่นนอกจากไทยและอังกฤษได้ กรุณาตั้งชื่อใหม่')
+                newName = prompt("Please enter your name:", "your name");
+                validingName = !this.checkValidName(newName)
+            }
+            while (validingName)
+            userObject = await gamePrService.getProfile(objectResponse.data.userId, newName)
+        } else {
+            userObject = await gamePrService.getProfile(objectResponse.data.userId, userNameFromLineApi)
+        }
         const tokenObject = {
             scope: objectResponse.data.scope,
             access_token: objectResponse.data.access_token,
@@ -152,6 +181,14 @@ class MainMenu extends Phaser.Scene {
         }
         token = tokenObject
         // console.log(token)
+    }
+
+    checkValidName(name) {
+        if (/[^\u0E00-\u0E7Fa-zA-Z0-9 ]|^'|'$|''/.test(name)) {
+            return false
+        } else {
+            return true
+        }
     }
 
 } export default MainMenu
